@@ -32,11 +32,7 @@ namespace 图元
         /// 填充
         /// </summary>
         public static Brush brush { get; set; }
-        /// <summary>
-        /// 绘制图元
-        /// </summary>
-        /// <param name="g"></param>
-        public abstract void Draw(Graphics g);
+       
         /// <summary>
         /// 首点
         /// </summary>

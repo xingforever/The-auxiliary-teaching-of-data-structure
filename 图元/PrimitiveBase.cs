@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,10 +24,7 @@ namespace 图元
 
 
 
-        /// <summary>
-        /// 图元范围
-        /// </summary>
-        public abstract void Extent();
+      
         /// <summary>
         /// 是否启用
         /// </summary>
@@ -47,6 +45,16 @@ namespace 图元
         /// Y最大值
         /// </summary>
         public static double Ymax { get; set; }
+
+        /// <summary>
+        /// 图元范围
+        /// </summary>
+        public abstract void Extent();
+        /// <summary>
+        /// 绘制图元
+        /// </summary>
+        /// <param name="g"></param>
+        public abstract void Draw(Graphics g);
         /// <summary>
         ///添加范围
         /// </summary>

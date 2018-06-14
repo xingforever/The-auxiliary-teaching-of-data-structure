@@ -11,7 +11,7 @@ namespace 图元
     /// <summary>
     /// 栅格设置
     /// </summary>
-    class GridSystemSetting
+   public  class GridSystemSetting
     {
         /// <summary>
         /// 栅格总高度

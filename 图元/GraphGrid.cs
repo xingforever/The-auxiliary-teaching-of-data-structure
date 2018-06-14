@@ -11,7 +11,7 @@ namespace 图元
     /// <summary>
     /// 栅格图元
     /// </summary>
-    public class GraphGrid : Primitive
+    public class GraphGrid : PrimitiveBase
     {
         /// <summary>
         /// 左上角点
@@ -51,34 +51,6 @@ namespace 图元
             throw new NotImplementedException();
         }
 
-        public override void FirstPoint(out double x, out double y)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void PanRotateZoom(Matrix matrix)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Parse(string[] strs)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Select()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Selected()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Snap()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
