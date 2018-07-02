@@ -10,29 +10,24 @@ namespace 图元
     /// <summary>
     /// 图元
     /// </summary>
-    public abstract  class Primitive:PrimitiveCMD
+    public abstract  class Primitive:PrimitiveAffine
     {
         /// <summary>
         /// 所有图元集合
         /// </summary>
         public static  List<Primitive> CurrentGraphics { get; set; }
-        /// <summary>
-        /// 位于栅格系统的行号
-        /// </summary>
-        public int RowNum { get; set; }
-        /// <summary>
-        /// 位于栅格系统的列号
-        /// </summary>
-        public int ColumnNum { get; set; }
+      
         /// <summary>
         /// 绘图笔
         /// </summary>
-        public static  Pen pen { get; set; }
+        public static  Pen DrawPen { get; set; }
         /// <summary>
         /// 填充
         /// </summary>
-        public static Brush brush { get; set; }
-       
+        public static Brush DrawBrush { get; set; }
+        public static Pen NormalPen = Pens.Black;
+        public static Brush NormalBrush = Brushes.Black;
+
         /// <summary>
         /// 首点
         /// </summary>
@@ -57,11 +52,13 @@ namespace 图元
                //计算每个图元范围
                 item.Extent();
             }
-            var w = Primitive.pen.Width;
+            var w = Primitive.DrawPen.Width;
             Xmin -= w;
             Xmax += w;
             Ymin -= w;
             Ymax += w;
         }
+
+       
     }
 }

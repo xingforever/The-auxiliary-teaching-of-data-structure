@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using 图元;
+
+namespace 命令
+{
+    /// <summary>
+    /// 图元命令
+    /// </summary>
+    public abstract class PrimitiveCMDBase 
+    {
+        /// <summary>
+        /// 临时图元集合
+        /// </summary>
+        public static List<Primitive> TempPrims { get; set; }
+
+        public PrimitiveCMDBase()
+        {
+            TempPrims = new List<Primitive>();
+        }
+        /// <summary>
+        /// 步骤
+        /// </summary>
+        public static int Step { get; set; }
+        /// <summary>
+        /// 命令转换
+        /// </summary>
+        /// <param name="strs"></param>
+        public virtual void Parse(string[] strs) { }
+        /// <summary>
+        /// 开启绘制
+        /// </summary>
+        public virtual void Start() { }
+        /// <summary>
+        /// 开始绘制单个图元
+        /// </summary>
+        public virtual void Begin() { }
+        /// <summary>
+        /// 结束绘制单个图元
+        /// </summary>
+        public virtual void End() { }
+        /// <summary>
+        /// 结束绘制
+        /// </summary>
+        public virtual void Stop() { }
+
+        public virtual bool MouseDown(MouseEventArgs e)
+        {
+            return false;
+        }
+        public virtual bool MouseMove(MouseEventArgs e)
+        {
+            return false;
+        }
+        public virtual bool MouseUp(MouseEventArgs e)
+        {
+            return false;
+        }
+        public virtual bool pictureBoxKeyDown(PreviewKeyDownEventArgs e)
+        {
+            return false;
+        }
+        public virtual bool CMDLineKeyDown(KeyEventArgs e)
+        {
+            return false;
+        }
+        public virtual bool MouseWheel(MouseEventArgs e)
+        {
+            return false;
+        }
+    }
+}

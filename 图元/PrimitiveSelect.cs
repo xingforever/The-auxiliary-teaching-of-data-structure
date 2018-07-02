@@ -14,7 +14,7 @@ namespace 图元
         /// <summary>
         /// 是否启用选择
         /// </summary>
-        public static bool SelectEnable { get; set; }
+        public static   bool SelectEnable { get; set; }
         /// <summary>
         /// 选择距离
         /// </summary>
@@ -23,11 +23,14 @@ namespace 图元
         /// 判断是否被选择
         /// </summary>
         /// <returns></returns>
-        public abstract bool Select();
+        public virtual bool Select()
+        {
+            return false;
+        }
         /// <summary>
         /// 被选中后
         /// </summary>
-        public abstract void  Selected();
+        public virtual void Selected() { }
 
     }
 }

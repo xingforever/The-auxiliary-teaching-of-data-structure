@@ -14,19 +14,16 @@ namespace 图元
     {
        
         /// <summary>
-        /// 图元
+        /// 图元X
         /// </summary>
-        public static double BasePointX { get; set; }
+        public static double ResultX { get; set; }
         /// <summary>
-        /// 图元
+        /// 图元Y
         /// </summary>
-        public static double BasePointY { get; set;  }
-
-
-
+        public static double ResultY { get; set;  }
       
         /// <summary>
-        /// 是否启用
+        /// 是否启用绘制
         /// </summary>
         public bool Effective { get; set; }
         /// <summary>
@@ -56,12 +53,25 @@ namespace 图元
         /// <param name="g"></param>
         public abstract void Draw(Graphics g);
         /// <summary>
+        /// 图元转换
+        /// </summary>
+        public virtual void Trans() { }
+        /// <summary>
         ///添加范围
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         public static void AddExtent(double x, double y)
         {
+            if (x < Xmin) Xmin = x;
+            if (x > Xmax) Xmax = x;
+            if (y < Ymin) Ymin = y;
+            if (y > Ymax) Ymax = y;
+        }
+        public static void AddExtent(PointF p)
+        {
+            var x=  p.X;
+            var y = p.Y;
             if (x < Xmin) Xmin = x;
             if (x > Xmax) Xmax = x;
             if (y < Ymin) Ymin = y;

@@ -36,11 +36,11 @@ namespace 图元
         /// <summary>
         /// 鼠标X坐标
         /// </summary>
-        public static double MouseX { get; set; }
+        public static double MouseSurveyX { get; set; }
         /// <summary>
         /// 鼠标Y坐标
         /// </summary>
-        public static double MouseY { get; set; }
+        public static double MouseSurveyY { get; set; }
         public static float InvScale
         {
             get

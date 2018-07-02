@@ -6,8 +6,29 @@ using System.Threading.Tasks;
 
 namespace 图元
 {
-   public  class GraphGridSystem
+   public static  class GraphGridSystem
     {
-        public static GridSystemSetting setting { get; set; }
+        /// <summary>
+        /// 栅格系统设置
+        /// </summary>
+        public static GridSSetting Setting { get; set; }
+      
+        /// <summary>
+        /// 栅格列总数
+        /// </summary>
+        public static int ColumnNum { get; set; }
+        /// <summary>
+        /// 栅格行总数
+        /// </summary>
+        public static int RowNum { get; set; }
+
+
+
+        public static void Init(double Xmin,double Xmax,double YMin,double Ymax)
+        {
+
+        }
+
+
     }
 }

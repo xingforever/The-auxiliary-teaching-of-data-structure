@@ -11,8 +11,10 @@ namespace 图元
     /// </summary>
     class SettingBase
     {
-       
-
+       /// <summary>
+       /// 栅格显示比例
+       /// </summary>
+        public  double GridDisplayScale { get; set; }
 
     }
 }

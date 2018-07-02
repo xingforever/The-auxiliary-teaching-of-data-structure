@@ -11,16 +11,33 @@ namespace 图元
     /// <summary>
     /// 栅格设置
     /// </summary>
-   public  class GridSystemSetting
+   public  class GridSSetting
     {
         /// <summary>
         /// 栅格总高度
         /// </summary>
-        public static int TotalHeight { get; set; }
+        public static double TotalHeight { get; set; }
         /// <summary>
         /// 栅格总宽度
         /// </summary>
-        public static int TotalWidth { get; set; }
+        public static double  TotalWidth { get; set; }
+        /// <summary>
+        /// 左上角点
+        /// </summary>
+        public static  PointF LeftTopPoint { get; set; }
+        /// <summary>
+        /// 左下角点
+        /// </summary>
+        public static PointF LeftBottomPoint { get; set; }
+        /// <summary>
+        /// 右上角点
+        /// </summary>
+        public static PointF RightTopPoint { get; set; }
+        /// <summary>
+        /// 右下角点
+        /// </summary>
+        public static PointF RightBottomPoint { get; set; }
+
         /// <summary>
         /// 是否启用
         /// </summary>
@@ -52,15 +69,7 @@ namespace 图元
         /// <summary>
         /// 单元格宽度
         /// </summary>
-        public static  int GridWidth { get; set; }
-        /// <summary>
-        /// 栅格列总数
-        /// </summary>
-        public static int ColumnNum { get; set; }
-        /// <summary>
-        /// 栅格行总数
-        /// </summary>
-        public static int RowNum { get; set; }
+        public static  int GridWidth { get; set; }        
       
         /// <summary>
         /// 画笔
@@ -74,8 +83,16 @@ namespace 图元
         /// 笔宽
         /// </summary>
         public static float BasePenWidth { get; set; } = (float)1.0;
+        /// <summary>
+        /// 栅格总行数
+        /// </summary>
+        public static  int RowNum { get; set; }
+        /// <summary>
+        /// 栅格总列数
+        /// </summary>
+        public static int ColumnNum { get; set; }
 
-        GridSystemSetting(int height,int width)
+      public   GridSSetting(int height,int width)
         {
             TotalHeight = height;
             TotalWidth = width;
@@ -84,12 +101,25 @@ namespace 图元
             TopMargin = LeftMargin = RightMargin = BottomMargin = 0;
             GridHight = 10;
             GridWidth = 20;
-            RowNum = TotalWidth / GridWidth;
-            ColumnNum = TotalHeight / GridHight;
+            
         }
       
+        GridSSetting(PointF leftTopP,PointF leftBottomP,PointF rightTopP,PointF rightBottomP)
+        {
+            LeftTopPoint = leftTopP;
+            LeftBottomPoint = leftBottomP;
+            RightTopPoint = rightTopP;
+            RightBottomPoint = RightBottomPoint;
+            Enable = true;
+            DisPlay = false;
+            TopMargin = LeftMargin = RightMargin = BottomMargin = 0;
+            GridHight = 10;
+            GridWidth = 20;
 
-       
+        }
+
+
+
 
     }
 }

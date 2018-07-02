@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,14 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Azimuth.cs" />
-    <Compile Include="GraphGrid.cs" />
+    <Compile Include="GraphGridS.cs" />
     <Compile Include="GraphGridSystem.cs" />
-    <Compile Include="GridSystemSetting.cs" />
+    <Compile Include="GraphLine.cs" />
+    <Compile Include="GridSSetting.cs" />
     <Compile Include="Point2d.cs" />
     <Compile Include="Primitive.cs" />
     <Compile Include="PrimitiveAffine.cs" />
     <Compile Include="PrimitiveBase.cs" />
-    <Compile Include="PrimitiveCMD.cs" />
     <Compile Include="PrimitiveSelect.cs" />
     <Compile Include="PrimitiveSnap.cs" />
     <Compile Include="PrimitiveText.cs" />
