@@ -59,34 +59,34 @@ namespace 图元
             //}
             return false;
         }
-        public static void SnapSymbolDraw(Graphics g)
-        {
-            if (SnapResultType == SnapType.NULL) return;
-            var s = (float)ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
-            var x = (float)(ResultX );
-            var y = (float)(ResultY );
-            SnapPen.Width = ViewPort.InvScale * 2;
-            switch (SnapResultType)
-            {
-                case SnapType.EndPoint:
-                    g.DrawLine(SnapPen, x - s, y - s, x + s, y - s);
-                    g.DrawLine(SnapPen, x + s, y - s, x + s, y + s);
-                    g.DrawLine(SnapPen, x + s, y + s, x - s, y + s);
-                    g.DrawLine(SnapPen, x - s, y + s, x - s, y - s);
-                    break;
-                case SnapType.MidPoint:
-                    g.DrawLine(SnapPen, x - s, y - s, x - s, y + s);
-                    g.DrawLine(SnapPen, x - s, y + s, x + s, y - s);
-                    g.DrawLine(SnapPen, x + s, y - s, x + s, y + s);
-                    g.DrawLine(SnapPen, x + s, y + s, x - s, y - s);
-                    break;
-                case SnapType.CenterPoint:
-                    g.DrawEllipse(SnapPen, x - s, y - s, 2 * s, 2 * s);
-                    break;
-                default:
-                    break;
-            }
-        }
+        //public static void SnapSymbolDraw(Graphics g)
+        //{
+        //    if (SnapResultType == SnapType.NULL) return;
+        //    var s = (float)ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
+        //    var x = (float)(ResultX );
+        //    var y = (float)(ResultY );
+        //    SnapPen.Width = ViewPort.InvScale * 2;
+        //    switch (SnapResultType)
+        //    {
+        //        case SnapType.EndPoint:
+        //            g.DrawLine(SnapPen, x - s, y - s, x + s, y - s);
+        //            g.DrawLine(SnapPen, x + s, y - s, x + s, y + s);
+        //            g.DrawLine(SnapPen, x + s, y + s, x - s, y + s);
+        //            g.DrawLine(SnapPen, x - s, y + s, x - s, y - s);
+        //            break;
+        //        case SnapType.MidPoint:
+        //            g.DrawLine(SnapPen, x - s, y - s, x - s, y + s);
+        //            g.DrawLine(SnapPen, x - s, y + s, x + s, y - s);
+        //            g.DrawLine(SnapPen, x + s, y - s, x + s, y + s);
+        //            g.DrawLine(SnapPen, x + s, y + s, x - s, y - s);
+        //            break;
+        //        case SnapType.CenterPoint:
+        //            g.DrawEllipse(SnapPen, x - s, y - s, 2 * s, 2 * s);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
         public static bool IsOnLine(Point2d p1, Point2d p2, double x, double y)
         {
             return IsOnLine(p1, p2, x, y, SelectDistance);

@@ -92,16 +92,21 @@ namespace 图元
         /// </summary>
         public static int ColumnNum { get; set; }
 
-      public   GridSSetting(int height,int width)
+      public  GridSSetting(int height,int width)
         {
             TotalHeight = height;
             TotalWidth = width;
             Enable = true;
-            DisPlay = false;
-            TopMargin = LeftMargin = RightMargin = BottomMargin = 0;
+            DisPlay = false;           
             GridHight = 10;
-            GridWidth = 20;
-            
+            GridWidth = 10;
+            LeftTopPoint = new PointF(0.0f, 0.0f);
+            LeftBottomPoint = new PointF(0.0f, -height);
+            RightTopPoint = new PointF(width, 0.0f);
+            RightBottomPoint = new PointF(width, -height);
+            RowNum = height / 10;
+            ColumnNum = width / 10;
+
         }
       
         GridSSetting(PointF leftTopP,PointF leftBottomP,PointF rightTopP,PointF rightBottomP)

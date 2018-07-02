@@ -53,6 +53,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingBase.cs" />
+    <Compile Include="ViewPort.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,6 +79,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\命令\命令.csproj">
+      <Project>{cc16e50a-f2eb-4585-a51a-331315a8021c}</Project>
+      <Name>命令</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\图元\图元.csproj">
+      <Project>{859cf5f5-6341-47a6-bd8d-1d8c1b3b9c86}</Project>
+      <Name>图元</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

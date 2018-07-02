@@ -13,9 +13,21 @@ namespace 图元
     /// </summary>
     public class GraphGridS :Primitive
     {
+        /// <summary>
+        /// 栅格列总数
+        /// </summary>
+        public static int ColumnNum { get; set; }
+        /// <summary>
+        /// 栅格行总数
+        /// </summary>
+        public static int RowNum { get; set; }
 
-       // GridSSetting gridSSetting =new GridSSetting (10,12);
-        
+       public  GraphGridS()
+        {
+
+        }
+
+
 
         public override void Draw(Graphics g)
         {
@@ -45,7 +57,8 @@ namespace 图元
 
         public override void FirstPoint(out double x, out double y)
         {
-            throw new NotImplementedException();
+            x= GridSSetting.LeftTopPoint.X;
+            y = GridSSetting.LeftTopPoint.Y;
         }
       
     }

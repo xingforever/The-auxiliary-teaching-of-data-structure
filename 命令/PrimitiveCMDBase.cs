@@ -17,15 +17,20 @@ namespace 命令
         /// 临时图元集合
         /// </summary>
         public static List<Primitive> TempPrims { get; set; }
+        /// <summary>
+        /// 步骤
+        /// </summary>
+        public static int Step { get; set; }
+        /// <summary>
+        /// 继续命令
+        /// </summary>
+        public static bool IsContinue { get; set; }
 
         public PrimitiveCMDBase()
         {
             TempPrims = new List<Primitive>();
         }
-        /// <summary>
-        /// 步骤
-        /// </summary>
-        public static int Step { get; set; }
+       
         /// <summary>
         /// 命令转换
         /// </summary>
@@ -46,28 +51,58 @@ namespace 命令
         /// <summary>
         /// 结束绘制
         /// </summary>
-        public virtual void Stop() { }
+        public virtual void Stop() { }        
 
+        /// <summary>
+        /// 鼠标按下
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public virtual bool MouseDown(MouseEventArgs e)
         {
             return false;
         }
+        /// <summary>
+        /// 鼠标移动
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public virtual bool MouseMove(MouseEventArgs e)
         {
             return false;
         }
+        /// <summary>
+        /// 鼠标弹起
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public virtual bool MouseUp(MouseEventArgs e)
         {
             return false;
         }
+        /// <summary>
+        /// 键盘在绘图区域按下
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public virtual bool pictureBoxKeyDown(PreviewKeyDownEventArgs e)
         {
             return false;
         }
+        /// <summary>
+        /// 命令行
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public virtual bool CMDLineKeyDown(KeyEventArgs e)
         {
             return false;
         }
+        /// <summary>
+        /// 鼠标滚轮移动
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public virtual bool MouseWheel(MouseEventArgs e)
         {
             return false;

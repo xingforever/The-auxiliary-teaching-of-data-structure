@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CMDGrids.cs" />
+    <Compile Include="CMDLine.cs" />
     <Compile Include="PrimitiveCMDBase.cs" />
     <Compile Include="PrimitiveCMDEdit.cs" />
     <Compile Include="PrimitiveCMDRotate.cs" />
