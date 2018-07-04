@@ -69,7 +69,9 @@ namespace 图元
         /// <summary>
         /// 单元格宽度
         /// </summary>
-        public static  int GridWidth { get; set; }        
+        public static  int GridWidth { get; set; }
+
+        public static Color BlakColor { get; set; } = Color.White;
       
         /// <summary>
         /// 画笔
@@ -100,12 +102,12 @@ namespace 图元
             DisPlay = false;           
             GridHight = 10;
             GridWidth = 10;
-            LeftTopPoint = new PointF(0.0f, 0.0f);
-            LeftBottomPoint = new PointF(0.0f, -height);
-            RightTopPoint = new PointF(width, 0.0f);
-            RightBottomPoint = new PointF(width, -height);
-            RowNum = height / 10;
-            ColumnNum = width / 10;
+            LeftTopPoint = new PointF(height, 0.0f);
+            LeftBottomPoint =new PointF(0.0f, 0.0f);
+            RightTopPoint = new PointF(height,width );
+            RightBottomPoint = new PointF(0.0f, width);
+            RowNum = width / 10;
+            ColumnNum = height / 10;
 
         }
       

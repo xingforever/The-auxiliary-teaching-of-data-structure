@@ -15,8 +15,8 @@ namespace 图元
         /// <summary>
         /// 所有图元集合
         /// </summary>
-        public static  List<Primitive> CurrentGraphics { get; set; }
-      
+        public static  List<Primitive> CurrentGraphics { get; set; } = new List<Primitive>();
+
         /// <summary>
         /// 绘图笔
         /// </summary>
@@ -27,6 +27,15 @@ namespace 图元
         public static Brush DrawBrush { get; set; }
         public static Pen NormalPen = Pens.Black;
         public static Brush NormalBrush = Brushes.Black;
+
+        public   Primitive()
+        {
+            DrawPen = NormalPen;
+            DrawBrush = NormalBrush;
+           
+
+        }
+
 
         /// <summary>
         /// 首点

@@ -38,8 +38,18 @@ namespace 数据结构辅助教学
         private void Form1_Load(object sender, EventArgs e)
         {
             Init();
+            form1 = this;
+            ViewPort.All(this.pictureBox1.Height, this.pictureBox1.Width);
+            var g = pictureBox1.CreateGraphics();
+            ViewPort.MMPixels = g.DpiX / 25.4f;
+            g.Dispose();
             Command = CMDGrids.Single;
+            Command.Start();
+            Command.Begin();
             Command.End();
+            Command.Stop();
+
+           
         }
         public  void Init()
         {
@@ -57,8 +67,11 @@ namespace 数据结构辅助教学
             g.Transform = ViewPort.matrix;
             foreach (var pr in Primitive.CurrentGraphics)
             {
-                pr.Draw(g);
+                pr.Draw(g);               
             }
+           
         }
+
+       
     }
 }

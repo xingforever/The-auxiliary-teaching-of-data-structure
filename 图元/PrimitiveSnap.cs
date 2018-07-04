@@ -35,13 +35,13 @@ namespace 图元
         /// <summary>
         /// 捕捉画笔
         /// </summary>
-        public static Pen SnapPen { get; set; }
+        public static Pen SnapPen { get; set; } = Pens.Black;
 
-       
 
-        static PrimitiveSnap()
+
+        public  PrimitiveSnap()
         {
-            SnapPen = new Pen(Brushes.Blue, 2);
+           
             CurrentSnapTypeSet = SnapType.MidPoint | SnapType.CenterPoint | SnapType.EndPoint;
             SnapOn = true;
             SnapResultType = SnapType.NULL;

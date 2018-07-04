@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using 图元;
 
 namespace 数据结构辅助教学
 {
@@ -93,22 +94,22 @@ namespace 数据结构辅助教学
             matrix.RotateAt((float)(angle / Math.PI * 180), new PointF(x, y), MatrixOrder.Append);
             Invert();
         }
-        public static void All()
+        public static void All(int height,int width)
         {
             Init();
-            //Primitive.GetExtent();
-            //var x1 = (float)(Primitive.Xmin - Primitive.BasePointX);
-            //var y1 = (float)(Primitive.Ymin - Primitive.BasePointY);
-            //var x2 = (float)(Primitive.Xmax - Primitive.BasePointX);
-            //var y2 = (float)(Primitive.Ymax - Primitive.BasePointY);
-            //var s1 = Form1.form1.pictureBox1.Height / (x2 - x1);
-            //var s2 = Form1.form1.pictureBox1.Width / (y2 - y1);
-            //if (s2 < s1) s1 = s2;
-            //matrix.Scale(s1, s1, MatrixOrder.Append);
-            //points[0].X = x2;
-            //points[0].Y = y1;
-            //matrix.TransformPoints(points);
-            //matrix.Translate(0 - points[0].X, 0 - points[0].Y, MatrixOrder.Append);
+            Primitive.GetExtent();
+            var x1 = (float)(Primitive.Xmin );
+            var y1 = (float)(Primitive.Ymin );
+            var x2 = (float)(Primitive.Xmax );
+            var y2 = (float)(Primitive.Ymax );
+            var s1 = height / (x2 - x1);
+            var s2 = width / (y2 - y1);
+            if (s2 < s1) s1 = s2;
+            matrix.Scale(s1, s1, MatrixOrder.Append);
+            points[0].X = x2;
+            points[0].Y = y1;
+            matrix.TransformPoints(points);
+            matrix.Translate(0 - points[0].X, 0 - points[0].Y, MatrixOrder.Append);
             Invert();
         }
         public static void InvTransformPoint(float x, float y)

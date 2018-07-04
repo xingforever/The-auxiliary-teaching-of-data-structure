@@ -29,19 +29,19 @@ namespace 图元
         /// <summary>
         /// X最小值
         /// </summary>
-        public static double Xmin { get; set; }
+        public static double Xmin { get; set; } = 0;
         /// <summary>
         /// X最大值
         /// </summary>
-        public static double Xmax { get; set;  }
+        public static double Xmax { get; set; } = 300;
         /// <summary>
         /// Y最小值
         /// </summary>
-        public static double Ymin { get; set; }
+        public static double Ymin { get; set; } = 0;
         /// <summary>
         /// Y最大值
         /// </summary>
-        public static double Ymax { get; set; }
+        public static double Ymax { get; set; } = 600;
 
         /// <summary>
         /// 图元范围
