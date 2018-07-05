@@ -33,7 +33,7 @@ namespace 图元
         /// <summary>
         /// X最大值
         /// </summary>
-        public static double Xmax { get; set; } = 300;
+        public static double Xmax { get; set; } = 600;
         /// <summary>
         /// Y最小值
         /// </summary>
@@ -41,7 +41,7 @@ namespace 图元
         /// <summary>
         /// Y最大值
         /// </summary>
-        public static double Ymax { get; set; } = 600;
+        public static double Ymax { get; set; } = 1366;
 
         /// <summary>
         /// 图元范围

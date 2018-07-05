@@ -37,14 +37,14 @@ namespace 图元
         {
            
             //列
-            for (int i = 0; i < GridSSetting.ColumnNum; i++)
+            for (int i = 0; i < 41; i++)
             {
                 PointF p1 = new PointF(GridSSetting.LeftTopPoint.X , GridSSetting.LeftTopPoint.Y + i * GridSSetting.GridWidth);
                 PointF p2 = new PointF(GridSSetting.LeftBottomPoint.X, GridSSetting.LeftBottomPoint.Y +i * GridSSetting.GridWidth);
                 g.DrawLine(GridSSetting.BasePen, p1, p2);
             }
             //行
-            for (int i = 0; i < GridSSetting.RowNum; i++)
+            for (int i = 0; i < 41; i++)
             {
                 PointF p1 = new PointF(GridSSetting.LeftBottomPoint.X + i * GridSSetting.GridHight, GridSSetting.LeftBottomPoint.Y);
                 PointF p2 = new PointF(GridSSetting.RightBottomPoint.X + i * GridSSetting.GridWidth, GridSSetting.RightBottomPoint.Y);

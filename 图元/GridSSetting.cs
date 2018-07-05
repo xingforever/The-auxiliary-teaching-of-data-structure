@@ -42,10 +42,7 @@ namespace 图元
         /// 是否启用
         /// </summary>
         public static bool Enable { get; set; }
-        /// <summary>
-        /// 是否显示栅格
-        /// </summary>
-        public static bool DisPlay { get; set; }
+      
         /// <summary>
         /// 栅格距上边框距离
         /// </summary>
@@ -98,31 +95,27 @@ namespace 图元
         {
             TotalHeight = height;
             TotalWidth = width;
-            Enable = true;
-            DisPlay = false;           
-            GridHight = 10;
-            GridWidth = 10;
+            Enable = true;                  
+            GridHight = 50;
+            GridWidth = 50;
             LeftTopPoint = new PointF(height, 0.0f);
             LeftBottomPoint =new PointF(0.0f, 0.0f);
             RightTopPoint = new PointF(height,width );
             RightBottomPoint = new PointF(0.0f, width);
-            RowNum = width / 10;
-            ColumnNum = height / 10;
+            RowNum = width / 40;
+            ColumnNum = height / 40;
 
         }
       
-        GridSSetting(PointF leftTopP,PointF leftBottomP,PointF rightTopP,PointF rightBottomP)
+      public  static  void UpdateGridSSetting(PointF leftTopP,PointF leftBottomP,PointF rightTopP,PointF rightBottomP)
         {
             LeftTopPoint = leftTopP;
             LeftBottomPoint = leftBottomP;
             RightTopPoint = rightTopP;
-            RightBottomPoint = RightBottomPoint;
-            Enable = true;
-            DisPlay = false;
-            TopMargin = LeftMargin = RightMargin = BottomMargin = 0;
-            GridHight = 10;
-            GridWidth = 20;
-
+            RightBottomPoint = rightBottomP;
+            var Length = TotalHeight > TotalWidth ? TotalWidth : TotalHeight;
+            GridHight = GridWidth = (int)(Length / 40);
+            
         }
 
 

@@ -42,6 +42,23 @@ namespace 数据结构辅助教学
         /// 鼠标Y坐标
         /// </summary>
         public static double MouseSurveyY { get; set; }
+        /// <summary>
+        /// 测量左上角坐标
+        /// </summary>
+        public static PointF LeftTopPoint { get; set; }
+        /// <summary>
+        /// 测量左下角坐标
+        /// </summary>
+        public  static PointF LeftBottomPoint { get; set; }
+        /// <summary>
+        /// 测量右上角坐标
+        /// </summary>
+        public  static PointF RightTopPoint { get; set; }
+        /// <summary>
+        /// 测量右下角坐标
+        /// </summary>
+        public static PointF RightBottomPoint { get; set; }
+
         public static float InvScale
         {
             get
@@ -75,13 +92,18 @@ namespace 数据结构辅助教学
         {
             matrix.Translate(dx, dy, MatrixOrder.Append);
             Invert();
+            UpdateBoundary();
+            UpdateGridSSetting();
+
         }
         //缩放
         public static void ScaleAt(float x, float y, float s)
         {
             matrix.Scale(s, s, MatrixOrder.Append);
             s = 1 - s;
+            //平移
             Move(x * s, y * s);
+           
         }
         /// <summary>
         /// 在当前屏幕坐标处，旋转一个角度
@@ -112,13 +134,18 @@ namespace 数据结构辅助教学
             matrix.Translate(0 - points[0].X, 0 - points[0].Y, MatrixOrder.Append);
             Invert();
         }
+        /// <summary>
+        /// 屏幕坐标转测量坐标
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public static void InvTransformPoint(float x, float y)
         {
             points[0].X = x;
             points[0].Y = y;
             invmatrix.TransformPoints(points);
-            //MouseSurveyX = points[0].X + Primitive.BasePointX;
-            //MouseSurveyY = points[0].Y + Primitive.BasePointY;
+            MouseSurveyX = points[0].X;
+            MouseSurveyY = points[0].Y;
             //执行捕捉
             //Primitive.ResultX = MouseSurveyX;
             //Primitive.ResultY = MouseSurveyY;
@@ -136,15 +163,56 @@ namespace 数据结构辅助教学
         /// <param name="outY">屏幕坐标Y</param>
         public static void TransformPoint(double x, double y, out float outX, out float outY)
         {
-            //points[0].X = (float)(x - Primitive.BasePointX);
-            //points[0].Y = (float)(y - Primitive.BasePointY);
+            points[0].X = (float)(x);
+            points[0].Y = (float)(y);
             matrix.TransformPoints(points);
             outX = points[0].X;
             outY = points[0].Y;
         }
+        /// <summary>
+        /// 长度在屏幕显示距离
+        /// </summary>
+        /// <returns></returns>
         public static double SurveyLengthOfOneScreenMillimeter()
         {
             return InvScale * MMPixels;
+        }
+        /// <summary>
+        /// 更新图形框范围(测量坐标系)
+        /// </summary>
+        public static void UpdateBoundary()
+        {
+          
+            PointF leftTop = new PointF(0,0);
+            PointF leftBottom = new PointF(0, -SettingBase.PictureBoxHeight);
+            PointF rightTop = new PointF(SettingBase.PictureBoxWidth, 0);
+            PointF rightBottom = new PointF(SettingBase.PictureBoxWidth, -SettingBase.PictureBoxHeight);
+            PointF[] pointFs = new PointF[4] { leftTop,leftBottom, rightTop, rightBottom };
+            invmatrix.TransformPoints(pointFs);
+            //转换后的角点发生变化
+            LeftTopPoint = pointFs[1];
+            LeftBottomPoint = pointFs[0];
+            RightTopPoint = pointFs[3];
+            RightBottomPoint = pointFs[2];
+           
+        }
+        /// <summary>
+        /// 更新栅格设置
+        /// </summary>
+        public static void UpdateGridSSetting()
+        {
+            if(GridSSetting.Enable==true)
+            {
+                GridSSetting.UpdateGridSSetting(LeftTopPoint, LeftBottomPoint, RightTopPoint, RightBottomPoint);
+            }
+            else
+            {
+                ;
+            }
+           
+           
+
+
         }
     }
 }
