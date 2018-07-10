@@ -70,12 +70,11 @@ namespace 图元
         }
         public static void AddExtent(PointF p)
         {
-            var x=  p.X;
-            var y = p.Y;
-            if (x < Xmin) Xmin = x;
-            if (x > Xmax) Xmax = x;
-            if (y < Ymin) Ymin = y;
-            if (y > Ymax) Ymax = y;
+            AddExtent(p.X, p.Y);
+        }
+        public static void AddExtent(Point2d p)
+        {
+            AddExtent(p.X, p.Y);
         }
     }
 }

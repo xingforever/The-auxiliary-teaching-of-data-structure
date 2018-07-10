@@ -92,9 +92,9 @@ namespace 数据结构辅助教学
         {
             matrix.Translate(dx, dy, MatrixOrder.Append);
             Invert();
-            UpdateBoundary();
-            UpdateGridSSetting();
-
+           // UpdateBoundary();
+            //UpdateGridSSetting();
+            //如果栅格系统启用需要重新绘制
         }
         //缩放
         public static void ScaleAt(float x, float y, float s)

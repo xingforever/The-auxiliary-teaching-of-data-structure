@@ -46,6 +46,7 @@
     <Compile Include="GraphGridS.cs" />
     <Compile Include="GraphGridSystem.cs" />
     <Compile Include="GraphLine.cs" />
+    <Compile Include="GraphRectangle.cs" />
     <Compile Include="GridSSetting.cs" />
     <Compile Include="Point2d.cs" />
     <Compile Include="Primitive.cs" />

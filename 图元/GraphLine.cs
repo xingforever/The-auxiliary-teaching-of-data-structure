@@ -50,8 +50,9 @@ namespace 图元
 
         public override void Extent()
         {
-            AddExtent(StartPoint.X, StartPoint.Y);
-            AddExtent(EndPoint.X, EndPoint.Y);
+            AddExtent(StartPoint);
+            AddExtent(EndPoint);
+           
         }
 
         public override void FirstPoint(out double x, out double y)

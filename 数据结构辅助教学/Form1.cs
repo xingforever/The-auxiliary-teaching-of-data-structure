@@ -116,5 +116,15 @@ namespace 数据结构辅助教学
            // pictureBox1.Invalidate();
 
         }
+
+        private void Rectangle_Click(object sender, EventArgs e)
+        {
+            Command = CMDRectangle.Single;
+        }
+
+        private void toolLine_Click(object sender, EventArgs e)
+        {
+            Command = CMDLine.Single;
+        }
     }
 }
