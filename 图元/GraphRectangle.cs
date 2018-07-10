@@ -34,19 +34,23 @@ namespace 图元
             Point2d p2 = this.EndPoint;
             if (p1.X < p2.X && p1.Y < p2.Y)
             {
-                p = new Point((int)p2.X, (int)p1.Y);
+                //p = new Point((int)p2.X, (int)p1.Y);
+                p = new Point((int)p1.X, (int)p1.Y);
             }
             if (p1.X < p2.X && p1.Y > p2.Y)
             {
-                p = new Point((int)p2.X, (int)p2.Y);
+                // p = new Point((int)p2.X, (int)p2.Y);
+                p = new Point((int)p1.X, (int)p2.Y);
             }
             if (p1.X > p2.X && p1.Y > p2.Y)
             {
-                p = new Point((int)p1.X, (int)p2.Y);
+                //p = new Point((int)p1.X, (int)p2.Y);
+                p = new Point((int)p2.X, (int)p2.Y);
             }
             if (p1.X > p2.X && p1.Y < p2.Y)
             {
-                p = new Point((int)p1.X, (int)p1.Y);
+                //p = new Point((int)p1.X, (int)p1.Y);
+                p = new Point((int)p2.X, (int)p1.Y);
             }
             rec = new Rectangle(p, getSize(p1, p2));
         }

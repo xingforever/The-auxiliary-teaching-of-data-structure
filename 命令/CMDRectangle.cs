@@ -35,12 +35,12 @@ namespace 命令
         public override void End()
         {
             var p = Temp.EndPoint;
-            Temp.Effective = false;
+            Temp.Effective = true;
             Primitive.CurrentGraphics.Add(Temp);
             TempPrims.Clear();
             Temp = new GraphRectangle();
             TempPrims.Add(Temp);
-            Step = 1;
+            Step = 0;
         }
         public override bool MouseUp(MouseEventArgs e)
         {

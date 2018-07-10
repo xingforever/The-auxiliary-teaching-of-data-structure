@@ -36,6 +36,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -62,7 +63,8 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Rectangle,
-            this.toolLine});
+            this.toolLine,
+            this.toolStripLabel1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
@@ -112,6 +114,12 @@
             this.StatusLabelXY.Size = new System.Drawing.Size(131, 17);
             this.StatusLabelXY.Text = "toolStripStatusLabel1";
             // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(32, 22);
+            this.toolStripLabel1.Text = "数据";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -149,6 +157,7 @@
         private System.Windows.Forms.ToolStripStatusLabel StatusLabelXY;
         private System.Windows.Forms.ToolStripLabel toolLine;
         public System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     }
 }
 
