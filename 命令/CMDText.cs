@@ -18,7 +18,12 @@ namespace 命令
 
         public override void Start()
         {
-            base.Start();
+            if (IsContinue == false)
+            {
+                IsContinue = true;
+               
+            }
+            Begin();
         }
         public override void Begin()
         {
@@ -30,9 +35,13 @@ namespace 命令
         }
         public override void End()
         {
-            Temp.Effective = false;
+            Temp.Effective = true;
             Primitive.CurrentGraphics.Add(Temp);
-            Begin();
+            
+        }
+        public override void Stop()
+        {
+            base.Stop();
         }
         public override bool MouseUp(MouseEventArgs e)
         {
@@ -42,7 +51,12 @@ namespace 命令
 
         private void SetPrimitiveData(double resultX, double resultY)
         {
-            throw new NotImplementedException();
+
+           
+        }
+        private void textBoxChange()
+        {
+
         }
     }
 }

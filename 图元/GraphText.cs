@@ -29,7 +29,7 @@ namespace 图元
         static Point2d p1 = new Point2d();
         static Point2d p2 = new Point2d();
         float x, y;
-        static Font font = new Font("宋体", 4, GraphicsUnit.Pixel);//为了使文字大小与dxf中接近
+        static Font font = new Font("宋体", 4, GraphicsUnit.Pixel);
         static StringFormat stringFormat = new StringFormat() { LineAlignment = StringAlignment.Far };
         public GraphText() : this(new Point2d(), "", 4.0) { }
         public GraphText(Point2d position, string text, double size)

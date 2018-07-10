@@ -15,8 +15,15 @@ namespace 数据结构辅助教学
     public partial class Form1 : Form
     {
         public static Form1 form1;
+        /// <summary>
+        /// 文本框
+        /// </summary>
+        public TextBox textBox = new TextBox();
+        public Label textLabel = new Label();
         PrimitiveCMDBase  private_Command;
         SettingBase SettingBase;
+       
+       
         PrimitiveCMDBase Command
         {
             get
@@ -37,6 +44,7 @@ namespace 数据结构辅助教学
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             Init();
             pictureBox1.MouseWheel += pictureBox1_MouseWheel;
             form1 = this;
@@ -160,5 +168,66 @@ namespace 数据结构辅助教学
                 //IsRPress = false;
             }
         }
+
+        private void tooltext_Click(object sender, EventArgs e)
+        {
+            //在单击处添加一个textbox和label 
+
+            Command = CMDText.Single;
+            TextFunctionInstall();//文字功能添加
+
+
+
+
+
+        }
+        /// <summary>
+        /// 文字功能控件加载
+        /// </summary>
+        public void TextFunctionInstall()
+        {
+            textBox.Location = new Point(0, 0);
+            textLabel.Location = new Point(0, 0);
+            textBox.Width = 60;
+            textLabel.Width = textBox.Width;
+            textBox.BorderStyle = BorderStyle.FixedSingle;
+            textBox.Font = new Font("宋体", 14);
+            textLabel.Font = new Font("宋体", 14);            
+            textLabel.Visible = false;
+            textBox.Visible = false;            
+            this.Controls.Add(textBox);
+            this.Controls.Add(textLabel);
+            //textBox.Enabled = true;
+            //textBox.BringToFront();
+            //textBox.Focus();
+            
+            textBox.TextChanged += TextBox_TextChanged;
+        }
+        public void TextFunctionUnstall()
+        {
+            if(this.Controls.Contains(textBox))
+            this.Controls.Remove(textBox);
+            if (this.Controls.Contains(textLabel))
+            this.Controls.Remove(textLabel);
+        }
+
+        public  void TextBox_TextChanged(object sender, EventArgs e)
+        {
+           
+            textLabel.AutoSize = true;
+            textLabel.Text= textBox.Text;
+            textBox1.Text= textBox1.Width.ToString();
+            label1.Text = textLabel.Text;
+            if (textLabel.Width > 60)
+            {
+                textBox.Width = textLabel.Width+10;
+            }
+           
+        }
+        //s设置属性 查看是否 开启文字功能 , 在 picturebox 鼠标按下 进行判断 如果功能开启 那么 则textbox 显示
+        // 否则 关闭 
+        //是否将 textbox  和label 添加winform还是单独 动态加载?
+        // 模仿 picturebox  进行 类似架构?
+        //
     }
 }

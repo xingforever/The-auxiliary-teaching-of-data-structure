@@ -33,10 +33,13 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.Rectangle = new System.Windows.Forms.ToolStripLabel();
             this.toolLine = new System.Windows.Forms.ToolStripLabel();
+            this.tooltext = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -64,6 +67,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Rectangle,
             this.toolLine,
+            this.tooltext,
             this.toolStripLabel1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
@@ -84,6 +88,19 @@
             this.toolLine.Size = new System.Drawing.Size(20, 22);
             this.toolLine.Text = "线";
             this.toolLine.Click += new System.EventHandler(this.toolLine_Click);
+            // 
+            // tooltext
+            // 
+            this.tooltext.Name = "tooltext";
+            this.tooltext.Size = new System.Drawing.Size(32, 22);
+            this.tooltext.Text = "文字";
+            this.tooltext.Click += new System.EventHandler(this.tooltext_Click);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(32, 22);
+            this.toolStripLabel1.Text = "数据";
             // 
             // pictureBox1
             // 
@@ -114,17 +131,32 @@
             this.StatusLabelXY.Size = new System.Drawing.Size(131, 17);
             this.StatusLabelXY.Text = "toolStripStatusLabel1";
             // 
-            // toolStripLabel1
+            // textBox1
             // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(32, 22);
-            this.toolStripLabel1.Text = "数据";
+            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox1.Location = new System.Drawing.Point(218, 177);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(61, 29);
+            this.textBox1.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(232, 266);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "label1f";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -158,6 +190,9 @@
         private System.Windows.Forms.ToolStripLabel toolLine;
         public System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel tooltext;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

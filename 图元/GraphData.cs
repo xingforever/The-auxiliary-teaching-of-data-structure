@@ -9,8 +9,14 @@ namespace 图元
 {
     public class GraphData : Primitive
     {
+        /// <summary>
+        /// 矩形框
+        /// </summary>
         public  GraphRectangle graphRectangle { get; set; } 
-        
+        /// <summary>
+        /// 文字
+        /// </summary>
+        public GraphText graphText { get; set; }
 
         public override void Draw(Graphics g)
         {
