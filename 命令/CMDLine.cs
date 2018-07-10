@@ -21,6 +21,7 @@ namespace 命令
         {
             if (IsContinue == false) {
                 IsContinue = true;
+                Begin();
             }
         }
         public override void Stop()
@@ -39,7 +40,7 @@ namespace 命令
         public override void End()
         {
             var p = Temp.EndPoint;
-            Temp.Effective = false;
+            Temp.Effective = true;
             Primitive.CurrentGraphics.Add(Temp);
             TempPrims.Clear();
             Temp = new GraphLine();
@@ -89,13 +90,15 @@ namespace 命令
         {
             if (e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
             {
-                Begin();
+                Start();
                 return true;
             }
-            else
+            else if(e.KeyCode == Keys.Escape)
             {
+                Stop();
                 return false;
             }
+            return false;
         }
         
     }

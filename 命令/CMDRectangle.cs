@@ -20,6 +20,7 @@ namespace 命令
             if (IsContinue == false)
             {
                 IsContinue = true;
+                Begin();
             }
         }
 
@@ -52,6 +53,7 @@ namespace 命令
             {
                 Temp.EndPoint.X = Primitive.ResultX;
                 Temp.EndPoint.Y = Primitive.ResultY;
+                Temp.Init();
                 return true;
             }
             return false;

@@ -146,9 +146,9 @@ namespace 数据结构辅助教学
             invmatrix.TransformPoints(points);
             MouseSurveyX = points[0].X;
             MouseSurveyY = points[0].Y;
-            //执行捕捉
-            //Primitive.ResultX = MouseSurveyX;
-            //Primitive.ResultY = MouseSurveyY;
+            
+            Primitive.ResultX = MouseSurveyX;
+            Primitive.ResultY = MouseSurveyY;
             //if (GraphSnaps.SnapOn)
             //{
             //    GraphSnaps.DoSnap();

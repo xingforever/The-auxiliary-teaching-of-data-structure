@@ -20,6 +20,13 @@ namespace 图元
 
         Rectangle rec = new Rectangle();
 
+       public  GraphRectangle(Point2d p1,Point2d p2) {
+            this.StartPoint = p1;
+            this.EndPoint = p2;
+            Init();
+        }
+        public GraphRectangle() : this(new Point2d(), new Point2d()) { }
+
         public void Init()
         {
             Point p = new Point();

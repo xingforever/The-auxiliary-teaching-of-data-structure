@@ -27,7 +27,7 @@ namespace 数据结构辅助教学
             {
                 private_Command = value;
                 if (private_Command != null)
-                    private_Command.Begin();
+                    private_Command.Start();
             }
         }
         public Form1()
@@ -71,9 +71,17 @@ namespace 数据结构辅助教学
             g.Transform = ViewPort.matrix;
             foreach (var pr in Primitive.CurrentGraphics)
             {
-                pr.Draw(g);               
+                if (pr.Effective == true)
+                {
+                    pr.Draw(g);
+                }
+                              
             }
-           
+            foreach (var pr in PrimitiveCMDBase.TempPrims)
+            {
+                pr.Draw(g);
+            }
+
         }
 
         private void pictureBox1_MouseWheel(object sender, MouseEventArgs e)
@@ -98,22 +106,22 @@ namespace 数据结构辅助教学
             Primitive.SelectDistance = ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
             //点坐标转换
             ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
-            //if (Command != null && Command.MouseMove(e))
-            //{
-            //     //IsPanViewport = false;
-            //}
+            if (Command != null && Command.MouseMove(e))
+            {
+                //IsPanViewport = false;
+            }
             ////按下鼠标左键
-            //else if (e.Button == MouseButtons.Left)
-            //{
-            //    var dx = e.Location.X - ViewPort.pointLast.X;
-            //    var dy = e.Location.Y - ViewPort.pointLast.Y;
-            //    ViewPort.Move(dx, dy);
-            //    ViewPort.pointLast = e.Location;
-            //   // IsPanViewport = true;
-            //}
+            else if (e.Button == MouseButtons.Left)
+            {
+                var dx = e.Location.X - ViewPort.pointLast.X;
+                var dy = e.Location.Y - ViewPort.pointLast.Y;
+               // ViewPort.Move(dx, dy);
+                //ViewPort.pointLast = e.Location;
+                // IsPanViewport = true;
+            }
             //鼠标位置
             this.StatusLabelXY.Text = ViewPort.MouseSurveyX.ToString("F3") + "," + ViewPort.MouseSurveyY.ToString("F3");
-           // pictureBox1.Invalidate();
+            pictureBox1.Invalidate();
 
         }
 
@@ -125,6 +133,32 @@ namespace 数据结构辅助教学
         private void toolLine_Click(object sender, EventArgs e)
         {
             Command = CMDLine.Single;
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
+            if ( Command != null && Command.MouseUp(e))
+            {
+                pictureBox1.Invalidate();
+            }
+           // IsPanViewport = false;
+        }
+
+        private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (Command != null && Command.pictureBoxKeyDown(e))
+            {
+                pictureBox1.Invalidate();
+            }
+            if (e.KeyCode == Keys.ControlKey)
+            {
+               // IsRPress = true;
+            }
+            else
+            {
+                //IsRPress = false;
+            }
         }
     }
 }

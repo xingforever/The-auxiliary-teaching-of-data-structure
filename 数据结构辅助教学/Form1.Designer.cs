@@ -32,10 +32,10 @@
             this.开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.Rectangle = new System.Windows.Forms.ToolStripLabel();
+            this.toolLine = new System.Windows.Forms.ToolStripLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolLine = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -76,6 +76,13 @@
             this.Rectangle.Text = "矩形";
             this.Rectangle.Click += new System.EventHandler(this.Rectangle_Click);
             // 
+            // toolLine
+            // 
+            this.toolLine.Name = "toolLine";
+            this.toolLine.Size = new System.Drawing.Size(20, 22);
+            this.toolLine.Text = "线";
+            this.toolLine.Click += new System.EventHandler(this.toolLine_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -86,6 +93,8 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            this.pictureBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.pictureBox1_PreviewKeyDown);
             // 
             // statusStrip1
             // 
@@ -103,13 +112,6 @@
             this.StatusLabelXY.Size = new System.Drawing.Size(131, 17);
             this.StatusLabelXY.Text = "toolStripStatusLabel1";
             // 
-            // toolLine
-            // 
-            this.toolLine.Name = "toolLine";
-            this.toolLine.Size = new System.Drawing.Size(20, 22);
-            this.toolLine.Text = "线";
-            this.toolLine.Click += new System.EventHandler(this.toolLine_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -119,6 +121,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -142,10 +145,10 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripMenuItem 开始ToolStripMenuItem;
         private System.Windows.Forms.ToolStripLabel Rectangle;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabelXY;
         private System.Windows.Forms.ToolStripLabel toolLine;
+        public System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
