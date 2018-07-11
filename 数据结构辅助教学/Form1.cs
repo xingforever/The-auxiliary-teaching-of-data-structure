@@ -52,11 +52,11 @@ namespace 数据结构辅助教学
             var g = pictureBox1.CreateGraphics();
             ViewPort.MMPixels = g.DpiX / 20.4f;
             g.Dispose();
-            Command = CMDGrids.Single;
-            Command.Start();
-            Command.Begin();
-            Command.End();
-            Command.Stop();
+            //Command = CMDGrids.Single;
+            //Command.Start();
+            //Command.Begin();
+            //Command.End();
+            //Command.Stop();
 
            
         }
@@ -203,6 +203,9 @@ namespace 数据结构辅助教学
             
             textBox.TextChanged += TextBox_TextChanged;
         }
+        /// <summary>
+        /// 文本框功能
+        /// </summary>
         public void TextFunctionUnstall()
         {
             if(this.Controls.Contains(textBox))

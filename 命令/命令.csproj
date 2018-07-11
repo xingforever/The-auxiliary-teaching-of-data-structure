@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CMDGrids.cs" />
     <Compile Include="CMDLine.cs" />
+    <Compile Include="CMDNode.cs" />
     <Compile Include="CMDRectangle.cs" />
     <Compile Include="CMDText.cs" />
     <Compile Include="PrimitiveCMDBase.cs" />

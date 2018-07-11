@@ -23,6 +23,8 @@ namespace 命令
                 IsContinue = true;
                
             }
+            //需要显示textbox 加载文字功能. 
+            //但是这不部分在form 中,
             Begin();
         }
         public override void Begin()

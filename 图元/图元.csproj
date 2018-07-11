@@ -44,10 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Azimuth.cs" />
+    <Compile Include="Circle.cs" />
+    <Compile Include="GraphArrow.cs" />
     <Compile Include="GraphData.cs" />
     <Compile Include="GraphGridS.cs" />
     <Compile Include="GraphGridSystem.cs" />
     <Compile Include="GraphLine.cs" />
+    <Compile Include="GraphNode.cs" />
     <Compile Include="GraphRectangle.cs" />
     <Compile Include="GraphText.cs" />
     <Compile Include="GridSSetting.cs" />

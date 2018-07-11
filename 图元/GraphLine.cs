@@ -45,7 +45,11 @@ namespace 图元
             y1 = (float)StartPoint.Y;
             x2 = (float)EndPoint.X;
             y2 = (float)EndPoint.Y;
-            g.DrawLine(DrawPen, x1, y1, x2, y2);
+            var arrawPen = new Pen (Color.Black);
+            arrawPen.StartCap = LineCap.Round;
+            arrawPen.EndCap = LineCap.ArrowAnchor;
+
+            g.DrawLine(arrawPen, x1, y1, x2, y2);
         }
 
         public override void Extent()
