@@ -38,8 +38,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txtWords = new System.Windows.Forms.TextBox();
+            this.lblWords = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -131,33 +131,36 @@
             this.StatusLabelXY.Size = new System.Drawing.Size(131, 17);
             this.StatusLabelXY.Text = "toolStripStatusLabel1";
             // 
-            // textBox1
+            // txtWords
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(218, 177);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(61, 29);
-            this.textBox1.TabIndex = 4;
+            this.txtWords.BackColor = System.Drawing.SystemColors.Window;
+            this.txtWords.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtWords.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtWords.Location = new System.Drawing.Point(0, 50);
+            this.txtWords.Name = "txtWords";
+            this.txtWords.Size = new System.Drawing.Size(61, 29);
+            this.txtWords.TabIndex = 4;         
+            this.txtWords.VisibleChanged += new System.EventHandler(this.txtWords_VisibleChanged);
+            this.txtWords.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtWords_PreviewKeyDown);
             // 
-            // label1
+            // lblWords
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(232, 266);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 19);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "label1f";
+            this.lblWords.AutoSize = true;
+            this.lblWords.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblWords.Location = new System.Drawing.Point(9, 102);
+            this.lblWords.Margin = new System.Windows.Forms.Padding(0);
+            this.lblWords.Name = "lblWords";
+            this.lblWords.Size = new System.Drawing.Size(89, 19);
+            this.lblWords.TabIndex = 5;
+            this.lblWords.Text = "lblWords";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblWords);
+            this.Controls.Add(this.txtWords);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -192,8 +195,8 @@
         public System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripLabel tooltext;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtWords;
+        private System.Windows.Forms.Label lblWords;
     }
 }
 

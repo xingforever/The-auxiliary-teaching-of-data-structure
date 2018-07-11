@@ -13,6 +13,7 @@ namespace 命令
         static CMDText cMDText = new CMDText();
         public static CMDText Single { get { return cMDText; } }
 
+       
         static GraphText Temp;
         CMDText() { }
 
@@ -56,9 +57,6 @@ namespace 命令
 
            
         }
-        private void textBoxChange()
-        {
-
-        }
+       
     }
 }

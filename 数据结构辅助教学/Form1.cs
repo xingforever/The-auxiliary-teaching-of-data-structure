@@ -18,23 +18,44 @@ namespace 数据结构辅助教学
         /// <summary>
         /// 文本框
         /// </summary>
-        public TextBox textBox = new TextBox();
-        public Label textLabel = new Label();
-        PrimitiveCMDBase  private_Command;
+       // public TextBox textBox = new TextBox();
+       // public Label textLabel = new Label();
+
+       //图元命令
+        PrimitiveCMDBase  primitive_Command;
+        //文字命令
+        TxtBoxCMDBase words_Command;
+        //基础设置
         SettingBase SettingBase;
        
-       
-        PrimitiveCMDBase Command
+        TxtBoxCMDBase WCommand
         {
             get
             {
-                return private_Command;
+                return words_Command;
             }
             set
             {
-                private_Command = value;
-                if (private_Command != null)
-                    private_Command.Start();
+                words_Command = value;
+                if (words_Command != null)
+                {
+                    words_Command.WStart();
+                }
+
+            }
+        }
+       
+        PrimitiveCMDBase PCommand
+        {
+            get
+            {
+                return primitive_Command;
+            }
+            set
+            {
+                primitive_Command = value;
+                if (primitive_Command != null)
+                    primitive_Command.Start();
             }
         }
         public Form1()
@@ -52,11 +73,11 @@ namespace 数据结构辅助教学
             var g = pictureBox1.CreateGraphics();
             ViewPort.MMPixels = g.DpiX / 20.4f;
             g.Dispose();
-            //Command = CMDGrids.Single;
-            //Command.Start();
-            //Command.Begin();
-            //Command.End();
-            //Command.Stop();
+            //PCommand = CMDGrids.Single;
+            //PCommand.Start();
+            //PCommand.Begin();
+            //PCommand.End();
+            //PCommand.Stop();
 
            
         }
@@ -66,6 +87,8 @@ namespace 数据结构辅助教学
         public  void Init()
         {
            SettingBase = new SettingBase(this.pictureBox1.Height,this.pictureBox1.Width);
+            this.txtWords.Visible = false;
+            this.lblWords.Visible = false;
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -94,7 +117,7 @@ namespace 数据结构辅助教学
 
         private void pictureBox1_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (Command != null && Command.MouseWheel(e))
+            if (PCommand != null && PCommand.MouseWheel(e))
             {
                 pictureBox1.Invalidate();
             }
@@ -114,7 +137,7 @@ namespace 数据结构辅助教学
             Primitive.SelectDistance = ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
             //点坐标转换
             ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
-            if (Command != null && Command.MouseMove(e))
+            if (PCommand != null && PCommand.MouseMove(e))
             {
                 //IsPanViewport = false;
             }
@@ -135,18 +158,18 @@ namespace 数据结构辅助教学
 
         private void Rectangle_Click(object sender, EventArgs e)
         {
-            Command = CMDRectangle.Single;
+            PCommand = CMDRectangle.Single;
         }
 
         private void toolLine_Click(object sender, EventArgs e)
         {
-            Command = CMDLine.Single;
+            PCommand = CMDLine.Single;
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
-            if ( Command != null && Command.MouseUp(e))
+            if ( PCommand != null && PCommand.MouseUp(e))
             {
                 pictureBox1.Invalidate();
             }
@@ -155,7 +178,7 @@ namespace 数据结构辅助教学
 
         private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (Command != null && Command.pictureBoxKeyDown(e))
+            if (PCommand != null && PCommand.pictureBoxKeyDown(e))
             {
                 pictureBox1.Invalidate();
             }
@@ -173,10 +196,11 @@ namespace 数据结构辅助教学
         {
             //在单击处添加一个textbox和label 
 
-            Command = CMDText.Single;
-            TextFunctionInstall();//文字功能添加
+            PCommand = CMDText.Single;
+            WCommand = CMDWText.Single;
+            //TextFunctionInstall();//文字功能添加
 
-
+          
 
 
 
@@ -186,46 +210,67 @@ namespace 数据结构辅助教学
         /// </summary>
         public void TextFunctionInstall()
         {
-            textBox.Location = new Point(0, 0);
-            textLabel.Location = new Point(0, 0);
-            textBox.Width = 60;
-            textLabel.Width = textBox.Width;
-            textBox.BorderStyle = BorderStyle.FixedSingle;
-            textBox.Font = new Font("宋体", 14);
-            textLabel.Font = new Font("宋体", 14);            
-            textLabel.Visible = false;
-            textBox.Visible = false;            
-            this.Controls.Add(textBox);
-            this.Controls.Add(textLabel);
+            //textBox.Location = new Point(0, 0);
+            //textLabel.Location = new Point(0, 0);
+            //textBox.Width = 60;
+            //textLabel.Width = textBox.Width;
+            //textBox.BorderStyle = BorderStyle.FixedSingle;
+            //textBox.Font = new Font("宋体", 14);
+            //textLabel.Font = new Font("宋体", 14);            
+            //textLabel.Visible = false;
+            //textBox.Visible = false;            
+            //this.Controls.Add(textBox);
+            //this.Controls.Add(textLabel);
             //textBox.Enabled = true;
             //textBox.BringToFront();
             //textBox.Focus();
             
-            textBox.TextChanged += TextBox_TextChanged;
+          //  textBox.TextChanged += TextBox_TextChanged;
         }
-        /// <summary>
-        /// 文本框功能
-        /// </summary>
-        public void TextFunctionUnstall()
-        {
-            if(this.Controls.Contains(textBox))
-            this.Controls.Remove(textBox);
-            if (this.Controls.Contains(textLabel))
-            this.Controls.Remove(textLabel);
-        }
+       
 
         public  void TextBox_TextChanged(object sender, EventArgs e)
         {
-           
-            textLabel.AutoSize = true;
-            textLabel.Text= textBox.Text;
-            textBox1.Text= textBox1.Width.ToString();
-            label1.Text = textLabel.Text;
-            if (textLabel.Width > 60)
+            this.lblWords.AutoSize = true;
+            this.lblWords.Text = this.txtWords.Text;
+            
+            if (this.lblWords.Width > 60)
             {
-                textBox.Width = textLabel.Width+10;
+                this.txtWords.Width = this.txtWords.Width + 10;
             }
-           
+
+
+        }
+
+
+        private void txtWords_VisibleChanged(object sender, EventArgs e)
+        {
+            if(WCommand != null)
+            {
+                this.txtWords.Location = TxtBoxCMDBase.Location;
+                if (this.txtWords.Visible == true)
+                {       
+                    this.pictureBox1.Enabled = false;
+                    this.txtWords.Enabled = true;
+                    this.txtWords.BringToFront();
+                    this.txtWords.Focus();
+                }
+                else
+                {
+                    this.txtWords.Enabled =false;
+                    this.pictureBox1.Enabled = true;
+                    this.txtWords.SendToBack();
+                    this.pictureBox1.Focus();
+                }
+                
+            }
+            
+         
+        }
+
+        private void txtWords_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+
         }
         //s设置属性 查看是否 开启文字功能 , 在 picturebox 鼠标按下 进行判断 如果功能开启 那么 则textbox 显示
         // 否则 关闭 

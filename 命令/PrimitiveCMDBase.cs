@@ -11,7 +11,7 @@ namespace 命令
     /// <summary>
     /// 图元命令
     /// </summary>
-    public abstract class PrimitiveCMDBase 
+    public abstract class PrimitiveCMDBase:CMDBase
     {
         /// <summary>
         /// 临时图元集合
@@ -98,6 +98,9 @@ namespace 命令
         {
             return false;
         }
+
+
+       
         /// <summary>
         /// 鼠标滚轮移动
         /// </summary>

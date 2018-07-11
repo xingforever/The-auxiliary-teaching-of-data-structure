@@ -17,22 +17,24 @@ namespace 图元
         /// <summary>
         /// 节点文字- 落在圆心
         /// </summary>
-        public  string NodeText { get; set; }
+        public GraphText NodeText { get; set; }
 
         float x, y, r;
 
-        public GraphNode(Circle circle, string  txt)
+        public GraphNode(Circle circle, GraphText txt)
         {
             this.NodeCircle = circle;
             this.NodeText = txt ;
         }
-        public GraphNode() : this(new Circle(), "") { }
+        public GraphNode() : this(new Circle(), new GraphText()) { }
 
         public void Init()
         {
             x = (float)NodeCircle.Center.X;
             y = (float)NodeCircle.Center.Y;
             r = (float)NodeCircle.Radius;
+            NodeText.Position = NodeCircle.Center;
+            
         }
 
         public override void Draw(Graphics g)
@@ -40,6 +42,7 @@ namespace 图元
             //转制float 进行 绘制圆
             //文字需要 进行矩形变化进行绘制
             g.DrawEllipse(DrawPen, x - r, y - r, 2 * r, 2 * r);
+
         }
 
         public override void Extent()

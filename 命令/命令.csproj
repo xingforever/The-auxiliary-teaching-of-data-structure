@@ -43,15 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CMDBase.cs" />
     <Compile Include="CMDGrids.cs" />
     <Compile Include="CMDLine.cs" />
     <Compile Include="CMDNode.cs" />
     <Compile Include="CMDRectangle.cs" />
     <Compile Include="CMDText.cs" />
+    <Compile Include="CMDWText.cs" />
     <Compile Include="PrimitiveCMDBase.cs" />
     <Compile Include="PrimitiveCMDEdit.cs" />
     <Compile Include="PrimitiveCMDRotate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TxtBoxCMDBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

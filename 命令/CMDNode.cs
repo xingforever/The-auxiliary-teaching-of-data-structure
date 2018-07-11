@@ -31,17 +31,28 @@ namespace 命令
        
         public override void Start()
         {
-            base.Start();
+            Begin();
         }
 
         public override void Begin()
         {
-            base.Begin();
+            TempPrims.Clear();
+            Temp = new GraphNode();
+            TempPrims.Add(Temp);
+            Step = 0;
         }
 
         public override void End()
         {
-            base.End();
+            //var p = Temp.NodeCircle.Center;
+            //Temp.Effective = true;
+            //Primitive.CurrentGraphics.Add(Temp);
+            //TempPrims.Clear();
+            //Temp = new GraphLine();
+            //TempPrims.Add(Temp);
+            //Temp.StartPoint.X = p.X;
+            //Temp.StartPoint.Y = p.Y;
+            //Step = 1;
         }
         public override void Stop()
         {
@@ -50,10 +61,24 @@ namespace 命令
 
         public override bool MouseUp(MouseEventArgs e)
         {
-            return base.MouseUp(e);
+            SetPrimitiveData(Primitive.ResultX, Primitive.ResultY);
+            return true;
         }
 
-        
+        private void SetPrimitiveData(double resultX, double resultY)
+        {
+            if (Step == 0)
+            {
+                Temp.NodeCircle.Center.X = resultX;
+                Temp.NodeCircle.Center.Y = resultY;
+                启动写字功能-- - 显示textbox
 
+                Step++;
+            }
+            else
+            {
+                Begin();
+            }
+        }
     }
 }
