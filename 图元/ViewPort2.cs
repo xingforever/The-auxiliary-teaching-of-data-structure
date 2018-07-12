@@ -11,7 +11,7 @@ namespace 图元
     /// <summary>
     /// 视窗
     /// </summary>
-    public static class ViewPort
+    public static class ViewPort2
     {
         /// <summary>
         /// 屏幕屏幕一毫米的像素值
@@ -41,23 +41,6 @@ namespace 图元
         /// 鼠标Y坐标
         /// </summary>
         public static double MouseSurveyY { get; set; }
-        /// <summary>
-        /// 测量左上角坐标
-        /// </summary>
-        public static PointF LeftTopPoint { get; set; }
-        /// <summary>
-        /// 测量左下角坐标
-        /// </summary>
-        public static PointF LeftBottomPoint { get; set; }
-        /// <summary>
-        /// 测量右上角坐标
-        /// </summary>
-        public static PointF RightTopPoint { get; set; }
-        /// <summary>
-        /// 测量右下角坐标
-        /// </summary>
-        public static PointF RightBottomPoint { get; set; }
-
         public static float InvScale
         {
             get
@@ -66,7 +49,7 @@ namespace 图元
                 return (float)Math.Sqrt(Elements[0] * Elements[0] + Elements[1] * Elements[1]);
             }
         }
-        static ViewPort()
+        static ViewPort2()
         {
             matrix = new Matrix();
             Init();
@@ -91,18 +74,13 @@ namespace 图元
         {
             matrix.Translate(dx, dy, MatrixOrder.Append);
             Invert();
-            // UpdateBoundary();
-            //UpdateGridSSetting();
-            //如果栅格系统启用需要重新绘制
         }
         //缩放
         public static void ScaleAt(float x, float y, float s)
         {
             matrix.Scale(s, s, MatrixOrder.Append);
             s = 1 - s;
-            //平移
             Move(x * s, y * s);
-
         }
         /// <summary>
         /// 在当前屏幕坐标处，旋转一个角度
@@ -115,13 +93,13 @@ namespace 图元
             matrix.RotateAt((float)(angle / Math.PI * 180), new PointF(x, y), MatrixOrder.Append);
             Invert();
         }
-        public static void All(int height, int width)
+        public static void All(float height,float width)
         {
             Init();
             Primitive.GetExtent();
-            var x1 = (float)(Primitive.Xmin);
+            var x1 = (float)(Primitive.Xmin );
             var y1 = (float)(Primitive.Ymin);
-            var x2 = (float)(Primitive.Xmax);
+            var x2 = (float)(Primitive.Xmax );
             var y2 = (float)(Primitive.Ymax);
             var s1 = height / (x2 - x1);
             var s2 = width / (y2 - y1);
@@ -133,21 +111,16 @@ namespace 图元
             matrix.Translate(0 - points[0].X, 0 - points[0].Y, MatrixOrder.Append);
             Invert();
         }
-        /// <summary>
-        /// 屏幕坐标转测量坐标
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
         public static void InvTransformPoint(float x, float y)
         {
             points[0].X = x;
             points[0].Y = y;
             invmatrix.TransformPoints(points);
-            MouseSurveyX = points[0].X;
-            MouseSurveyY = points[0].Y;
-
-            Primitive.ResultX = MouseSurveyX;
-            Primitive.ResultY = MouseSurveyY;
+            //MouseSurveyX = points[0].X + Primitive.BasePointX;
+            //MouseSurveyY = points[0].Y + Primitive.BasePointY;
+            //执行捕捉
+            //Primitive.ResultX = MouseSurveyX;
+            //Primitive.ResultY = MouseSurveyY;
             //if (GraphSnaps.SnapOn)
             //{
             //    GraphSnaps.DoSnap();
@@ -168,50 +141,9 @@ namespace 图元
             outX = points[0].X;
             outY = points[0].Y;
         }
-        /// <summary>
-        /// 长度在屏幕显示距离
-        /// </summary>
-        /// <returns></returns>
         public static double SurveyLengthOfOneScreenMillimeter()
         {
             return InvScale * MMPixels;
-        }
-        /// <summary>
-        /// 更新图形框范围(测量坐标系)
-        /// </summary>
-        public static void UpdateBoundary()
-        {
-
-            //PointF leftTop = new PointF(0, 0);
-            //PointF leftBottom = new PointF(0, -SettingBase.PictureBoxHeight);
-            //PointF rightTop = new PointF(SettingBase.PictureBoxWidth, 0);
-            //PointF rightBottom = new PointF(SettingBase.PictureBoxWidth, -SettingBase.PictureBoxHeight);
-            //PointF[] pointFs = new PointF[4] { leftTop, leftBottom, rightTop, rightBottom };
-            //invmatrix.TransformPoints(pointFs);
-            ////转换后的角点发生变化
-            //LeftTopPoint = pointFs[1];
-            //LeftBottomPoint = pointFs[0];
-            //RightTopPoint = pointFs[3];
-            //RightBottomPoint = pointFs[2];
-
-        }
-        /// <summary>
-        /// 更新栅格设置
-        /// </summary>
-        public static void UpdateGridSSetting()
-        {
-            if (GridSSetting.Enable == true)
-            {
-                GridSSetting.UpdateGridSSetting(LeftTopPoint, LeftBottomPoint, RightTopPoint, RightBottomPoint);
-            }
-            else
-            {
-                ;
-            }
-
-
-
-
         }
     }
 }

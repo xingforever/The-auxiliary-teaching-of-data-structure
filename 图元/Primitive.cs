@@ -16,33 +16,17 @@ namespace 图元
         /// 所有图元集合
         /// </summary>
         public static  List<Primitive> CurrentGraphics { get; set; } = new List<Primitive>();
-
-        /// <summary>
-        /// 绘图笔
-        /// </summary>
-        public static  Pen DrawPen { get; set; }
-        /// <summary>
-        /// 填充
-        /// </summary>
-        public static Brush DrawBrush { get; set; }
-        public static Pen NormalPen = Pens.Black;
-        public static Brush NormalBrush = Brushes.Black;
+       
 
         public   Primitive()
         {
             DrawPen = NormalPen;
-            DrawBrush = NormalBrush;
-           
+            DrawBrush = NormalBrush;          
 
         }
 
 
-        /// <summary>
-        /// 首点
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public abstract void FirstPoint(out double x, out double y);
+        
         /// <summary>
         /// 获取所有图元范围
         /// </summary>

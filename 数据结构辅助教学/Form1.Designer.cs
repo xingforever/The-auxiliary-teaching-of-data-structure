@@ -38,8 +38,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
-            this.txtWords = new System.Windows.Forms.TextBox();
-            this.lblWords = new System.Windows.Forms.Label();
+            this.toolNode = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -68,7 +67,8 @@
             this.Rectangle,
             this.toolLine,
             this.tooltext,
-            this.toolStripLabel1});
+            this.toolStripLabel1,
+            this.toolNode});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
@@ -131,36 +131,18 @@
             this.StatusLabelXY.Size = new System.Drawing.Size(131, 17);
             this.StatusLabelXY.Text = "toolStripStatusLabel1";
             // 
-            // txtWords
+            // toolNode
             // 
-            this.txtWords.BackColor = System.Drawing.SystemColors.Window;
-            this.txtWords.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtWords.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtWords.Location = new System.Drawing.Point(0, 50);
-            this.txtWords.Name = "txtWords";
-            this.txtWords.Size = new System.Drawing.Size(61, 29);
-            this.txtWords.TabIndex = 4;         
-            this.txtWords.VisibleChanged += new System.EventHandler(this.txtWords_VisibleChanged);
-            this.txtWords.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.txtWords_PreviewKeyDown);
-            // 
-            // lblWords
-            // 
-            this.lblWords.AutoSize = true;
-            this.lblWords.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblWords.Location = new System.Drawing.Point(9, 102);
-            this.lblWords.Margin = new System.Windows.Forms.Padding(0);
-            this.lblWords.Name = "lblWords";
-            this.lblWords.Size = new System.Drawing.Size(89, 19);
-            this.lblWords.TabIndex = 5;
-            this.lblWords.Text = "lblWords";
+            this.toolNode.Name = "toolNode";
+            this.toolNode.Size = new System.Drawing.Size(32, 22);
+            this.toolNode.Text = "节点";
+            this.toolNode.Click += new System.EventHandler(this.toolNode_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lblWords);
-            this.Controls.Add(this.txtWords);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -195,8 +177,7 @@
         public System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripLabel tooltext;
-        private System.Windows.Forms.TextBox txtWords;
-        private System.Windows.Forms.Label lblWords;
+        private System.Windows.Forms.ToolStripLabel toolNode;
     }
 }
 

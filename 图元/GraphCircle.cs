@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace 图元
 {
-    public class Circle
+    public class GraphCircle:Primitive
     {
         public Point2d Center { get; set; }
         public  double Radius { get; set; }
 
-        public  Circle(Point2d center,double radius)
+        public  GraphCircle(Point2d center,double radius)
         {
             this.Center = center;
             this.Radius = radius;
         }
-        public Circle() : this(new Point2d(), 1.0) { }
+        public GraphCircle() : this(new Point2d(), 1.0) { }
 
+        
         public  Point2d [] GetCircleSelect()
         {
-             Point2d p1 = new Point2d(Center.X, Center.Y + Radius);
+            Point2d p1 = new Point2d(Center.X, Center.Y + Radius);
             Point2d p2 = new Point2d(Center.X, Center.Y - Radius);
             Point2d p3 = new Point2d(Center.X + Radius, Center.Y);
             Point2d p4 = new Point2d(Center.X - Radius, Center.Y);
@@ -40,5 +42,26 @@ namespace 图元
             
         }
 
+        public override void FirstPoint(out double x, out double y)
+        {
+           x=Center.X;
+           y=Center.Y;
+        }
+
+        public override void Extent()
+        {   
+            AddExtent(Center.X - Radius, Center.Y - Radius);
+            AddExtent(Center.X - Radius, Center.Y + Radius);
+            AddExtent(Center.X + Radius, Center.Y - Radius);
+            AddExtent(Center.X + Radius, Center.Y + Radius);
+        }
+
+        public override void Draw(Graphics g)
+        {
+           var x = (float)Center.X;
+            var r =(float) Radius;
+            var y =(float) Center.Y;           
+            g.DrawEllipse(DrawPen, x - r, y - r, 2 * r, 2 * r);
+        }
     }
 }

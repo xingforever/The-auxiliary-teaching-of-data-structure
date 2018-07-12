@@ -12,7 +12,7 @@ namespace 命令
     {
         static CMDText cMDText = new CMDText();
         public static CMDText Single { get { return cMDText; } }
-
+      
        
         static GraphText Temp;
         CMDText() { }
@@ -26,29 +26,25 @@ namespace 命令
             }
             //需要显示textbox 加载文字功能. 
             //但是这不部分在form 中,
-            Begin();
+            //Begin();
         }
         public override void Begin()
         {
-            TempPrims.Clear();
             Temp = new GraphText();
-            TempPrims.Add(Temp);
-            Step = 0;
-
-        }
-        public override void End()
-        {
+            Init();
             Temp.Effective = true;
             Primitive.CurrentGraphics.Add(Temp);
-            
+
+
         }
+
         public override void Stop()
         {
-            base.Stop();
+            IsContinue = false;
         }
         public override bool MouseUp(MouseEventArgs e)
         {
-            SetPrimitiveData(Primitive.ResultX, Primitive.ResultY);
+            //SetPrimitiveData(Primitive.ResultX, Primitive.ResultY);
             return true;
         }
 
@@ -57,6 +53,14 @@ namespace 命令
 
            
         }
+
+        public static  void Init()
+        {
+            Temp.Text = GraphText.BaseTxt;
+            Temp.TXTPosition = new Point2d(Primitive.ResultX, Primitive.ResultY);
+            Temp.TxtSize = 10.0;
+        }
+
        
     }
 }

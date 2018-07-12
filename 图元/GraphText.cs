@@ -8,71 +8,79 @@ using System.Threading.Tasks;
 
 namespace 图元
 {
-    public class GraphText : Primitive
+    public class GraphText :Primitive
     {
+        
+        static Point2d p1 = new Point2d();
+        static Point2d p2 = new Point2d();
+        /// <summary>
+        /// 静态存储文字
+        /// </summary>
+        public static string BaseTxt { get; set; } = "";
         /// <summary>
         /// 文字内容
         /// </summary>
         public string Text { get; set; }
         /// <summary>
-        /// 大小 正数 -- 测量坐标系
+        /// 大小 正数 -- 测量坐标系，单位：米；负数-- 图纸坐标系 ，单位：毫米
         /// </summary>
-        public double Size { get; set; }
+        public double TxtSize { get; set; }
         /// <summary>
         /// 旋转角度
         /// </summary>
-        public Azimuth RotationAngle { get; set; }
+        public Azimuth TxtRotationAngle { get; set; }
         /// <summary>
         /// 位置坐标
         /// </summary>
-        public Point2d Position { get; set; }
-        static Point2d p1 = new Point2d();
-        static Point2d p2 = new Point2d();
-        float x, y;
-        static Font font = new Font("宋体", 4, GraphicsUnit.Pixel);
-        static StringFormat stringFormat = new StringFormat() { LineAlignment = StringAlignment.Far };
+        public Point2d TXTPosition { get; set; }
+
+       
+        public static Font font = new Font("宋体", 4, GraphicsUnit.Pixel);//标注文字
+        public static StringFormat stringFormat = new StringFormat() { LineAlignment = StringAlignment.Far };
+
         public GraphText() : this(new Point2d(), "", 4.0) { }
         public GraphText(Point2d position, string text, double size)
         {
-            this.Position = position;
-            this.Text = text;
-            this.Size = size;
-            this.RotationAngle = (Azimuth)(Math.PI / 2.0);
+            DrawPen = Pens.Red;
+            this.TXTPosition =position;
+            Text = text;
+            TxtSize = size;
+            TxtRotationAngle = (Azimuth)(Math.PI / 2.0);
         }
 
         public override void Draw(Graphics g)
         {
-            if (font.Size != Size)
+            if (font.Size != TxtSize)
             {
-                font = new Font("宋体", (float)Size, GraphicsUnit.Pixel);
+                font = new Font("宋体", (float)TxtSize, GraphicsUnit.Pixel);
             }
             var matrix = g.Transform;
             float screenX, screenY;
-            ViewPort.TransformPoint(Position.X, Position.Y, out screenX, out screenY);
-            matrix.RotateAt((float)(RotationAngle / Math.PI * 180), new PointF(screenX, screenY), MatrixOrder.Append);
-            g.Transform = matrix;
-            g.DrawString(Text, font, DrawBrush, x, y, stringFormat);
+            ViewPort.TransformPoint(TXTPosition.X, TXTPosition.Y, out screenX, out screenY);
+            matrix.RotateAt((float)(TxtRotationAngle / Math.PI * 180), new PointF(screenX, screenY), MatrixOrder.Append);
+            g.Transform = matrix;           
+            g.DrawString(Text, font, DrawBrush, (float)(TXTPosition.X-TxtSize/2), (float)(TXTPosition.Y+TxtSize / 2), stringFormat);
             g.Transform = ViewPort.matrix;
         }
 
         public override void Extent()
         {
-            AddExtent(Position.X, Position.Y);
-            var angle = RotationAngle - Math.PI / 2;
-            var w = Size * Text.Length;
+            AddExtent(TXTPosition.X, TXTPosition.Y);
+            var angle = TxtRotationAngle - Math.PI / 2;
+            var w = TxtSize * Text.Length;
             if (Text.Length > 2) w /= 2;
-            p1.X = Position.X + Size * Math.Cos(angle);
-            p1.Y = Position.Y + Size * Math.Sin(angle);
+            p1.X = TXTPosition.X + TxtSize * Math.Cos(angle);
+            p1.Y = TXTPosition.Y + TxtSize * Math.Sin(angle);
             AddExtent(p1.X, p1.Y);
-            p2.X = p1.X + w * Math.Cos(RotationAngle);
-            p2.Y = p1.Y + w * Math.Sin(RotationAngle);
+            p2.X = p1.X + w * Math.Cos(TxtRotationAngle);
+            p2.Y = p1.Y + w * Math.Sin(TxtRotationAngle);
             AddExtent(p2.X, p2.Y);
         }
 
         public override void FirstPoint(out double x, out double y)
         {
-            x = Position.X;
-            y = Position.Y;
+            x = TXTPosition.X;
+            y = TXTPosition.Y;
         }
     }
 }

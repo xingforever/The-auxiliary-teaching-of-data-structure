@@ -9,40 +9,40 @@ namespace 图元
 {
     public class GraphNode : Primitive
     {
-        //绘制Node 应该开启栅格网系统 ? 获取绘图点的栅格位置,
-        //整体缩小 放大  在节点移动箭头跟着移动
+        
 
         //一个圆 圆中包含文字 含有四个接点
-         public Circle NodeCircle { get; set; }
+         public GraphCircle NodeCircle { get; set; }
         /// <summary>
         /// 节点文字- 落在圆心
         /// </summary>
         public GraphText NodeText { get; set; }
 
-        float x, y, r;
+       
 
-        public GraphNode(Circle circle, GraphText txt)
+        public GraphNode(GraphCircle circle, GraphText txt)
         {
             this.NodeCircle = circle;
+            
             this.NodeText = txt ;
         }
-        public GraphNode() : this(new Circle(), new GraphText()) { }
+        public GraphNode() : this(
+            new GraphCircle(new Point2d(),20.0),            
+             new GraphText(new Point2d (),"A",10)) { }
 
         public void Init()
         {
-            x = (float)NodeCircle.Center.X;
-            y = (float)NodeCircle.Center.Y;
-            r = (float)NodeCircle.Radius;
-            NodeText.Position = NodeCircle.Center;
+            var x = (float)NodeCircle.Center.X;
+            var y = (float)NodeCircle.Center.Y;
+            var r = (float)NodeCircle.Radius;
+            NodeText.TXTPosition = NodeCircle.Center;
             
         }
 
         public override void Draw(Graphics g)
         {
-            //转制float 进行 绘制圆
-            //文字需要 进行矩形变化进行绘制
-            g.DrawEllipse(DrawPen, x - r, y - r, 2 * r, 2 * r);
-
+            NodeCircle.Draw(g);//绘制圆
+            NodeText.Draw(g);
         }
 
         public override void Extent()

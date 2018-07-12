@@ -7,30 +7,32 @@ using System.Threading.Tasks;
 
 namespace 图元
 {
-   abstract class PrimitiveText :PrimitiveAffine
+  public  abstract class PrimitiveText :Primitive
     {
-
-         
+        /// <summary>
+        /// 静态存储文字
+        /// </summary>
+        public static string BaseTxt { get; set; } = "";
         /// <summary>
         /// 文字内容
         /// </summary>
-        public string Text { get; set; }
+        public   string Text { get; set; }
         /// <summary>
         /// 大小 正数 -- 测量坐标系，单位：米；负数-- 图纸坐标系 ，单位：毫米
         /// </summary>
-        public double Size { get; set; }
+        public  double TXTSize { get; set; }
         /// <summary>
         /// 旋转角度
         /// </summary>
-        public Azimuth RotationAngle { get; set; }
+        public  Azimuth TXTRotationAngle { get; set; }
         /// <summary>
         /// 位置坐标
         /// </summary>
-        public Point2d Position { get; set; }
+        public Point2d TXTPosition { get; set; }
 
-        float x, y;
-        static Font font = new Font("宋体", 4, GraphicsUnit.Pixel);//标注文字
-        static StringFormat stringFormat = new StringFormat() { LineAlignment = StringAlignment.Far };
+        public  float x, y;
+        public  static Font font = new Font("宋体", 4, GraphicsUnit.Pixel);//标注文字
+         public static StringFormat stringFormat = new StringFormat() { LineAlignment = StringAlignment.Far };
 
 
 

@@ -16,7 +16,7 @@ namespace 命令
         /// <summary>
         /// 临时图元集合
         /// </summary>
-        public static List<Primitive> TempPrims { get; set; }
+        public static List<Primitive> TempPrims { get; set; } = new List<Primitive>();
         /// <summary>
         /// 步骤
         /// </summary>
@@ -26,10 +26,7 @@ namespace 命令
         /// </summary>
         public static bool IsContinue { get; set; }
 
-        public PrimitiveCMDBase()
-        {
-            TempPrims = new List<Primitive>();
-        }
+       
        
         /// <summary>
         /// 命令转换

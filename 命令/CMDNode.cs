@@ -44,15 +44,13 @@ namespace 命令
 
         public override void End()
         {
-            //var p = Temp.NodeCircle.Center;
-            //Temp.Effective = true;
-            //Primitive.CurrentGraphics.Add(Temp);
-            //TempPrims.Clear();
-            //Temp = new GraphLine();
-            //TempPrims.Add(Temp);
-            //Temp.StartPoint.X = p.X;
-            //Temp.StartPoint.Y = p.Y;
-            //Step = 1;
+            var p = Temp.NodeCircle.Center;
+            Temp.Effective = true;
+            Primitive.CurrentGraphics.Add(Temp);
+            TempPrims.Clear();
+            Temp = new GraphNode();
+            TempPrims.Add(Temp);           
+            Step = 1;
         }
         public override void Stop()
         {
@@ -62,22 +60,30 @@ namespace 命令
         public override bool MouseUp(MouseEventArgs e)
         {
             SetPrimitiveData(Primitive.ResultX, Primitive.ResultY);
+            if (Step == 1)
+            {
+                return false;
+            }
             return true;
         }
-
+        public override bool MouseMove(MouseEventArgs e)
+        {
+            var p = new Point2d(Primitive.ResultX, Primitive.ResultY);
+            Temp.NodeCircle.Center = p;
+            Temp.NodeText.TXTPosition = p;
+            return true;
+        }
         private void SetPrimitiveData(double resultX, double resultY)
         {
             if (Step == 0)
             {
                 Temp.NodeCircle.Center.X = resultX;
-                Temp.NodeCircle.Center.Y = resultY;
-                启动写字功能-- - 显示textbox
-
+                Temp.NodeCircle.Center.Y = resultY;                
                 Step++;
             }
             else
             {
-                Begin();
+               // Begin();
             }
         }
     }

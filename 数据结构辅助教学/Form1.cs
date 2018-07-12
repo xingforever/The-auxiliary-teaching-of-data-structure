@@ -14,36 +14,35 @@ namespace 数据结构辅助教学
 {
     public partial class Form1 : Form
     {
-        public static Form1 form1;
-        /// <summary>
-        /// 文本框
-        /// </summary>
-       // public TextBox textBox = new TextBox();
-       // public Label textLabel = new Label();
+        public static Form1 form1;      
+        public TextBox txtWords = new TextBox();
+        public  Label lblWords = new Label();
 
-       //图元命令
+        //图元命令
         PrimitiveCMDBase  primitive_Command;
-        //文字命令
-        TxtBoxCMDBase words_Command;
+    
         //基础设置
         SettingBase SettingBase;
-       
-        TxtBoxCMDBase WCommand
-        {
-            get
-            {
-                return words_Command;
-            }
-            set
-            {
-                words_Command = value;
-                if (words_Command != null)
-                {
-                    words_Command.WStart();
-                }
+        /// <summary>
+        /// 是否启用文字编辑
+        /// </summary>
+        public static  bool StartWriting { get; set; } = false;
+        /// <summary>
+        /// 正在编辑
+        /// </summary>
+         public  static  bool IsWriting { get; set; } = false;
+        /// <summary>
+        /// 文字结果
+        /// </summary>
 
-            }
-        }
+        public  string TxtResult { get; set; }
+        /// <summary>
+        /// 鼠标最后确定屏幕坐标
+        /// </summary>
+        public  Point ScreenLastPoint { get; set; }
+        public  Point2d SurveyLastPoint { get; set; }
+       
+        
        
         PrimitiveCMDBase PCommand
         {
@@ -86,20 +85,34 @@ namespace 数据结构辅助教学
         /// </summary>
         public  void Init()
         {
-           SettingBase = new SettingBase(this.pictureBox1.Height,this.pictureBox1.Width);
-            this.txtWords.Visible = false;
-            this.lblWords.Visible = false;
+           SettingBase = new SettingBase(this.pictureBox1.Height,this.pictureBox1.Width);            
+          
+            txtWords.Visible = false;
+            txtWords.Font = new Font("宋体", 14);
+            txtWords.BorderStyle = BorderStyle.FixedSingle;
+            lblWords.Visible = false;
+            lblWords.Font = new Font("宋体", 14);
+            txtWords.Location = new Point(0, 0);
+            lblWords.Location = new Point(0, 0);
+            this.Controls.Add(txtWords);
+            this.Controls.Add(lblWords);
+            txtWords.VisibleChanged += txtWords_VisibleChanged;
+            txtWords.TextChanged += txtWords_TextChanged;
+            txtWords.PreviewKeyDown += txtWords_PreviewKeyDown;
+          
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            if (Primitive.CurrentGraphics.Count == 0)
-            {
-                return ;
-            }
             var g = e.Graphics;
-            g.PageUnit = GraphicsUnit.Pixel;//为了使文字大小与dxf中接近
+            g.PageUnit = GraphicsUnit.Pixel;
             g.Transform = ViewPort.matrix;
+            foreach (var pr in PrimitiveCMDBase.TempPrims)
+            {
+                pr.Draw(g);
+
+            }          
+           
             foreach (var pr in Primitive.CurrentGraphics)
             {
                 if (pr.Effective == true)
@@ -108,10 +121,8 @@ namespace 数据结构辅助教学
                 }
                               
             }
-            foreach (var pr in PrimitiveCMDBase.TempPrims)
-            {
-                pr.Draw(g);
-            }
+
+           
 
         }
 
@@ -135,13 +146,21 @@ namespace 数据结构辅助教学
         {
             //设置图元选择距离
             Primitive.SelectDistance = ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
-            //点坐标转换
+            if (IsWriting) { return; }
             ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
-            if (PCommand != null && PCommand.MouseMove(e))
+             if (PCommand != null && PCommand.MouseMove(e))
             {
                 //IsPanViewport = false;
             }
-            ////按下鼠标左键
+            else if(StartWriting)
+            {              
+                TextFunction(e.Location.X, e.Location.Y);
+            }
+            else if (PCommand != null && PCommand.MouseMove(e))
+            {
+                //IsPanViewport = false;
+            }
+            //按下鼠标左键
             else if (e.Button == MouseButtons.Left)
             {
                 var dx = e.Location.X - ViewPort.pointLast.X;
@@ -168,12 +187,21 @@ namespace 数据结构辅助教学
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
-            if ( PCommand != null && PCommand.MouseUp(e))
+            if (IsWriting) { return; }
+            //MessageBox.Show(PrimitiveCMDBase.TempPrims.Count.ToString());
+            ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);           
+            ScreenLastPoint = new Point(e.Location.X, e.Location.Y);
+            SurveyLastPoint = new Point2d(Primitive.ResultX, Primitive.ResultY);
+            if (StartWriting)
+            {
+                IsWriting = true;
+                TextFunction(e.Location.X, e.Location.Y);                
+            }
+           else  if ( PCommand != null && PCommand.MouseUp(e))
             {
                 pictureBox1.Invalidate();
             }
-           // IsPanViewport = false;
+           
         }
 
         private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -197,8 +225,8 @@ namespace 数据结构辅助教学
             //在单击处添加一个textbox和label 
 
             PCommand = CMDText.Single;
-            WCommand = CMDWText.Single;
-            //TextFunctionInstall();//文字功能添加
+            StartWriting = true;
+          
 
           
 
@@ -206,76 +234,96 @@ namespace 数据结构辅助教学
 
         }
         /// <summary>
-        /// 文字功能控件加载
+        /// 文字功能启用
         /// </summary>
-        public void TextFunctionInstall()
+        public void TextFunction(int x,int y)
         {
-            //textBox.Location = new Point(0, 0);
-            //textLabel.Location = new Point(0, 0);
-            //textBox.Width = 60;
-            //textLabel.Width = textBox.Width;
-            //textBox.BorderStyle = BorderStyle.FixedSingle;
-            //textBox.Font = new Font("宋体", 14);
-            //textLabel.Font = new Font("宋体", 14);            
-            //textLabel.Visible = false;
-            //textBox.Visible = false;            
-            //this.Controls.Add(textBox);
-            //this.Controls.Add(textLabel);
-            //textBox.Enabled = true;
-            //textBox.BringToFront();
-            //textBox.Focus();
-            
-          //  textBox.TextChanged += TextBox_TextChanged;
+            //textbox的位置对应的是整个界面的,
+            //而picturebox的是部分 y+50左右
+            txtWords.Visible = true;
+            if (IsWriting)
+            {
+                txtWords.Location = new Point (ScreenLastPoint.X-5,ScreenLastPoint.Y+50);
+                txtWords.ReadOnly = false;
+                txtWords.Focus();
+            }
+            else
+            {
+               // pictureBox1.Focus();
+                txtWords.Location = new Point(x+10, y+50);               
+                txtWords.ReadOnly = true;
+            }
+          
         }
        
 
-        public  void TextBox_TextChanged(object sender, EventArgs e)
-        {
-            this.lblWords.AutoSize = true;
-            this.lblWords.Text = this.txtWords.Text;
-            
-            if (this.lblWords.Width > 60)
-            {
-                this.txtWords.Width = this.txtWords.Width + 10;
-            }
-
-
-        }
+       
 
 
         private void txtWords_VisibleChanged(object sender, EventArgs e)
         {
-            if(WCommand != null)
+            if (txtWords.Visible == true)
             {
-                this.txtWords.Location = TxtBoxCMDBase.Location;
-                if (this.txtWords.Visible == true)
-                {       
-                    this.pictureBox1.Enabled = false;
-                    this.txtWords.Enabled = true;
-                    this.txtWords.BringToFront();
-                    this.txtWords.Focus();
-                }
-                else
-                {
-                    this.txtWords.Enabled =false;
-                    this.pictureBox1.Enabled = true;
-                    this.txtWords.SendToBack();
-                    this.pictureBox1.Focus();
-                }
-                
+                //this.pictureBox1.Enabled = false;
+                txtWords.Enabled = true;
+                txtWords.BringToFront();
+                txtWords.Focus();
             }
-            
-         
-        }
+            else
+            {
+               // txtWords.Enabled = false;
+               // this.pictureBox1.Enabled = true;
+                txtWords.SendToBack();
+                this.pictureBox1.Focus();
 
+            }
+        }
+       
         private void txtWords_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            if (StartWriting)
+            {
+                //回车键
+                if (e.KeyCode == Keys.Return)
+                {
+                    TxtResult = txtWords.Text;                   
+                    txtWords.Visible = false;
+                    GraphText.BaseTxt = txtWords.Text;
+                    PCommand.Begin();
+                    pictureBox1.Invalidate();
+                    lblWords.Text = "";
+                    txtWords.Text = "";
+                    txtWords.Width = 60;
+                    IsWriting = false;
 
+                }else if (e.KeyCode == Keys.Escape)
+                {
+                    StartWriting = false;
+                    IsWriting = false;
+                    txtWords.Visible = false;                   
+                    txtWords.Text = "";
+                    pictureBox1.Invalidate();
+                }
+                    
+            }
         }
-        //s设置属性 查看是否 开启文字功能 , 在 picturebox 鼠标按下 进行判断 如果功能开启 那么 则textbox 显示
-        // 否则 关闭 
-        //是否将 textbox  和label 添加winform还是单独 动态加载?
-        // 模仿 picturebox  进行 类似架构?
-        //
+
+       
+        private void txtWords_TextChanged(object sender, EventArgs e)
+        {
+            lblWords.AutoSize = true;
+            lblWords.Text = txtWords.Text;
+
+            if (lblWords.Width > 60)
+            {
+                txtWords.Width = lblWords.Width + 10;
+            }
+        }
+
+        private void toolNode_Click(object sender, EventArgs e)
+        {
+            PCommand = CMDNode.Single;
+            StartWriting = true;
+        }
     }
 }

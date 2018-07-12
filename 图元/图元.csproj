@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Azimuth.cs" />
-    <Compile Include="Circle.cs" />
+    <Compile Include="GraphCircle.cs" />
     <Compile Include="GraphArrow.cs" />
     <Compile Include="GraphData.cs" />
     <Compile Include="GraphGridS.cs" />
@@ -65,6 +65,7 @@
     <Compile Include="SettingBase.cs" />
     <Compile Include="SnapType.cs" />
     <Compile Include="ViewPort.cs" />
+    <Compile Include="ViewPort2.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

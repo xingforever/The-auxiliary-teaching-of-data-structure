@@ -21,11 +21,11 @@ namespace 图元
         /// 图元Y
         /// </summary>
         public static double ResultY { get; set;  }
-      
+
         /// <summary>
         /// 是否启用绘制
         /// </summary>
-        public bool Effective { get; set; }
+        public bool Effective { get; set; } = true;
         /// <summary>
         /// X最小值
         /// </summary>
@@ -42,6 +42,16 @@ namespace 图元
         /// Y最大值
         /// </summary>
         public static double Ymax { get; set; } = 1366;
+        /// <summary>
+        /// 绘图笔
+        /// </summary>
+        public static Pen DrawPen { get; set; }
+        /// <summary>
+        /// 填充
+        /// </summary>
+        public static Brush DrawBrush { get; set; }
+        public static Pen NormalPen = Pens.Black;
+        public static Brush NormalBrush = Brushes.Black;
 
         /// <summary>
         /// 图元范围
@@ -52,6 +62,13 @@ namespace 图元
         /// </summary>
         /// <param name="g"></param>
         public abstract void Draw(Graphics g);
+
+        /// <summary>
+        /// 首点
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public abstract void FirstPoint(out double x, out double y);
         /// <summary>
         /// 图元转换
         /// </summary>
