@@ -27,7 +27,7 @@ namespace 图元
             this.NodeText = txt ;
         }
         public GraphNode() : this(
-            new GraphCircle(new Point2d(),20.0),            
+            new GraphCircle(new Point2d(),15.0),            
              new GraphText(new Point2d (),"A",10)) { }
 
         public void Init()
@@ -42,7 +42,7 @@ namespace 图元
         public override void Draw(Graphics g)
         {
             NodeCircle.Draw(g);//绘制圆
-            NodeText.Draw(g);
+            NodeText.Draw(g);//绘制文字
         }
 
         public override void Extent()

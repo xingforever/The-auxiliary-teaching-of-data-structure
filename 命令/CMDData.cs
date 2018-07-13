@@ -8,14 +8,11 @@ using 图元;
 
 namespace 命令
 {
-   public  class CMDNode:PrimitiveCMDBase
+   public  class CMDData:PrimitiveCMDBase
     {
-        //开启绘制,单击屏幕点,获取坐标为圆心坐标,半径固定,在该位置弹出textbox 
-        //输入文本,文本文字个数需要限制.
-        //只显示前几个字符 
 
-        static CMDNode cMDNode = new CMDNode();
-        public static CMDNode Single { get { return cMDNode; } }
+        static CMDData cMDData = new CMDData();
+        public static CMDData Single { get { return cMDData; } }
 
         /// <summary>
         /// 绘制节点  不需要 分步骤移动的 走,
@@ -23,12 +20,12 @@ namespace 命令
         /// 节点分 一种带一个箭头尾巴 ,一种不带 也可以带节点 不绘制
         /// </summary>
 
-        
-        static GraphNode Temp;
 
-        CMDNode() { }
+        static GraphData Temp;
 
-       
+        CMDData() { }
+
+
         public override void Start()
         {
             if (IsContinue == false)
@@ -42,20 +39,20 @@ namespace 命令
         {
             if (!IsContinue) return;
             TempPrims.Clear();
-            Temp = new GraphNode();
+            Temp = new GraphData();
             TempPrims.Add(Temp);
-            GraphText.BaseTxt = Temp.NodeText.Text;
+            GraphText.BaseTxt = Temp.DataText.Text;
             Step = 0;
         }
 
         public override void End()
         {
-            var p = Temp.NodeCircle.Center;
+          
             Temp.Effective = true;
             Primitive.CurrentGraphics.Add(Temp);
             TempPrims.Clear();
-            Temp = new GraphNode();
-            TempPrims.Add(Temp);           
+            Temp = new GraphData();
+            TempPrims.Add(Temp);
             Step = 1;
         }
         public override void Stop()
@@ -64,29 +61,29 @@ namespace 命令
         }
         public override void Init()
         {
-            Temp.NodeText.Text = GraphText.BaseTxt;
-            Temp.NodeText.TXTPosition = new Point2d(Primitive.ResultX, Primitive.ResultY);
-            Temp.NodeText.TxtSize = 10.0;
+            Temp.DataText.Text = GraphText.BaseTxt;
+            Temp.DataText.TXTPosition = new Point2d(Primitive.ResultX, Primitive.ResultY);
+            Temp.DataText.TxtSize = 10.0;
             End();
         }
-      
+
         public override bool MouseMove(MouseEventArgs e)
         {
-            var p = new Point2d(Primitive.ResultX, Primitive.ResultY);
-            Temp.NodeCircle.Center = p;
-            Temp.NodeText.TXTPosition = p;
+            var p = new Point2d(Primitive.ResultX, Primitive.ResultY);          
+            Temp.DataRectangle.Reset(p);
+            var size = Temp.DataRectangle.getSize();
+            Temp.DataText.TXTPosition = new Point2d((p.X ), (p.Y+(size.Height/2) ));
             return true;
         }
         public override bool pictureBoxKeyDown(PreviewKeyDownEventArgs e)
         {
             //回车键
-            if (e.KeyCode == Keys.Return)
+            if (e.KeyCode == Keys.Escape)
             {
 
-                IsContinue = false;              
+                IsContinue = false;
             }
             return true;
         }
-
     }
 }

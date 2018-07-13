@@ -12,38 +12,45 @@ namespace 图元
         /// <summary>
         /// 矩形框
         /// </summary>
-        public  GraphRectangle graphRectangle { get; set; } 
-        /// <summary>
-        /// 文字
-        /// </summary>
-        public  string dataText { get; set; }
-        /// <summary>
-        /// 文字位置(矩形中心)
-        /// 文字高度不大于矩形高度,长度不大于矩形长度
-        /// </summary>
-        public  Point2d textLocation { get; set; }
+        public  GraphRectangle DataRectangle { get; set; } 
+        public GraphText DataText { get; set; }
+        public GraphData(GraphRectangle rec, GraphText txt)
+        {
+            this.DataRectangle = rec;
+            this.DataText = txt;
+        }
+        public GraphData() : this(
+            new GraphRectangle(new Point2d (),10,20),
+             new GraphText(new Point2d(), "A", 10))
+        { }
+        public void Init()
+        {
+            var starP = DataRectangle.StartPoint;
+            var txtPoint = new Point2d((starP.X+1), (starP.Y + (DataRectangle.Height / 2)));
+            DataText.TXTPosition = txtPoint;
+        }
 
         public override void Draw(Graphics g)
         {
-            //绘制矩形框,在矩形框内添加文字
-            //先获取文字,在生成矩形框  文字大小固定/? 依据屏幕大小或者固定大小
-            //graphRectangle.Init();
-            graphRectangle.Draw(g);
+            Init();
+            DataRectangle.Draw(g);
+            DataText.Draw(g);
+
         }
        
 
         public override void Extent()
         {
-            AddExtent(graphRectangle.StartPoint);
-            AddExtent(graphRectangle.EndPoint);
-            AddExtent(graphRectangle.StartPoint.X, graphRectangle.EndPoint.Y);
-            AddExtent(graphRectangle.EndPoint.X, graphRectangle.StartPoint.Y);
+            AddExtent(DataRectangle.StartPoint);
+            AddExtent(DataRectangle.EndPoint);
+            AddExtent(DataRectangle.StartPoint.X, DataRectangle.EndPoint.Y);
+            AddExtent(DataRectangle.EndPoint.X, DataRectangle.StartPoint.Y);
         }
 
         public override void FirstPoint(out double x, out double y)
         {
-            x = graphRectangle.StartPoint.X;
-            y = graphRectangle.StartPoint.Y;
+            x = DataRectangle.StartPoint.X;
+            y = DataRectangle.StartPoint.Y;
         }
     }
 }

@@ -39,6 +39,7 @@ namespace 图元
         public static StringFormat stringFormat = new StringFormat() { LineAlignment = StringAlignment.Far };
 
         public GraphText() : this(new Point2d(), "", 4.0) { }
+      
         public GraphText(Point2d position, string text, double size)
         {
             DrawPen = Pens.Red;

@@ -35,10 +35,10 @@
             this.toolLine = new System.Windows.Forms.ToolStripLabel();
             this.tooltext = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolNode = new System.Windows.Forms.ToolStripLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolNode = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -101,6 +101,14 @@
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(32, 22);
             this.toolStripLabel1.Text = "数据";
+            this.toolStripLabel1.Click += new System.EventHandler(this.toolStripLabel1_Click);
+            // 
+            // toolNode
+            // 
+            this.toolNode.Name = "toolNode";
+            this.toolNode.Size = new System.Drawing.Size(32, 22);
+            this.toolNode.Text = "节点";
+            this.toolNode.Click += new System.EventHandler(this.toolNode_Click);
             // 
             // pictureBox1
             // 
@@ -111,6 +119,7 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             this.pictureBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.pictureBox1_PreviewKeyDown);
@@ -130,13 +139,6 @@
             this.StatusLabelXY.Name = "StatusLabelXY";
             this.StatusLabelXY.Size = new System.Drawing.Size(131, 17);
             this.StatusLabelXY.Text = "toolStripStatusLabel1";
-            // 
-            // toolNode
-            // 
-            this.toolNode.Name = "toolNode";
-            this.toolNode.Size = new System.Drawing.Size(32, 22);
-            this.toolNode.Text = "节点";
-            this.toolNode.Click += new System.EventHandler(this.toolNode_Click);
             // 
             // Form1
             // 

@@ -22,20 +22,19 @@ namespace 命令
             if (IsContinue == false)
             {
                 IsContinue = true;
-               
+                Begin();
             }
             //需要显示textbox 加载文字功能. 
             //但是这不部分在form 中,
-            //Begin();
+            //;
         }
         public override void Begin()
         {
-            Temp = new GraphText();
-            Init();
-            Temp.Effective = true;
-            Primitive.CurrentGraphics.Add(Temp);
-
-
+            Temp = new GraphText();          
+        }
+        public override void End()
+        {
+            Primitive.CurrentGraphics.Add(Temp); 
         }
 
         public override void Stop()
@@ -47,18 +46,18 @@ namespace 命令
             //SetPrimitiveData(Primitive.ResultX, Primitive.ResultY);
             return true;
         }
-
-        private void SetPrimitiveData(double resultX, double resultY)
+        public override bool DoubleClick(object sender, EventArgs e)
         {
-
-           
+            return base.DoubleClick(sender, e);
         }
 
-        public static  void Init()
+
+        public override  void Init()
         {
             Temp.Text = GraphText.BaseTxt;
             Temp.TXTPosition = new Point2d(Primitive.ResultX, Primitive.ResultY);
             Temp.TxtSize = 10.0;
+            End();
         }
 
        

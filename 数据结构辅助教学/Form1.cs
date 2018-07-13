@@ -90,6 +90,7 @@ namespace 数据结构辅助教学
             txtWords.Visible = false;
             txtWords.Font = new Font("宋体", 14);
             txtWords.BorderStyle = BorderStyle.FixedSingle;
+            txtWords.Width = 30;
             lblWords.Visible = false;
             lblWords.Font = new Font("宋体", 14);
             txtWords.Location = new Point(0, 0);
@@ -99,7 +100,9 @@ namespace 数据结构辅助教学
             txtWords.VisibleChanged += txtWords_VisibleChanged;
             txtWords.TextChanged += txtWords_TextChanged;
             txtWords.PreviewKeyDown += txtWords_PreviewKeyDown;
-          
+            txtWords.KeyPress += txtWords_KeyPress;
+
+
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -191,7 +194,7 @@ namespace 数据结构辅助教学
             //MessageBox.Show(PrimitiveCMDBase.TempPrims.Count.ToString());
             ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);           
             ScreenLastPoint = new Point(e.Location.X, e.Location.Y);
-            SurveyLastPoint = new Point2d(Primitive.ResultX, Primitive.ResultY);
+            
             if (StartWriting)
             {
                 IsWriting = true;
@@ -228,10 +231,6 @@ namespace 数据结构辅助教学
             StartWriting = true;
           
 
-          
-
-
-
         }
         /// <summary>
         /// 文字功能启用
@@ -245,7 +244,9 @@ namespace 数据结构辅助教学
             {
                 txtWords.Location = new Point (ScreenLastPoint.X-5,ScreenLastPoint.Y+50);
                 txtWords.ReadOnly = false;
+                txtWords.Text = GraphText.BaseTxt;
                 txtWords.Focus();
+                txtWords.Select(txtWords.TextLength, 0);
             }
             else
             {
@@ -266,8 +267,9 @@ namespace 数据结构辅助教学
             {
                 //this.pictureBox1.Enabled = false;
                 txtWords.Enabled = true;
-                txtWords.BringToFront();
+                txtWords.BringToFront();              
                 txtWords.Focus();
+                
             }
             else
             {
@@ -289,7 +291,7 @@ namespace 数据结构辅助教学
                     TxtResult = txtWords.Text;                   
                     txtWords.Visible = false;
                     GraphText.BaseTxt = txtWords.Text;
-                    PCommand.Begin();
+                    PCommand.Init ();
                     pictureBox1.Invalidate();
                     lblWords.Text = "";
                     txtWords.Text = "";
@@ -319,11 +321,29 @@ namespace 数据结构辅助教学
                 txtWords.Width = lblWords.Width + 10;
             }
         }
+        private void txtWords_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == System.Convert.ToChar(13))
+            {
+                e.Handled = true;
+            }
+        }
 
         private void toolNode_Click(object sender, EventArgs e)
         {
             PCommand = CMDNode.Single;
             StartWriting = true;
+        }
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+            PCommand = CMDData.Single;
+            StartWriting = true;
+        }
+
+        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+            StartWriting = false;
         }
     }
 }

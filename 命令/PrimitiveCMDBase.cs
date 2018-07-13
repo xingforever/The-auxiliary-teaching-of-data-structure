@@ -48,7 +48,11 @@ namespace 命令
         /// <summary>
         /// 结束绘制
         /// </summary>
-        public virtual void Stop() { }        
+        public virtual void Stop() { }    
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public virtual void Init() { }
 
         /// <summary>
         /// 鼠标按下
@@ -95,9 +99,18 @@ namespace 命令
         {
             return false;
         }
+        /// <summary>
+        /// 双击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public virtual bool  DoubleClick(object sender, EventArgs e)
+        {
+            return false;
+        }
 
 
-       
         /// <summary>
         /// 鼠标滚轮移动
         /// </summary>
