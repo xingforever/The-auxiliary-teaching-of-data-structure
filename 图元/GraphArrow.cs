@@ -21,7 +21,7 @@ namespace 图元
             var y1 = (float)StartPoint.Y;
            var  x2 = (float)EndPoint.X;
            var  y2 = (float)EndPoint.Y;
-            var arrawPen = new Pen(Color.Black);
+            var arrawPen = new Pen(Color.Black,2.5f);
             arrawPen.StartCap = LineCap.Round;
             arrawPen.EndCap = LineCap.ArrowAnchor;
             g.DrawLine(arrawPen, x1, y1, x2, y2);

@@ -22,8 +22,8 @@ namespace 命令
             if (IsContinue == false)
             {
                 IsContinue = true;
-                Begin();
             }
+            Begin();
             //需要显示textbox 加载文字功能. 
             //但是这不部分在form 中,
             //;
@@ -54,6 +54,7 @@ namespace 命令
 
         public override  void Init()
         {
+            Start();
             Temp.Text = GraphText.BaseTxt;
             Temp.TXTPosition = new Point2d(Primitive.ResultX, Primitive.ResultY);
             Temp.TxtSize = 10.0;

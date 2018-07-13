@@ -44,12 +44,8 @@ namespace 图元
             x1 = (float)StartPoint.X;
             y1 = (float)StartPoint.Y;
             x2 = (float)EndPoint.X;
-            y2 = (float)EndPoint.Y;
-            var arrawPen = new Pen (Color.Black);
-            arrawPen.StartCap = LineCap.Round;
-            arrawPen.EndCap = LineCap.ArrowAnchor;
-
-            g.DrawLine(arrawPen, x1, y1, x2, y2);
+            y2 = (float)EndPoint.Y;            
+            g.DrawLine(DrawPen, x1, y1, x2, y2);
         }
 
         public override void Extent()
@@ -74,7 +70,11 @@ namespace 图元
             EndPoint.Y = TempPoints[1].Y ;
         }
 
-
+        public override bool Select()
+        {
+            return IsOnLine(StartPoint, EndPoint, ViewPort.MouseSurveyX, ViewPort.MouseSurveyY);
+        }
+       
         //public static bool LineSnap(Point2d StartPoint, Point2d EndPoint)
         //{
         //    if (IsOnLine(StartPoint, EndPoint, ViewPort.MouseSurveyX, ViewPort.MouseSurveyY) == false) return false;

@@ -64,6 +64,17 @@ namespace 图元
             g.Transform = ViewPort.matrix;
         }
 
+        public override bool Select()
+        {
+            var angle = TxtRotationAngle - Math.PI / 2;
+            var w = TxtSize * Text.Length;
+            if (Text.Length > 2) w /= 2;
+            p1.X = TXTPosition.X + TxtSize * Math.Cos(angle) / 2;
+            p1.Y = TXTPosition.Y + TxtSize * Math.Sin(angle) / 2;
+            p2.X = p1.X + w * Math.Cos(TxtRotationAngle);
+            p2.Y = p1.Y + w * Math.Sin(TxtRotationAngle);
+            return IsOnLine(p1, p2, ViewPort.MouseSurveyX, ViewPort.MouseSurveyY, SelectDistance);
+        }
         public override void Extent()
         {
             AddExtent(TXTPosition.X, TXTPosition.Y);

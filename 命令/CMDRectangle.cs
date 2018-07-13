@@ -19,9 +19,9 @@ namespace 命令
         {
             if (IsContinue == false)
             {
-                IsContinue = true;
-                Begin();
+                IsContinue = true;              
             }
+            Begin();
         }
 
         public override void Begin()

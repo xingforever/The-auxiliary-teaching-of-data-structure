@@ -42,6 +42,18 @@ namespace 图元
             
         }
 
+        public override bool Select()
+        {
+            var s = Center.Distance(ViewPort.MouseSurveyX, ViewPort.MouseSurveyY);
+            if (Math.Abs(s - Radius) < SelectDistance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public override void FirstPoint(out double x, out double y)
         {
            x=Center.X;

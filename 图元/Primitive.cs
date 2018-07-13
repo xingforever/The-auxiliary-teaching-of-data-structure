@@ -21,6 +21,7 @@ namespace 图元
         public   Primitive()
         {
             DrawPen = NormalPen;
+            DrawPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             DrawBrush = NormalBrush;          
 
         }

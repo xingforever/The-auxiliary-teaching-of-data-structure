@@ -8,38 +8,33 @@ using 图元;
 
 namespace 命令
 {
-   public   class CMDLine:PrimitiveCMDBase
+   public  class CMDArrow:PrimitiveCMDBase
     {
-        static CMDLine cMDLine = new CMDLine();
-        public static CMDLine Single { get { return cMDLine; } }
+        static CMDArrow cMDLine = new CMDArrow();
+        public static CMDArrow Single { get { return cMDLine; } }
 
-        static GraphLine Temp;
+        static GraphArrow Temp;
 
-        CMDLine() { }
+        CMDArrow() { }
 
         public override void Start()
         {
-            if (IsContinue == false) {
+            if (IsContinue == false)
+            {
                 IsContinue = true;
-               
+                Begin();
             }
-            Begin();
         }
         public override void Stop()
         {
             IsContinue = false;
-         }
+        }
         public override void Begin()
         {
-            if (IsContinue == true)
-            {
-                TempPrims.Clear();
-                Temp = new GraphLine();
-                TempPrims.Add(Temp);
-                Step = 0;
-
-            }
-            
+            TempPrims.Clear();
+            Temp = new GraphArrow();
+            TempPrims.Add(Temp);
+            Step = 0;
         }
 
 
@@ -49,7 +44,7 @@ namespace 命令
             Temp.Effective = true;
             Primitive.CurrentGraphics.Add(Temp);
             TempPrims.Clear();
-            Temp = new GraphLine();
+            Temp = new GraphArrow();
             TempPrims.Add(Temp);
             Temp.StartPoint.X = p.X;
             Temp.StartPoint.Y = p.Y;
@@ -57,7 +52,7 @@ namespace 命令
         }
         public override bool MouseUp(MouseEventArgs e)
         {
-            
+
             SetPrimitiveData(Primitive.ResultX, Primitive.ResultY);
             return true;
         }
@@ -81,7 +76,7 @@ namespace 命令
                 End();
             }
         }
-       
+
         public override bool MouseMove(MouseEventArgs e)
         {
             if (Step == 1)
@@ -99,13 +94,12 @@ namespace 命令
                 Start();
                 return true;
             }
-            else if(e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
             {
-               
+                Stop();
                 return false;
             }
             return false;
         }
-        
     }
 }

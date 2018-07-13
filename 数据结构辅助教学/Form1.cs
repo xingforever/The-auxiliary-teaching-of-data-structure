@@ -17,33 +17,33 @@ namespace 数据结构辅助教学
         public static Form1 form1;      
         public TextBox txtWords = new TextBox();
         public  Label lblWords = new Label();
-
         //图元命令
-        PrimitiveCMDBase  primitive_Command;
-    
+        PrimitiveCMDBase  primitive_Command;    
         //基础设置
-        SettingBase SettingBase;
+        SettingBase SettingBase;      
+        ///是否启用文字编辑        
+        public static  bool StartWriting { get; set; } = false;       
+        ///正在编辑       
+        public  static  bool IsWriting { get; set; } = false;
+        //文字结果    
+        public string TxtResult { get; set; } = "";
+        // 鼠标最后确定屏幕坐标      
+        public Point ScreenLastPoint { get; set; } = new Point();
         /// <summary>
-        /// 是否启用文字编辑
+        /// 开启图元选择功能
         /// </summary>
-        public static  bool StartWriting { get; set; } = false;
+        public bool IsSelect { get; set; } = true;
         /// <summary>
-        /// 正在编辑
+        /// 开启视窗平移
         /// </summary>
-         public  static  bool IsWriting { get; set; } = false;
+        public bool IsMoveViewport { get; set; } = false;
         /// <summary>
-        /// 文字结果
+        /// 点捕捉
         /// </summary>
+        public bool IsSnap { get; set; } = false;
 
-        public  string TxtResult { get; set; }
-        /// <summary>
-        /// 鼠标最后确定屏幕坐标
-        /// </summary>
-        public  Point ScreenLastPoint { get; set; }
-        public  Point2d SurveyLastPoint { get; set; }
-       
-        
-       
+
+
         PrimitiveCMDBase PCommand
         {
             get
@@ -91,6 +91,7 @@ namespace 数据结构辅助教学
             txtWords.Font = new Font("宋体", 14);
             txtWords.BorderStyle = BorderStyle.FixedSingle;
             txtWords.Width = 30;
+            txtWords.Enabled = false;
             lblWords.Visible = false;
             lblWords.Font = new Font("宋体", 14);
             txtWords.Location = new Point(0, 0);
@@ -121,11 +122,8 @@ namespace 数据结构辅助教学
                 if (pr.Effective == true)
                 {
                     pr.Draw(g);
-                }
-                              
-            }
-
-           
+                }                              
+            }          
 
         }
 
@@ -207,21 +205,7 @@ namespace 数据结构辅助教学
            
         }
 
-        private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (PCommand != null && PCommand.pictureBoxKeyDown(e))
-            {
-                pictureBox1.Invalidate();
-            }
-            if (e.KeyCode == Keys.ControlKey)
-            {
-               // IsRPress = true;
-            }
-            else
-            {
-                //IsRPress = false;
-            }
-        }
+     
 
         private void tooltext_Click(object sender, EventArgs e)
         {
@@ -273,8 +257,8 @@ namespace 数据结构辅助教学
             }
             else
             {
-               // txtWords.Enabled = false;
-               // this.pictureBox1.Enabled = true;
+               txtWords.Enabled = false;
+                //this.pictureBox1.Enabled = true;
                 txtWords.SendToBack();
                 this.pictureBox1.Focus();
 
@@ -302,7 +286,8 @@ namespace 数据结构辅助教学
                 {
                     StartWriting = false;
                     IsWriting = false;
-                    txtWords.Visible = false;                   
+                    txtWords.Visible = false;
+                    txtWords.Enabled = false;
                     txtWords.Text = "";
                     pictureBox1.Invalidate();
                 }
@@ -344,6 +329,32 @@ namespace 数据结构辅助教学
         private void pictureBox1_DoubleClick(object sender, EventArgs e)
         {
             StartWriting = false;
+        }
+
+        private void toolArrow_Click(object sender, EventArgs e)
+        {
+            PCommand = CMDArrow.Single;
+        }
+
+        private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (PCommand != null && PCommand.pictureBoxKeyDown(e))
+            {
+                pictureBox1.Invalidate();
+            }
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                // IsRPress = true;
+            }
+            else
+            {
+                //IsRPress = false;
+            }
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox1.Focus();
         }
     }
 }

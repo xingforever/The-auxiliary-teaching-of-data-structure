@@ -79,13 +79,17 @@ namespace 命令
         }
         public override bool pictureBoxKeyDown(PreviewKeyDownEventArgs e)
         {
-            //回车键
-            if (e.KeyCode == Keys.Return)
+            if (e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
             {
-
-                IsContinue = false;              
+                Start();
+                return true;
             }
-            return true;
+            else if (e.KeyCode == Keys.Escape)
+            {
+                IsContinue = false;
+                return false;
+            }
+            return false;
         }
 
     }

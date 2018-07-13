@@ -33,7 +33,7 @@ namespace 图元
         /// <summary>
         /// X最大值
         /// </summary>
-        public static double Xmax { get; set; } = 600;
+        public static double Xmax { get; set; } = 300;
         /// <summary>
         /// Y最小值
         /// </summary>
@@ -41,7 +41,7 @@ namespace 图元
         /// <summary>
         /// Y最大值
         /// </summary>
-        public static double Ymax { get; set; } = 1366;
+        public static double Ymax { get; set; } = 800;
         /// <summary>
         /// 绘图笔
         /// </summary>
@@ -50,7 +50,7 @@ namespace 图元
         /// 填充
         /// </summary>
         public static Brush DrawBrush { get; set; }
-        public static Pen NormalPen = Pens.Black;
+        public static Pen NormalPen = new Pen(Color.Black, 1.0f);
         public static Brush NormalBrush = Brushes.Black;
 
         /// <summary>

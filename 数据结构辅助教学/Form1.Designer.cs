@@ -36,6 +36,7 @@
             this.tooltext = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolNode = new System.Windows.Forms.ToolStripLabel();
+            this.toolArrow = new System.Windows.Forms.ToolStripLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
@@ -68,7 +69,8 @@
             this.toolLine,
             this.tooltext,
             this.toolStripLabel1,
-            this.toolNode});
+            this.toolNode,
+            this.toolArrow});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
@@ -110,6 +112,13 @@
             this.toolNode.Text = "节点";
             this.toolNode.Click += new System.EventHandler(this.toolNode_Click);
             // 
+            // toolArrow
+            // 
+            this.toolArrow.Name = "toolArrow";
+            this.toolArrow.Size = new System.Drawing.Size(32, 22);
+            this.toolArrow.Text = "箭头";
+            this.toolArrow.Click += new System.EventHandler(this.toolArrow_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -120,6 +129,7 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
+            this.pictureBox1.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             this.pictureBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.pictureBox1_PreviewKeyDown);
@@ -180,6 +190,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripLabel tooltext;
         private System.Windows.Forms.ToolStripLabel toolNode;
+        private System.Windows.Forms.ToolStripLabel toolArrow;
     }
 }
 
