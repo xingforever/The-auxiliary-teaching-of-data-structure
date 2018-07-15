@@ -74,7 +74,43 @@ namespace 图元
         {
             return IsOnLine(StartPoint, EndPoint, ViewPort.MouseSurveyX, ViewPort.MouseSurveyY);
         }
-       
+
+        public override bool Snap()
+        {
+            //鼠标位置是否在 线上
+            if (IsOnLine(StartPoint, EndPoint, ViewPort.MouseSurveyX, ViewPort.MouseSurveyY) == false) return false;
+            var s = StartPoint.Distance(EndPoint) / 3;
+            var s1 = StartPoint.Distance(ViewPort.MouseSurveyX, ViewPort.MouseSurveyY);
+            if (CurrentSnapTypeSet.HasFlag(SnapType.EndPoint))
+            {
+                if (s1 < s)
+                {
+                    SnapResultType = SnapType.EndPoint;
+                    ResultX = StartPoint.X;
+                    ResultY = StartPoint.Y;
+                    return true;
+                }
+                else if (s1 > 2 * s)
+                {
+                    SnapResultType = SnapType.EndPoint;
+                    ResultX = EndPoint.X;
+                    ResultY = EndPoint.Y;
+                    return true;
+                }
+            }
+            if (CurrentSnapTypeSet.HasFlag(SnapType.MidPoint))
+            {
+                if (s1 > s && s1 < 2 * s)
+                {
+                    SnapResultType = SnapType.MidPoint;
+                    ResultX = (StartPoint.X + EndPoint.X) / 2;
+                    ResultY = (StartPoint.Y + EndPoint.Y) / 2;
+                    return true;
+                }
+            }
+            return false;
+        }
+
         //public static bool LineSnap(Point2d StartPoint, Point2d EndPoint)
         //{
         //    if (IsOnLine(StartPoint, EndPoint, ViewPort.MouseSurveyX, ViewPort.MouseSurveyY) == false) return false;

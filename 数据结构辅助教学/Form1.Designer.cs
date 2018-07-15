@@ -31,10 +31,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.Rectangle = new System.Windows.Forms.ToolStripLabel();
+            this.toolRectangle = new System.Windows.Forms.ToolStripLabel();
             this.toolLine = new System.Windows.Forms.ToolStripLabel();
             this.tooltext = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolData = new System.Windows.Forms.ToolStripLabel();
             this.toolNode = new System.Windows.Forms.ToolStripLabel();
             this.toolArrow = new System.Windows.Forms.ToolStripLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -65,10 +65,10 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Rectangle,
+            this.toolRectangle,
             this.toolLine,
             this.tooltext,
-            this.toolStripLabel1,
+            this.toolData,
             this.toolNode,
             this.toolArrow});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
@@ -77,12 +77,12 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // Rectangle
+            // toolRectangle
             // 
-            this.Rectangle.Name = "Rectangle";
-            this.Rectangle.Size = new System.Drawing.Size(32, 22);
-            this.Rectangle.Text = "矩形";
-            this.Rectangle.Click += new System.EventHandler(this.Rectangle_Click);
+            this.toolRectangle.Name = "toolRectangle";
+            this.toolRectangle.Size = new System.Drawing.Size(32, 22);
+            this.toolRectangle.Text = "矩形";
+            this.toolRectangle.Click += new System.EventHandler(this.toolRectangle_Click);
             // 
             // toolLine
             // 
@@ -98,12 +98,12 @@
             this.tooltext.Text = "文字";
             this.tooltext.Click += new System.EventHandler(this.tooltext_Click);
             // 
-            // toolStripLabel1
+            // toolData
             // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(32, 22);
-            this.toolStripLabel1.Text = "数据";
-            this.toolStripLabel1.Click += new System.EventHandler(this.toolStripLabel1_Click);
+            this.toolData.Name = "toolData";
+            this.toolData.Size = new System.Drawing.Size(32, 22);
+            this.toolData.Text = "数据";
+            this.toolData.Click += new System.EventHandler(this.toolData_Click);
             // 
             // toolNode
             // 
@@ -147,8 +147,8 @@
             // StatusLabelXY
             // 
             this.StatusLabelXY.Name = "StatusLabelXY";
-            this.StatusLabelXY.Size = new System.Drawing.Size(131, 17);
-            this.StatusLabelXY.Text = "toolStripStatusLabel1";
+            this.StatusLabelXY.Size = new System.Drawing.Size(29, 17);
+            this.StatusLabelXY.Text = "X:Y:";
             // 
             // Form1
             // 
@@ -182,12 +182,12 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripMenuItem 开始ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripLabel Rectangle;
+        private System.Windows.Forms.ToolStripLabel toolRectangle;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabelXY;
         private System.Windows.Forms.ToolStripLabel toolLine;
         public System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel toolData;
         private System.Windows.Forms.ToolStripLabel tooltext;
         private System.Windows.Forms.ToolStripLabel toolNode;
         private System.Windows.Forms.ToolStripLabel toolArrow;

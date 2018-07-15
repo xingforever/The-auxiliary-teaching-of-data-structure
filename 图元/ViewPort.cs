@@ -148,10 +148,19 @@ namespace 图元
 
             Primitive.ResultX = MouseSurveyX;
             Primitive.ResultY = MouseSurveyY;
-            //if (GraphSnaps.SnapOn)
-            //{
-            //    GraphSnaps.DoSnap();
-            //}
+            if (Primitive.SelectEnable)
+            {
+               //新的选择
+               bool isSelected= Primitive.DoSelect();
+                if (!isSelected)
+                {
+                    Primitive.CurrentSelectionPrimitive = null;
+                }
+            }
+            if (Primitive.SnapEnable)
+            {
+                Primitive.DoSnap();
+            }
         }
         /// <summary>
         /// 测量坐标点转屏幕坐标

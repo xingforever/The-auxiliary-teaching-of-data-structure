@@ -10,8 +10,13 @@ namespace 图元
     /// <summary>
     /// 捕捉图元
     /// </summary>
-  public  abstract  class PrimitiveSnap: PrimitiveSelect
+    public abstract class PrimitiveSnap : PrimitiveSelect
     {
+
+        /// <summary>
+        /// 是否启用捕捉
+        /// </summary>
+        public static bool  SnapEnable{get ;set;}
         /// <summary>
         /// 是否捕捉
         /// </summary>
@@ -45,49 +50,38 @@ namespace 图元
             CurrentSnapTypeSet = SnapType.MidPoint | SnapType.CenterPoint | SnapType.EndPoint;
             SnapOn = true;
             SnapResultType = SnapType.NULL;
+        
         }
-        public static bool DoSnap()
+
+        public static void SnapSymbolDraw(Graphics g)
         {
-            SnapResultType = SnapType.NULL;
-            foreach (var pr in Primitive.CurrentGraphics)
+            if (SnapResultType == SnapType.NULL) return;
+            var s = (float)ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
+            var x = (float)(ResultX);
+            var y = (float)(ResultY);
+            SnapPen = new Pen(Color.Black, ViewPort.InvScale * 2);        
+            switch (SnapResultType)
             {
-                if (pr.Snap()) return true;
+                case SnapType.EndPoint:
+                    g.DrawLine(SnapPen, x - s, y - s, x + s, y - s);
+                    g.DrawLine(SnapPen, x + s, y - s, x + s, y + s);
+                    g.DrawLine(SnapPen, x + s, y + s, x - s, y + s);
+                    g.DrawLine(SnapPen, x - s, y + s, x - s, y - s);
+                    break;
+                case SnapType.MidPoint:
+                    g.DrawLine(SnapPen, x - s, y - s, x - s, y + s);
+                    g.DrawLine(SnapPen, x - s, y + s, x + s, y - s);
+                    g.DrawLine(SnapPen, x + s, y - s, x + s, y + s);
+                    g.DrawLine(SnapPen, x + s, y + s, x - s, y - s);
+                    break;
+                case SnapType.CenterPoint:
+                    g.DrawEllipse(SnapPen, x - s, y - s, 2 * s, 2 * s);
+                    break;
+                default:
+                    break;
             }
-            //if (CMDEditBase.CurrentSelectionPrimitive != null)
-            //{
-            //    if (CMDEditBase.CurrentSelectionPrimitive.Snap()) return true;
-            //}
-            return false;
         }
-        //public static void SnapSymbolDraw(Graphics g)
-        //{
-        //    if (SnapResultType == SnapType.NULL) return;
-        //    var s = (float)ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
-        //    var x = (float)(ResultX );
-        //    var y = (float)(ResultY );
-        //    SnapPen.Width = ViewPort.InvScale * 2;
-        //    switch (SnapResultType)
-        //    {
-        //        case SnapType.EndPoint:
-        //            g.DrawLine(SnapPen, x - s, y - s, x + s, y - s);
-        //            g.DrawLine(SnapPen, x + s, y - s, x + s, y + s);
-        //            g.DrawLine(SnapPen, x + s, y + s, x - s, y + s);
-        //            g.DrawLine(SnapPen, x - s, y + s, x - s, y - s);
-        //            break;
-        //        case SnapType.MidPoint:
-        //            g.DrawLine(SnapPen, x - s, y - s, x - s, y + s);
-        //            g.DrawLine(SnapPen, x - s, y + s, x + s, y - s);
-        //            g.DrawLine(SnapPen, x + s, y - s, x + s, y + s);
-        //            g.DrawLine(SnapPen, x + s, y + s, x - s, y - s);
-        //            break;
-        //        case SnapType.CenterPoint:
-        //            g.DrawEllipse(SnapPen, x - s, y - s, 2 * s, 2 * s);
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
-       
+
 
     }
 }

@@ -42,6 +42,7 @@ namespace 数据结构辅助教学
         /// </summary>
         public bool IsSnap { get; set; } = false;
 
+       
 
 
         PrimitiveCMDBase PCommand
@@ -85,8 +86,12 @@ namespace 数据结构辅助教学
         /// </summary>
         public  void Init()
         {
-           SettingBase = new SettingBase(this.pictureBox1.Height,this.pictureBox1.Width);            
-          
+            //基础设置
+           SettingBase = new SettingBase(this.pictureBox1.Height,this.pictureBox1.Width);
+            //绘图设置
+            Primitive.SelectEnable = true;
+            Primitive.SnapEnable = true;
+            //控件设计
             txtWords.Visible = false;
             txtWords.Font = new Font("宋体", 14);
             txtWords.BorderStyle = BorderStyle.FixedSingle;
@@ -115,15 +120,18 @@ namespace 数据结构辅助教学
             {
                 pr.Draw(g);
 
-            }          
-           
+            }        
             foreach (var pr in Primitive.CurrentGraphics)
             {
                 if (pr.Effective == true)
                 {
                     pr.Draw(g);
                 }                              
-            }          
+            }
+            //旧-未选择
+            Primitive.UnSelectDraw(g);
+            Primitive.SelectDraw(g);
+            Primitive.SnapSymbolDraw(g);
 
         }
 
@@ -147,20 +155,27 @@ namespace 数据结构辅助教学
         {
             //设置图元选择距离
             Primitive.SelectDistance = ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
+            //无命令
+            //文字功能
+            //图元功能     
+
+
+
+
             if (IsWriting) { return; }
-            ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
+            if (PCommand != null)
+            {
+                Primitive.SelectEnable = false;
+            }
+            ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);           
              if (PCommand != null && PCommand.MouseMove(e))
             {
-                //IsPanViewport = false;
+               
             }
             else if(StartWriting)
             {              
                 TextFunction(e.Location.X, e.Location.Y);
-            }
-            else if (PCommand != null && PCommand.MouseMove(e))
-            {
-                //IsPanViewport = false;
-            }
+            }         
             //按下鼠标左键
             else if (e.Button == MouseButtons.Left)
             {
@@ -176,36 +191,72 @@ namespace 数据结构辅助教学
 
         }
 
-        private void Rectangle_Click(object sender, EventArgs e)
+
+        private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            PCommand = CMDRectangle.Single;
+            if (e.KeyCode == Keys.Escape)
+            {
+                Primitive.SelectEnable = true;
+                pictureBox1.Invalidate();
+                PCommand = null;
+                StartWriting = false;
+                IsWriting = false;
+                return;
+            }
+            if (PCommand != null && PCommand.pictureBoxKeyDown(e))
+            {
+                Primitive.SelectEnable = true;
+                pictureBox1.Invalidate();
+
+            }
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                // IsRPress = true;
+            }
+            else
+            {
+                //IsRPress = false;
+            }
         }
 
-        private void toolLine_Click(object sender, EventArgs e)
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
         {
-            PCommand = CMDLine.Single;
+            pictureBox1.Focus();
         }
-
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (IsWriting) { return; }
             //MessageBox.Show(PrimitiveCMDBase.TempPrims.Count.ToString());
-            ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);           
+            ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
             ScreenLastPoint = new Point(e.Location.X, e.Location.Y);
-            
+
             if (StartWriting)
             {
                 IsWriting = true;
-                TextFunction(e.Location.X, e.Location.Y);                
+                TextFunction(e.Location.X, e.Location.Y);
             }
-           else  if ( PCommand != null && PCommand.MouseUp(e))
+            else if (PCommand != null && PCommand.MouseUp(e))
             {
                 pictureBox1.Invalidate();
             }
-           
+
         }
 
-     
+        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+            StartWriting = false;
+        }
+         
+
+        private void toolRectangle_Click(object sender, EventArgs e)
+        {
+            PCommand = CMDRectangle.Single;
+        }
+        
+        private void toolLine_Click(object sender, EventArgs e)
+        {
+            PCommand = CMDLine.Single;
+        }
 
         private void tooltext_Click(object sender, EventArgs e)
         {
@@ -216,55 +267,45 @@ namespace 数据结构辅助教学
           
 
         }
-        /// <summary>
-        /// 文字功能启用
-        /// </summary>
-        public void TextFunction(int x,int y)
+                   
+         private void toolNode_Click(object sender, EventArgs e)
         {
-            //textbox的位置对应的是整个界面的,
-            //而picturebox的是部分 y+50左右
-            txtWords.Visible = true;
-            if (IsWriting)
-            {
-                txtWords.Location = new Point (ScreenLastPoint.X-5,ScreenLastPoint.Y+50);
-                txtWords.ReadOnly = false;
-                txtWords.Text = GraphText.BaseTxt;
-                txtWords.Focus();
-                txtWords.Select(txtWords.TextLength, 0);
-            }
-            else
-            {
-               // pictureBox1.Focus();
-                txtWords.Location = new Point(x+10, y+50);               
-                txtWords.ReadOnly = true;
-            }
-          
+            PCommand = CMDNode.Single;
+            StartWriting = true;
         }
-       
 
-       
+        private void toolData_Click(object sender, EventArgs e)
+        {
+            PCommand = CMDData.Single;
+            StartWriting = true;
+        }    
 
+        private void toolArrow_Click(object sender, EventArgs e)
+        {
+            PCommand = CMDArrow.Single;
+        }
 
+        
         private void txtWords_VisibleChanged(object sender, EventArgs e)
         {
             if (txtWords.Visible == true)
             {
                 //this.pictureBox1.Enabled = false;
                 txtWords.Enabled = true;
-                txtWords.BringToFront();              
+                txtWords.BringToFront();
                 txtWords.Focus();
-                
+
             }
             else
             {
-               txtWords.Enabled = false;
+                txtWords.Enabled = false;
                 //this.pictureBox1.Enabled = true;
                 txtWords.SendToBack();
                 this.pictureBox1.Focus();
 
             }
         }
-       
+
         private void txtWords_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (StartWriting)
@@ -272,17 +313,18 @@ namespace 数据结构辅助教学
                 //回车键
                 if (e.KeyCode == Keys.Return)
                 {
-                    TxtResult = txtWords.Text;                   
+                    TxtResult = txtWords.Text;
                     txtWords.Visible = false;
                     GraphText.BaseTxt = txtWords.Text;
-                    PCommand.Init ();
+                    PCommand.Init();
                     pictureBox1.Invalidate();
                     lblWords.Text = "";
                     txtWords.Text = "";
                     txtWords.Width = 60;
                     IsWriting = false;
 
-                }else if (e.KeyCode == Keys.Escape)
+                }
+                else if (e.KeyCode == Keys.Escape)
                 {
                     StartWriting = false;
                     IsWriting = false;
@@ -291,11 +333,10 @@ namespace 数据结构辅助教学
                     txtWords.Text = "";
                     pictureBox1.Invalidate();
                 }
-                    
+
             }
         }
 
-       
         private void txtWords_TextChanged(object sender, EventArgs e)
         {
             lblWords.AutoSize = true;
@@ -314,47 +355,27 @@ namespace 数据结构辅助教学
             }
         }
 
-        private void toolNode_Click(object sender, EventArgs e)
+       
+        public void TextFunction(int x, int y)
         {
-            PCommand = CMDNode.Single;
-            StartWriting = true;
-        }
-
-        private void toolStripLabel1_Click(object sender, EventArgs e)
-        {
-            PCommand = CMDData.Single;
-            StartWriting = true;
-        }
-
-        private void pictureBox1_DoubleClick(object sender, EventArgs e)
-        {
-            StartWriting = false;
-        }
-
-        private void toolArrow_Click(object sender, EventArgs e)
-        {
-            PCommand = CMDArrow.Single;
-        }
-
-        private void pictureBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (PCommand != null && PCommand.pictureBoxKeyDown(e))
+            //textbox的位置对应的是整个界面的,
+            //而picturebox的是部分 y+50左右
+            txtWords.Visible = true;
+            if (IsWriting)
             {
-                pictureBox1.Invalidate();
-            }
-            if (e.KeyCode == Keys.ControlKey)
-            {
-                // IsRPress = true;
+                txtWords.Location = new Point(ScreenLastPoint.X - 5, ScreenLastPoint.Y + 50);
+                txtWords.ReadOnly = false;
+                txtWords.Text = GraphText.BaseTxt;
+                txtWords.Focus();
+                txtWords.Select(txtWords.TextLength, 0);
             }
             else
             {
-                //IsRPress = false;
+                // pictureBox1.Focus();
+                txtWords.Location = new Point(x + 10, y + 50);
+                txtWords.ReadOnly = true;
             }
-        }
 
-        private void pictureBox1_MouseEnter(object sender, EventArgs e)
-        {
-            pictureBox1.Focus();
         }
     }
 }

@@ -26,8 +26,41 @@ namespace 图元
 
         }
 
+        /// <summary>
+        /// 是否被选中
+        /// </summary>
+        /// <returns></returns>
+        public static  bool DoSelect()
+        {
+            foreach (var pr in CurrentGraphics)
+            {
+                if (pr.Select())
+                {
+                    Primitive.CurrentSelectionPrimitive = pr;
+                    return true;
+                }
+                   
+            }
+            return false;
+        }
+        /// <summary>
+        /// 是否捕捉成功
+        /// </summary>
+        /// <returns></returns>
+        public static bool DoSnap()
+        {
+            SnapResultType = SnapType.NULL;
+            foreach (var pr in Primitive.CurrentGraphics)
+            {
+                if (pr.Snap()) return true;
+            }
+            //if (CMDEditBase.CurrentSelectionPrimitive != null)
+            //{
+            //    if (CMDEditBase.CurrentSelectionPrimitive.Snap()) return true;
+            //}
+            return false;
+        }
 
-        
         /// <summary>
         /// 获取所有图元范围
         /// </summary>

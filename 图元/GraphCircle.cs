@@ -54,6 +54,12 @@ namespace 图元
                 return false;
             }
         }
+
+        public override bool Snap()
+        {
+            return false;
+
+        }
         public override void FirstPoint(out double x, out double y)
         {
            x=Center.X;
