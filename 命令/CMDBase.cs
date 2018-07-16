@@ -8,7 +8,10 @@ namespace 命令
 {
    public abstract class CMDBase
     {
-
+        /// <summary>
+        /// 命令类型
+        /// </summary>
+        public  CMDType cMDType { get; set; }
         
     }
 }

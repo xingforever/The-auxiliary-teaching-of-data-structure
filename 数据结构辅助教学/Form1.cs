@@ -129,9 +129,9 @@ namespace 数据结构辅助教学
                 }                              
             }
             //旧-未选择
-            Primitive.UnSelectDraw(g);
-            Primitive.SelectDraw(g);
-            Primitive.SnapSymbolDraw(g);
+            //Primitive.UnSelectDraw(g);
+            //Primitive.SelectDraw(g);
+            //Primitive.SnapSymbolDraw(g);
 
         }
 
@@ -158,8 +158,6 @@ namespace 数据结构辅助教学
             //无命令
             //文字功能
             //图元功能     
-
-
 
 
             if (IsWriting) { return; }

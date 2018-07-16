@@ -13,6 +13,7 @@ namespace 命令
     /// </summary>
     public abstract class PrimitiveCMDBase:CMDBase
     {
+       
         /// <summary>
         /// 临时图元集合
         /// </summary>
@@ -26,8 +27,11 @@ namespace 命令
         /// </summary>
         public static bool IsContinue { get; set; }
 
-       
-       
+       public PrimitiveCMDBase()
+        {
+            cMDType = CMDType.PriCommand;
+        }
+
         /// <summary>
         /// 命令转换
         /// </summary>

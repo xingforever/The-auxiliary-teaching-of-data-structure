@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -40,10 +41,23 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
+            this.cmsPic = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolPan = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolZoom = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolCancelCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsSelectPri = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolMove = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolRotate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolCancelSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.cmsPic.SuspendLayout();
+            this.cmsSelectPri.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -121,6 +135,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.ContextMenuStrip = this.cmsSelectPri;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 50);
             this.pictureBox1.Name = "pictureBox1";
@@ -150,6 +165,82 @@
             this.StatusLabelXY.Size = new System.Drawing.Size(29, 17);
             this.StatusLabelXY.Text = "X:Y:";
             // 
+            // cmsPic
+            // 
+            this.cmsPic.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolPan,
+            this.toolZoom,
+            this.toolSelectAll,
+            this.toolCancelCommand});
+            this.cmsPic.Name = "cmsPic";
+            this.cmsPic.Size = new System.Drawing.Size(125, 92);
+            // 
+            // toolPan
+            // 
+            this.toolPan.CheckOnClick = true;
+            this.toolPan.Name = "toolPan";
+            this.toolPan.Size = new System.Drawing.Size(124, 22);
+            this.toolPan.Text = "平移";
+            // 
+            // toolZoom
+            // 
+            this.toolZoom.Name = "toolZoom";
+            this.toolZoom.Size = new System.Drawing.Size(124, 22);
+            this.toolZoom.Text = "旋转";
+            // 
+            // toolSelectAll
+            // 
+            this.toolSelectAll.Name = "toolSelectAll";
+            this.toolSelectAll.Size = new System.Drawing.Size(124, 22);
+            this.toolSelectAll.Text = "全选";
+            // 
+            // toolCancelCommand
+            // 
+            this.toolCancelCommand.Name = "toolCancelCommand";
+            this.toolCancelCommand.Size = new System.Drawing.Size(124, 22);
+            this.toolCancelCommand.Text = "取消命令";
+            // 
+            // cmsSelectPri
+            // 
+            this.cmsSelectPri.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolDelete,
+            this.toolMove,
+            this.toolCopy,
+            this.toolRotate,
+            this.toolCancelSelect});
+            this.cmsSelectPri.Name = "cmsSelectPri";
+            this.cmsSelectPri.Size = new System.Drawing.Size(125, 114);
+            // 
+            // toolDelete
+            // 
+            this.toolDelete.Name = "toolDelete";
+            this.toolDelete.Size = new System.Drawing.Size(124, 22);
+            this.toolDelete.Text = "删除";
+            // 
+            // toolMove
+            // 
+            this.toolMove.Name = "toolMove";
+            this.toolMove.Size = new System.Drawing.Size(124, 22);
+            this.toolMove.Text = "移动";
+            // 
+            // toolCopy
+            // 
+            this.toolCopy.Name = "toolCopy";
+            this.toolCopy.Size = new System.Drawing.Size(124, 22);
+            this.toolCopy.Text = "复制";
+            // 
+            // toolRotate
+            // 
+            this.toolRotate.Name = "toolRotate";
+            this.toolRotate.Size = new System.Drawing.Size(124, 22);
+            this.toolRotate.Text = "旋转";
+            // 
+            // toolCancelSelect
+            // 
+            this.toolCancelSelect.Name = "toolCancelSelect";
+            this.toolCancelSelect.Size = new System.Drawing.Size(124, 22);
+            this.toolCancelSelect.Text = "取消选择";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -172,6 +263,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.cmsPic.ResumeLayout(false);
+            this.cmsSelectPri.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,6 +284,17 @@
         private System.Windows.Forms.ToolStripLabel tooltext;
         private System.Windows.Forms.ToolStripLabel toolNode;
         private System.Windows.Forms.ToolStripLabel toolArrow;
+        private System.Windows.Forms.ContextMenuStrip cmsPic;
+        private System.Windows.Forms.ToolStripMenuItem toolPan;
+        private System.Windows.Forms.ToolStripMenuItem toolZoom;
+        private System.Windows.Forms.ToolStripMenuItem toolSelectAll;
+        private System.Windows.Forms.ToolStripMenuItem toolCancelCommand;
+        private System.Windows.Forms.ContextMenuStrip cmsSelectPri;
+        private System.Windows.Forms.ToolStripMenuItem toolDelete;
+        private System.Windows.Forms.ToolStripMenuItem toolMove;
+        private System.Windows.Forms.ToolStripMenuItem toolCopy;
+        private System.Windows.Forms.ToolStripMenuItem toolRotate;
+        private System.Windows.Forms.ToolStripMenuItem toolCancelSelect;
     }
 }
 

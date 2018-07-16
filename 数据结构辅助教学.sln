@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "命令", "命令\命令.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "图元", "图元\图元.csproj", "{859CF5F5-6341-47A6-BD8D-1D8C1B3B9C86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "测试", "测试\测试.csproj", "{4DC72EF5-36C5-494E-B65A-0EFC354D8F57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{859CF5F5-6341-47A6-BD8D-1D8C1B3B9C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{859CF5F5-6341-47A6-BD8D-1D8C1B3B9C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{859CF5F5-6341-47A6-BD8D-1D8C1B3B9C86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC72EF5-36C5-494E-B65A-0EFC354D8F57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC72EF5-36C5-494E-B65A-0EFC354D8F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC72EF5-36C5-494E-B65A-0EFC354D8F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC72EF5-36C5-494E-B65A-0EFC354D8F57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

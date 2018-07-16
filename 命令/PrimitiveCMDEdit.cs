@@ -9,12 +9,18 @@ using 图元;
 
 namespace 命令
 {
-    public class PrimitiveCMDEdit : PrimitiveCMDBase
+    public class PrimitiveCMDEdit : CMDBase
     {
+
+      
         /// <summary>
-        /// 被选中图元
+        /// 选择时图元
         /// </summary>
         public static Primitive CurrentSelectionPrimitive { get; set; }
+        /// <summary>
+        /// 被选中图元数组
+        /// </summary>
+        public static Primitive[] CurrentSelectedPrimitives { get; set; }
         /// <summary>
         /// 选择时画笔
         /// </summary>
@@ -39,10 +45,11 @@ namespace 命令
         /// 矩阵
         /// </summary>
         public static Matrix matrix { get; set; }
-       
 
-       public  PrimitiveCMDEdit()
+
+        public PrimitiveCMDEdit()
         {
+            cMDType = CMDType.PriEditCommand;
             IsSelected = false;
             SelectedBrush = Brushes.Red;
             SelectedPen = Pens.Red;
@@ -50,6 +57,7 @@ namespace 命令
             SelectPen = Pens.Cyan;
             matrix = new Matrix();
         }
+
 
 
         public static void Draw(Graphics g)
