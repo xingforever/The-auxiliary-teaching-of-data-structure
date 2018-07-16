@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CMDCopy.cs" />
+    <Compile Include="CMDDelete.cs" />
+    <Compile Include="CMDMove.cs" />
+    <Compile Include="PictureCMDBase.cs" />
     <Compile Include="图元\CMDArrow.cs" />
     <Compile Include="CMDBase.cs" />
     <Compile Include="图元\CMDData.cs" />

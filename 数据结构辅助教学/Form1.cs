@@ -17,6 +17,21 @@ namespace 数据结构辅助教学
         public static Form1 form1;      
         public TextBox txtWords = new TextBox();
         public  Label lblWords = new Label();
+        //命令
+        CMDBase command { get; set; }
+
+        public CMDBase Command
+        {
+            get { return command; }
+            set
+            {
+                command = value;
+                if (command != null)
+                    command.Start();
+            }
+
+        }
+
         //图元命令
         PrimitiveCMDBase  primitive_Command;    
         //基础设置
@@ -137,7 +152,7 @@ namespace 数据结构辅助教学
 
         private void pictureBox1_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (PCommand != null && PCommand.MouseWheel(e))
+            if (Command != null && Command.MouseWheel(e))
             {
                 pictureBox1.Invalidate();
             }
@@ -153,11 +168,20 @@ namespace 数据结构辅助教学
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
+            //重点 事件: 
+            //第一步 判断是否有命令
+            //第二步 判断是否编辑
+            //第三步 执行命令
+
             //设置图元选择距离
             Primitive.SelectDistance = ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
             //无命令
             //文字功能
-            //图元功能     
+            //图元功能    
+            if (Command != null)
+            {
+
+            }
 
 
             if (IsWriting) { return; }
@@ -375,5 +399,7 @@ namespace 数据结构辅助教学
             }
 
         }
+
+        
     }
 }
