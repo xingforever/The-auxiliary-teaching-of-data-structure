@@ -11,7 +11,7 @@ namespace 命令
 {
     public class CMDCopy : PrimitiveCMDEdit
     {
-        //可以多选
+    
         static CMDCopy cMDCopy { get; set; }
         public static CMDCopy Single { get { return cMDCopy; } }
         public CMDCopy()
@@ -32,7 +32,9 @@ namespace 命令
             //深拷贝到临时图元,----每个图元需要写深拷贝函数
             foreach (var pri in PrimitiveCMDEdit.CurrentSelectedPrimitives)
             {
-                PrimitiveCMDBase.TempPrims.Add(pri);
+                var newPri = pri.Copy();
+                PrimitiveCMDBase.TempPrims.Add(newPri);
+
             }
            
         }
@@ -44,17 +46,15 @@ namespace 命令
         {
             base.Stop();
         }
-        public override void Draw(Graphics g)
-        {
-            base.Draw(g);
-        }
+        
 
         public override bool MouseMove(MouseEventArgs e)
         {
             //鼠标移动 ,复制的图元跟着移动
             foreach (var item in PrimitiveCMDBase.TempPrims)
             {
-                //每个图元移动
+                //每个图元根据  firstPoint 进行重置 
+
 
             }
             return true;

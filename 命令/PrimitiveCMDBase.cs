@@ -18,10 +18,7 @@ namespace 命令
         /// 临时图元集合
         /// </summary>
         public static List<Primitive> TempPrims { get; set; } = new List<Primitive>();
-        /// <summary>
-        /// 步骤
-        /// </summary>
-        public static int Step { get; set; }
+      
         /// <summary>
         /// 继续命令
         /// </summary>

@@ -46,6 +46,9 @@
     <Compile Include="CMDCopy.cs" />
     <Compile Include="CMDDelete.cs" />
     <Compile Include="CMDMove.cs" />
+    <Compile Include="CMDMoveALL.cs" />
+    <Compile Include="CMDRotateALL.cs" />
+    <Compile Include="CMDSelectALL.cs" />
     <Compile Include="PictureCMDBase.cs" />
     <Compile Include="图元\CMDArrow.cs" />
     <Compile Include="CMDBase.cs" />

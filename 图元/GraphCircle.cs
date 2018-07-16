@@ -17,6 +17,15 @@ namespace 图元
             this.Center = center;
             this.Radius = radius;
         }
+        /// <summary>
+        /// 拷贝构造函数
+        /// </summary>
+        /// <param name="p">源对象</param>
+        public GraphCircle(GraphCircle p)
+        {
+            this.Center = new Point2d(p.Center);
+            this.Radius = p.Radius;
+        }
         public GraphCircle() : this(new Point2d(), 1.0) { }
 
         
@@ -80,6 +89,11 @@ namespace 图元
             var r =(float) Radius;
             var y =(float) Center.Y;           
             g.DrawEllipse(DrawPen, x - r, y - r, 2 * r, 2 * r);
+        }
+
+        public override Primitive Copy()
+        {
+            return new GraphCircle(this);
         }
     }
 }

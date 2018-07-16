@@ -12,7 +12,7 @@ namespace 图元
         /// <summary>
         /// 静态存储文字
         /// </summary>
-        public static string BaseTxt { get; set; } = "";
+        public static string BaseTxt { get; set; } 
         /// <summary>
         /// 文字内容
         /// </summary>
@@ -29,10 +29,20 @@ namespace 图元
         /// 位置坐标
         /// </summary>
         public Point2d TXTPosition { get; set; }
+        public float x, y;
+        public static Font font { get; set; }
+        public static StringFormat stringFormat { get; set; }
 
-        public  float x, y;
-        public  static Font font = new Font("宋体", 4, GraphicsUnit.Pixel);//标注文字
-         public static StringFormat stringFormat = new StringFormat() { LineAlignment = StringAlignment.Far };
+        public PrimitiveText()
+        {
+            BaseTxt = Text = "";
+            TXTSize = 4.0;         
+            TXTPosition = new Point2d();
+            font = new Font("宋体", 4, GraphicsUnit.Pixel);//标注文字
+            stringFormat = new StringFormat() { LineAlignment = StringAlignment.Far };
+        }
+
+      
 
 
 

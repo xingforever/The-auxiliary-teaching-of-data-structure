@@ -10,7 +10,7 @@ namespace 命令
 {
    public  class CMDDelete:PrimitiveCMDEdit
     {
-        //第一:选中图元,右键删除(可以多选)      
+       
         static CMDDelete cMDDelete { get; set; }
         public static CMDDelete Single { get { return cMDDelete; } }
 

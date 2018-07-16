@@ -16,6 +16,25 @@ namespace 图元
         ///平移旋转缩放
         /// </summary>
         /// <param name="matrix"></param>
-        public virtual void PanRotateZoom(Matrix matrix) { }
+        public virtual void PanRotateZoom(Matrix matrix) {
+
+
+
+
+
+        }
+        public virtual void Move()
+        {
+
+        }
+        public virtual void Rotate()
+        {
+
+        }
+        public virtual  void Zoom()
+        {
+
+        }
+
     }
 }

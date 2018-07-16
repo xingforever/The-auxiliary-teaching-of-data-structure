@@ -39,6 +39,11 @@
             this.toolNode = new System.Windows.Forms.ToolStripLabel();
             this.toolArrow = new System.Windows.Forms.ToolStripLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cmsPic = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolPan = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolZoom = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolCancelCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsSelectPri = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolMove = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,17 +52,12 @@
             this.toolCancelSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
-            this.cmsPic = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolPan = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolZoom = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolSelectAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolCancelCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.cmsPic.SuspendLayout();
             this.cmsSelectPri.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.cmsPic.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -69,7 +69,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(800, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-           
             // 
             // 开始ToolStripMenuItem
             // 
@@ -136,7 +135,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.ContextMenuStrip = this.cmsSelectPri;
+            this.pictureBox1.ContextMenuStrip = this.cmsPic;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 50);
             this.pictureBox1.Name = "pictureBox1";
@@ -145,67 +144,11 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox1.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             this.pictureBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.pictureBox1_PreviewKeyDown);
-            // 
-            // cmsSelectPri
-            // 
-            this.cmsSelectPri.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolDelete,
-            this.toolMove,
-            this.toolCopy,
-            this.toolRotate,
-            this.toolCancelSelect});
-            this.cmsSelectPri.Name = "cmsSelectPri";
-            this.cmsSelectPri.Size = new System.Drawing.Size(125, 114);
-            // 
-            // toolDelete
-            // 
-            this.toolDelete.Name = "toolDelete";
-            this.toolDelete.Size = new System.Drawing.Size(124, 22);
-            this.toolDelete.Text = "删除";
-            // 
-            // toolMove
-            // 
-            this.toolMove.Name = "toolMove";
-            this.toolMove.Size = new System.Drawing.Size(124, 22);
-            this.toolMove.Text = "移动";
-            // 
-            // toolCopy
-            // 
-            this.toolCopy.Name = "toolCopy";
-            this.toolCopy.Size = new System.Drawing.Size(124, 22);
-            this.toolCopy.Text = "复制";
-            // 
-            // toolRotate
-            // 
-            this.toolRotate.Name = "toolRotate";
-            this.toolRotate.Size = new System.Drawing.Size(124, 22);
-            this.toolRotate.Text = "旋转";
-            // 
-            // toolCancelSelect
-            // 
-            this.toolCancelSelect.Name = "toolCancelSelect";
-            this.toolCancelSelect.Size = new System.Drawing.Size(124, 22);
-            this.toolCancelSelect.Text = "取消选择";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabelXY});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // StatusLabelXY
-            // 
-            this.StatusLabelXY.Name = "StatusLabelXY";
-            this.StatusLabelXY.Size = new System.Drawing.Size(29, 17);
-            this.StatusLabelXY.Text = "X:Y:";
             // 
             // cmsPic
             // 
@@ -223,24 +166,90 @@
             this.toolPan.Name = "toolPan";
             this.toolPan.Size = new System.Drawing.Size(124, 22);
             this.toolPan.Text = "平移";
+            this.toolPan.Click += new System.EventHandler(this.toolPan_Click);
             // 
             // toolZoom
             // 
             this.toolZoom.Name = "toolZoom";
             this.toolZoom.Size = new System.Drawing.Size(124, 22);
             this.toolZoom.Text = "旋转";
+            this.toolZoom.Click += new System.EventHandler(this.toolZoom_Click);
             // 
             // toolSelectAll
             // 
             this.toolSelectAll.Name = "toolSelectAll";
             this.toolSelectAll.Size = new System.Drawing.Size(124, 22);
             this.toolSelectAll.Text = "全选";
+            this.toolSelectAll.Click += new System.EventHandler(this.toolSelectAll_Click);
             // 
             // toolCancelCommand
             // 
             this.toolCancelCommand.Name = "toolCancelCommand";
             this.toolCancelCommand.Size = new System.Drawing.Size(124, 22);
             this.toolCancelCommand.Text = "取消命令";
+            this.toolCancelCommand.Click += new System.EventHandler(this.toolCancelCommand_Click);
+            // 
+            // cmsSelectPri
+            // 
+            this.cmsSelectPri.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolDelete,
+            this.toolMove,
+            this.toolCopy,
+            this.toolRotate,
+            this.toolCancelSelect});
+            this.cmsSelectPri.Name = "cmsSelectPri";
+            this.cmsSelectPri.Size = new System.Drawing.Size(181, 136);
+            // 
+            // toolDelete
+            // 
+            this.toolDelete.Name = "toolDelete";
+            this.toolDelete.Size = new System.Drawing.Size(180, 22);
+            this.toolDelete.Text = "删除";
+            this.toolDelete.Click += new System.EventHandler(this.toolDelete_Click);
+            // 
+            // toolMove
+            // 
+            this.toolMove.Name = "toolMove";
+            this.toolMove.Size = new System.Drawing.Size(180, 22);
+            this.toolMove.Text = "移动";
+            this.toolMove.Click += new System.EventHandler(this.toolMove_Click);
+            // 
+            // toolCopy
+            // 
+            this.toolCopy.Name = "toolCopy";
+            this.toolCopy.Size = new System.Drawing.Size(180, 22);
+            this.toolCopy.Text = "复制";
+            this.toolCopy.Click += new System.EventHandler(this.toolCopy_Click);
+            // 
+            // toolRotate
+            // 
+            this.toolRotate.Name = "toolRotate";
+            this.toolRotate.Size = new System.Drawing.Size(180, 22);
+            this.toolRotate.Text = "旋转";
+            this.toolRotate.Click += new System.EventHandler(this.toolRotate_Click);
+            // 
+            // toolCancelSelect
+            // 
+            this.toolCancelSelect.Name = "toolCancelSelect";
+            this.toolCancelSelect.Size = new System.Drawing.Size(180, 22);
+            this.toolCancelSelect.Text = "取消选择";
+            this.toolCancelSelect.Click += new System.EventHandler(this.toolCancelSelect_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusLabelXY});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // StatusLabelXY
+            // 
+            this.StatusLabelXY.Name = "StatusLabelXY";
+            this.StatusLabelXY.Size = new System.Drawing.Size(29, 17);
+            this.StatusLabelXY.Text = "X:Y:";
             // 
             // Form1
             // 
@@ -262,10 +271,10 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.cmsPic.ResumeLayout(false);
             this.cmsSelectPri.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.cmsPic.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

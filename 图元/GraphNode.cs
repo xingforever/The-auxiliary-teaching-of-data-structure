@@ -62,5 +62,10 @@ namespace 图元
             x = NodeCircle.Center.X;
             y = NodeCircle.Center.Y;
         }
+
+        public override Primitive Copy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

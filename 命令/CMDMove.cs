@@ -4,13 +4,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using 图元;
 
 namespace 命令
 {
   public   class CMDMove:PrimitiveCMDEdit
     {
-        //选中图元,右键移动(多选)
-        
+             
         static  CMDMove cMDMove { get; set; }
         public static CMDMove Single { get { return cMDMove; } }
         public  CMDMove()
@@ -20,13 +21,14 @@ namespace 命令
 
         public override void Start()
         {
-            //必须先选择图元
-            base.Start();
+            if (Primitive.CurrentSelectedPrimitives.Count > 0)
+            {
+                Begin();
+            }
         }
         public override void Begin()
         {
-            //开始命令
-            base.Begin();
+            Step = 0;
         }
         public override void End()
         {
@@ -36,8 +38,31 @@ namespace 命令
         {
             base.Stop();
         }
+      
 
-       
+
+        public override bool MouseUp(MouseEventArgs e)
+        {
+            if (Step == 0)
+            {
+                foreach (var pri in Primitive.CurrentSelectedPrimitives)
+                {
+
+                }
+            }
+            else
+            {
+                ;
+            }
+            return false;
+        }
+        public override bool MouseMove(MouseEventArgs e)
+        {
+            return false;
+
+        }
+
+
 
 
     }

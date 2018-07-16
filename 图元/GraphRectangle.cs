@@ -163,5 +163,10 @@ namespace 图元
             return point2Ds;
 
         }
+
+        public override Primitive Copy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

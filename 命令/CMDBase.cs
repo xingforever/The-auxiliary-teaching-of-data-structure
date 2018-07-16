@@ -14,6 +14,10 @@ namespace 命令
         /// </summary>
         public  CMDType cMDType { get; set; }
         /// <summary>
+        /// 步骤
+        /// </summary>
+        public static int Step { get; set; }
+        /// <summary>
         /// 命令启动
         /// </summary>
         public virtual void Start() { }

@@ -37,7 +37,20 @@ namespace 图元
             this.EndPoint = EndPoint;           
 
         }
+        /// <summary>
+        /// 拷贝构造函数
+        /// </summary>
+        /// <param name="p">源对象</param>
+        public GraphLine(GraphLine p)
+        {
+            this.EndPoint = new Point2d(p.EndPoint);
+            this.StartPoint = new Point2d(p.StartPoint);
+        }
         public GraphLine() : this(new Point2d(), new Point2d()) { }
+        public override Primitive Copy()
+        {
+            return new GraphLine(this);
+        }
 
         public override void Draw(Graphics g)
         {

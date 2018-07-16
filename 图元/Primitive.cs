@@ -16,7 +16,8 @@ namespace 图元
         /// 所有图元集合
         /// </summary>
         public static  List<Primitive> CurrentGraphics { get; set; } = new List<Primitive>();
-       
+
+        public abstract Primitive Copy();
 
         public   Primitive()
         {
@@ -25,6 +26,8 @@ namespace 图元
             DrawBrush = NormalBrush;          
 
         }
+
+        
 
         /// <summary>
         /// 是否被选中

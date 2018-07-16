@@ -43,19 +43,9 @@ namespace 数据结构辅助教学
         //文字结果    
         public string TxtResult { get; set; } = "";
         // 鼠标最后确定屏幕坐标      
-        public Point ScreenLastPoint { get; set; } = new Point();
-        /// <summary>
-        /// 开启图元选择功能
-        /// </summary>
-        public bool IsSelect { get; set; } = true;
-        /// <summary>
-        /// 开启视窗平移
-        /// </summary>
-        public bool IsMoveViewport { get; set; } = false;
-        /// <summary>
-        /// 点捕捉
-        /// </summary>
-        public bool IsSnap { get; set; } = false;
+        public Point ScreenLastPoint { get; set; } = new Point();   
+       
+        
 
        
 
@@ -143,10 +133,10 @@ namespace 数据结构辅助教学
                     pr.Draw(g);
                 }                              
             }
-            //旧-未选择
-            //Primitive.UnSelectDraw(g);
-            //Primitive.SelectDraw(g);
-            //Primitive.SnapSymbolDraw(g);
+          
+            Primitive.SelectedDraw(g);
+            Primitive.SelectDraw(g);
+            Primitive.SnapSymbolDraw(g);
 
         }
 
@@ -165,6 +155,24 @@ namespace 数据结构辅助教学
             }
           
         }
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+          if(e.Button == MouseButtons.Right)
+            {
+                if(Primitive.CurrentSelectedPrimitives.Count > 0)
+                {
+                    cmsPic.Enabled = false;
+                    cmsSelectPri.Enabled = true;
+                    this.pictureBox1.ContextMenuStrip = cmsSelectPri;
+                }
+                else
+                {
+                    cmsSelectPri.Enabled = false;
+                    cmsPic.Enabled = true;
+                    this.pictureBox1.ContextMenuStrip = cmsPic;
+                }
+            }
+        }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -174,43 +182,40 @@ namespace 数据结构辅助教学
             //第三步 执行命令
 
             //设置图元选择距离
-            Primitive.SelectDistance = ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;
-            //无命令
-            //文字功能
-            //图元功能    
+            Primitive.SelectDistance = ViewPort.SurveyLengthOfOneScreenMillimeter() * 2;           
+            if (IsWriting) { return; }            
             if (Command != null)
-            {
-
-            }
-
-
-            if (IsWriting) { return; }
-            if (PCommand != null)
-            {
-                Primitive.SelectEnable = false;
-            }
-            ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);           
-             if (PCommand != null && PCommand.MouseMove(e))
-            {
-               
-            }
-            else if(StartWriting)
             {              
-                TextFunction(e.Location.X, e.Location.Y);
-            }         
-            //按下鼠标左键
-            else if (e.Button == MouseButtons.Left)
+                if (Command.cMDType == CMDType.PriCommand)
+                {
+                    Primitive.SelectEnable = false;
+                    Primitive.SnapEnable = true;
+                    if (StartWriting)
+                    {
+                        TextFunction(e.Location.X, e.Location.Y);
+                    }
+
+                } else if (Command.cMDType==CMDType.PriEditCommand)
+                {
+                    Primitive.SelectEnable = true ;
+                    Primitive.SnapEnable = false;
+
+                }
+                else if(Command.cMDType==CMDType.PicCommand)
+                {
+                    ;
+                }
+                ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
+                Command.MouseMove(e);
+            }
+            else
             {
-                var dx = e.Location.X - ViewPort.pointLast.X;
-                var dy = e.Location.Y - ViewPort.pointLast.Y;
-               // ViewPort.Move(dx, dy);
-                //ViewPort.pointLast = e.Location;
-                // IsPanViewport = true;
+
             }
             //鼠标位置
             this.StatusLabelXY.Text = ViewPort.MouseSurveyX.ToString("F3") + "," + ViewPort.MouseSurveyY.ToString("F3");
-            pictureBox1.Invalidate();
-
+            pictureBox1.Invalidate();           
+           
         }
 
 
@@ -220,12 +225,12 @@ namespace 数据结构辅助教学
             {
                 Primitive.SelectEnable = true;
                 pictureBox1.Invalidate();
-                PCommand = null;
+                Command = null;
                 StartWriting = false;
                 IsWriting = false;
                 return;
             }
-            if (PCommand != null && PCommand.pictureBoxKeyDown(e))
+            if (Command != null && Command.pictureBoxKeyDown(e))
             {
                 Primitive.SelectEnable = true;
                 pictureBox1.Invalidate();
@@ -247,20 +252,34 @@ namespace 数据结构辅助教学
         }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
+            
             if (IsWriting) { return; }
-            //MessageBox.Show(PrimitiveCMDBase.TempPrims.Count.ToString());
             ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
             ScreenLastPoint = new Point(e.Location.X, e.Location.Y);
+            if (Command != null) {
+                if (Command.cMDType == CMDType.PriCommand)
+                {
+                    if (StartWriting)
+                    {
+                        IsWriting = true;
+                        TextFunction(e.Location.X, e.Location.Y);
+                    }
+                    
+                }
+                else if (Command.cMDType == CMDType.PriEditCommand)
+                {
 
-            if (StartWriting)
-            {
-                IsWriting = true;
-                TextFunction(e.Location.X, e.Location.Y);
+                }
+                else if (Command.cMDType == CMDType.PicCommand)
+                {
+
+                }
+                Command.MouseUp(e);
+
+
             }
-            else if (PCommand != null && PCommand.MouseUp(e))
-            {
-                pictureBox1.Invalidate();
-            }
+            pictureBox1.Invalidate();
+            
 
         }
 
@@ -268,23 +287,68 @@ namespace 数据结构辅助教学
         {
             StartWriting = false;
         }
-         
+        private void toolPan_Click(object sender, EventArgs e)
+        {
+            Command = CMDMoveALL.Single;
+        }
+
+        private void toolZoom_Click(object sender, EventArgs e)
+        {
+            Command = CMDRotateALL.Single;
+        }
+
+        private void toolSelectAll_Click(object sender, EventArgs e)
+        {
+            Command = CMDSelectALL.Single;
+        }
+
+        private void toolCancelCommand_Click(object sender, EventArgs e)
+        {
+            Command = null;
+        }
+
+        private void toolDelete_Click(object sender, EventArgs e)
+        {
+            Command = CMDDelete.Single;
+        }
+
+        private void toolMove_Click(object sender, EventArgs e)
+        {
+            Command = CMDMove.Single;
+        }
+
+        private void toolCopy_Click(object sender, EventArgs e)
+        {
+            Command = CMDCopy.Single;
+        }
+
+        private void toolRotate_Click(object sender, EventArgs e)
+        {
+            Command = CMDRotate.Single;
+        }
+
+        private void toolCancelSelect_Click(object sender, EventArgs e)
+        {
+            Primitive.CurrentSelectedPrimitives = new List<Primitive>();
+            Primitive.CurrentSelectionPrimitive = null;
+            pictureBox1.Invalidate();
+        }
 
         private void toolRectangle_Click(object sender, EventArgs e)
         {
-            PCommand = CMDRectangle.Single;
+            Command = CMDRectangle.Single;
         }
         
         private void toolLine_Click(object sender, EventArgs e)
         {
-            PCommand = CMDLine.Single;
+            Command = CMDLine.Single;
         }
 
         private void tooltext_Click(object sender, EventArgs e)
         {
             //在单击处添加一个textbox和label 
 
-            PCommand = CMDText.Single;
+            Command = CMDText.Single;
             StartWriting = true;
           
 
@@ -292,19 +356,19 @@ namespace 数据结构辅助教学
                    
          private void toolNode_Click(object sender, EventArgs e)
         {
-            PCommand = CMDNode.Single;
+            Command = CMDNode.Single;
             StartWriting = true;
         }
 
         private void toolData_Click(object sender, EventArgs e)
         {
-            PCommand = CMDData.Single;
+            Command = CMDData.Single;
             StartWriting = true;
         }    
 
         private void toolArrow_Click(object sender, EventArgs e)
         {
-            PCommand = CMDArrow.Single;
+            Command = CMDArrow.Single;
         }
 
         
@@ -400,6 +464,6 @@ namespace 数据结构辅助教学
 
         }
 
-        
+       
     }
 }

@@ -52,5 +52,10 @@ namespace 图元
             x = DataRectangle.StartPoint.X;
             y = DataRectangle.StartPoint.Y;
         }
+
+        public override Primitive Copy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

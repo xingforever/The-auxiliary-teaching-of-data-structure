@@ -16,11 +16,7 @@ namespace 图元
         /// <summary>
         /// 是否启用选择
         /// </summary>
-        public static  bool SelectEnable { get; set; }
-        /// <summary>
-        /// 是否多选
-        /// </summary>
-        public static  bool MultiPleSelect { get; set; }
+        public static bool SelectEnable { get; set; } = true;     
         /// <summary>
         /// 选择距离
         /// </summary>
@@ -32,31 +28,37 @@ namespace 图元
         /// <summary>
         /// 当前已选图形
         /// </summary>
-        public static List<Primitive> CurrentSelectedPrimitives { get; set; }
+        public static List<Primitive> CurrentSelectedPrimitives { get; set; }= new List<Primitive>();
         /// <summary>
         /// 选择时绘笔
         /// </summary>
-        public static Pen SelectPen = Pens.Cyan;
+        public static Pen SelectPen { get; set; } = Pens.Cyan;
         /// <summary>
         /// 选择时填充
         /// </summary>
-        public static Brush SelectBrush = Brushes.Cyan;
+        public static Brush SelectBrush { get; set; } = Brushes.Cyan;
         /// <summary>
         /// 选中后绘笔
         /// </summary>
-        public static Pen SelectedPen = Pens.Red;
+        public static Pen SelectedPen { get; set; } = Pens.Red;
         /// <summary>
         /// 选中后填充
         /// </summary>
-        public static Brush SelectedBrush = Brushes.Red;
+        public static Brush SelectedBrush { get; set; } = Brushes.Red;
         /// <summary>
         /// 是否被选中
         /// </summary>
-        public static bool IsSelected = false;
+        public static bool IsSelected { get; set; } = false;
         /// <summary>
         /// 矩阵
         /// </summary>
-        public static Matrix matrix = new Matrix();
+        public static Matrix matrix { get; set; } = new Matrix();
+
+        public PrimitiveSelect()
+        {
+            
+        }
+
         /// <summary>
         /// 判断是否被选择
         /// </summary>
@@ -66,35 +68,34 @@ namespace 图元
             return false;
         }
         /// <summary>
-        /// 被选中后
+        /// 绘制已选图元
         /// </summary>
-        public virtual void Selected() {
-
-            ;
-
-        }
-
-        public static void UnSelectDraw(Graphics g)
+        public static void SelectedDraw(Graphics g)
         {
-            if (CurrentSelectionPrimitive != null)
+            if (CurrentSelectedPrimitives.Count > 0)
             {
-
-                if (IsSelected == false)
+                foreach (var pri in CurrentSelectedPrimitives)
                 {
-                    Primitive.DrawPen = NormalPen;
-                    Primitive.DrawBrush = NormalBrush;
-                    CurrentSelectionPrimitive.Draw(g);
-                }  
-                
-               
+                    Primitive.DrawPen = Primitive.SelectedPen;
+                    Primitive.DrawBrush = Primitive.SelectedBrush;
+                    pri.Draw(g);
+                    Primitive.DrawPen = Primitive.NormalPen;
+                    Primitive.DrawBrush = Primitive.NormalBrush;
+                }
             }
+
         }
+       
+        /// <summary>
+        /// 选择时绘制
+        /// </summary>
+        /// <param name="g"></param>
         public static void SelectDraw(Graphics g)
         {
             if (CurrentSelectionPrimitive != null)
             {
                 
-                if (IsSelected == false)
+                if (PrimitiveSnap.SnapOn == true)
                 {
                     Primitive.DrawPen = SelectPen;
                     Primitive.DrawBrush = SelectBrush;
@@ -104,11 +105,9 @@ namespace 图元
                 }
                 else
                 {
-                    Primitive.DrawPen = SelectedPen;
-                    Primitive.DrawBrush = SelectedBrush;
-                    CurrentSelectionPrimitive.Draw(g);
                     Primitive.DrawPen = Primitive.NormalPen;
                     Primitive.DrawBrush = Primitive.NormalBrush;
+                    CurrentSelectionPrimitive.Draw(g);                    
                 }
             }
         }
@@ -135,6 +134,33 @@ namespace 图元
             return false;
         }
 
+        public static bool IsOnCircle(Point2d p1,GraphCircle graphCircle)
+        {
+            return IsOnCircle(p1, graphCircle.Center, graphCircle.Radius, SelectDistance);
+        }
+
+        public static bool IsOnCircle(Point2d p1,Point2d center,double radius,double w)
+        {
+            var distance = p1.Distance(center);
+            if (distance > (radius + w))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool IsOnRectangle(Point2d p1,GraphRectangle graphRectangle,double w)
+        {
+            return false;
+        }
+        public static bool IsOnRectangle(Point2d p1, Point2d leftTop,Point2d rightTop,Point2d leftBottom,Point2d rightBottom)
+        {
+            //
+            return false;
+        }
 
     }
 }

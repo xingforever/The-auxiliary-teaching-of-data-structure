@@ -94,5 +94,10 @@ namespace 图元
             x = TXTPosition.X;
             y = TXTPosition.Y;
         }
+
+        public override Primitive Copy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -69,6 +69,10 @@ namespace 图元
             x= GridSSetting.LeftTopPoint.X;
             y = GridSSetting.LeftTopPoint.Y;
         }
-      
+
+        public override Primitive Copy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
