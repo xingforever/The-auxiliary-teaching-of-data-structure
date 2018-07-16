@@ -20,7 +20,7 @@ namespace 命令
 
         public override void Start()
         {
-           if(PrimitiveCMDEdit.CurrentSelectedPrimitives.Count > 0)
+           if(Primitive.CurrentSelectedPrimitives.Count > 0)
             {
                 Begin();
             }

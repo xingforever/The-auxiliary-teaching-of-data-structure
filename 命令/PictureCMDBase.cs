@@ -40,5 +40,17 @@ namespace 命令
             matrix.RotateAt((float)(angle * 180 / Math.PI), new PointF(x1, y1), MatrixOrder.Append);
             Primitive.CurrentSelectionPrimitive.PanRotateZoom(matrix);
         }
+        public static  void RotateALL(double x, double y, double angle)
+        {
+            matrix.Reset();
+            var x1 = (float)(x);
+            var y1 = (float)(y);
+            matrix.RotateAt((float)(angle * 180 / Math.PI), new PointF(x1, y1), MatrixOrder.Append);
+            foreach (var pri in Primitive.CurrentGraphics)
+            {
+                pri.PanRotateZoom(matrix);
+            }
+         
+        }
     }
 }

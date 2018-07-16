@@ -210,7 +210,7 @@ namespace 数据结构辅助教学
             }
             else
             {
-
+                ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
             }
             //鼠标位置
             this.StatusLabelXY.Text = ViewPort.MouseSurveyX.ToString("F3") + "," + ViewPort.MouseSurveyY.ToString("F3");
@@ -224,26 +224,20 @@ namespace 数据结构辅助教学
             if (e.KeyCode == Keys.Escape)
             {
                 Primitive.SelectEnable = true;
+                Primitive.SnapEnable = false;
                 pictureBox1.Invalidate();
                 Command = null;
                 StartWriting = false;
                 IsWriting = false;
                 return;
             }
-            if (Command != null && Command.pictureBoxKeyDown(e))
+           else  if (Command != null && Command.pictureBoxKeyDown(e))
             {
                 Primitive.SelectEnable = true;
                 pictureBox1.Invalidate();
 
             }
-            if (e.KeyCode == Keys.ControlKey)
-            {
-                // IsRPress = true;
-            }
-            else
-            {
-                //IsRPress = false;
-            }
+          
         }
 
         private void pictureBox1_MouseEnter(object sender, EventArgs e)
@@ -256,28 +250,52 @@ namespace 数据结构辅助教学
             if (IsWriting) { return; }
             ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
             ScreenLastPoint = new Point(e.Location.X, e.Location.Y);
-            if (Command != null) {
-                if (Command.cMDType == CMDType.PriCommand)
+            
+                if(e.Button== MouseButtons.Left)
                 {
-                    if (StartWriting)
+                if (Command != null)
+                {
+                    //图元绘制
+                    if (Command.cMDType == CMDType.PriCommand)
                     {
-                        IsWriting = true;
-                        TextFunction(e.Location.X, e.Location.Y);
+                        if (StartWriting)
+                        {
+                            IsWriting = true;
+                            TextFunction(e.Location.X, e.Location.Y);
+                        }
+
                     }
+                    //图元编辑
+                    else if (Command.cMDType == CMDType.PriEditCommand)
+                    {
+
+                    }
+                    //图形操作
+                    else if (Command.cMDType == CMDType.PicCommand)
+                    {
+
+                    }
+                    Command.MouseUp(e);
+                }
+                else
+                {
                     
+                    if (Primitive.CurrentSelectionPrimitive != null)
+                    {
+                        var pri = Primitive.CurrentSelectionPrimitive;
+                       bool isContains =Primitive.CurrentSelectedPrimitives.Contains(pri);
+                        if (isContains)
+                        {
+                            Primitive.CurrentSelectedPrimitives.Remove(pri);
+                        }
+                        else
+                        {
+                            Primitive.CurrentSelectedPrimitives.Add(pri);
+                        }
+                        Primitive.CurrentSelectionPrimitive = null;
+                    }
                 }
-                else if (Command.cMDType == CMDType.PriEditCommand)
-                {
-
-                }
-                else if (Command.cMDType == CMDType.PicCommand)
-                {
-
-                }
-                Command.MouseUp(e);
-
-
-            }
+              }
             pictureBox1.Invalidate();
             
 
@@ -287,24 +305,41 @@ namespace 数据结构辅助教学
         {
             StartWriting = false;
         }
-        private void toolPan_Click(object sender, EventArgs e)
+        private void toolMoveALL_Click(object sender, EventArgs e)
         {
-            Command = CMDMoveALL.Single;
-        }
 
-        private void toolZoom_Click(object sender, EventArgs e)
+            Command = CMDMoveALL.Single;
+            cmsPic.Items[0].Visible = true;
+        }
+        private void toolRotateALL_Click(object sender, EventArgs e)
         {
             Command = CMDRotateALL.Single;
+            cmsPic.Items[0].Visible = true;
         }
+
 
         private void toolSelectAll_Click(object sender, EventArgs e)
         {
+            
             Command = CMDSelectALL.Single;
+            cmsPic.Items[0].Visible = true;
+            pictureBox1.Invalidate();
+        }
+        private void toolPriALL_Click(object sender, EventArgs e)
+        {
+            ViewPort.All(pictureBox1.Height,pictureBox1.Width);
+            pictureBox1.Invalidate();
+            Command = null;
+            Primitive.SelectEnable = true;
+            Primitive.SnapEnable = false;
         }
 
         private void toolCancelCommand_Click(object sender, EventArgs e)
         {
             Command = null;
+            cmsPic.Items[0].Visible = false;
+            Primitive.SelectEnable = true;
+            Primitive.SnapEnable = false;
         }
 
         private void toolDelete_Click(object sender, EventArgs e)
@@ -329,9 +364,15 @@ namespace 数据结构辅助教学
 
         private void toolCancelSelect_Click(object sender, EventArgs e)
         {
+            Primitive.CurrentGraphics.AddRange(Primitive.CurrentSelectedPrimitives);
             Primitive.CurrentSelectedPrimitives = new List<Primitive>();
             Primitive.CurrentSelectionPrimitive = null;
             pictureBox1.Invalidate();
+            Command = null;
+            cmsPic.Items[0].Visible = false;
+            Primitive.SelectEnable = true;
+            Primitive.SnapEnable = false;
+
         }
 
         private void toolRectangle_Click(object sender, EventArgs e)
@@ -462,6 +503,23 @@ namespace 数据结构辅助教学
                 txtWords.ReadOnly = true;
             }
 
+        }
+
+        private void cmsPic_Click(object sender, EventArgs e)
+        {
+            //这里写父容器的集合 --可自动判断。这里我采用手写。提高效率
+            foreach (ToolStripMenuItem item in cmsPic.Items)
+            {
+                //不是当前项的取消选择
+                if (item.Name == cmsPic.Name)
+                {
+                    item.Checked = true; //设选中状态为true
+                }
+                else
+                {
+                    item.Checked = false; //设选中状态为false
+                }
+            }
         }
 
        

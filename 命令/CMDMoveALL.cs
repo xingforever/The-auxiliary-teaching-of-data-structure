@@ -8,35 +8,41 @@ using 图元;
 
 namespace 命令
 {
-   public  class CMDMoveALL: PictureCMDBase
+    public class CMDMoveALL : PictureCMDBase
     {
-        static CMDMoveALL cMDMoveALL { get; set; }
+        static CMDMoveALL cMDMoveALL { get; set; } = new CMDMoveALL();
         public static CMDMoveALL Single { get { return cMDMoveALL; } }
+        private bool Move { get; set; }
         public CMDMoveALL()
         {
-            cMDMoveALL = new CMDMoveALL();
+           
         }
         public override void Start()
         {
-            base.Start();
+            Move = true;
         }
         public override void Stop()
         {
-            base.Stop();
+            Move = false;
+            
         }
 
         public override bool MouseMove(MouseEventArgs e)
         {
-            //左键按住 移动 还是直接移动,..
-             if (e.Button == MouseButtons.Left)
+            if (e.Button==MouseButtons.Left)
             {
                 var dx = e.Location.X - ViewPort.pointLast.X;
                 var dy = e.Location.Y - ViewPort.pointLast.Y;
                 ViewPort.Move(dx, dy);
                 ViewPort.pointLast = e.Location;
-                return true;
             }
-            return false;
+           
+            return true;           
+        }
+        public override bool MouseUp(MouseEventArgs e)
+        {
+            
+            return true;
         }
     }
 }

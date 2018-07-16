@@ -149,14 +149,13 @@ namespace 图元
             Primitive.ResultX = MouseSurveyX;
             Primitive.ResultY = MouseSurveyY;
             if (Primitive.SelectEnable)
-            {
-               //新的选择
-               bool isSelected= Primitive.DoSelect();
-                if (!isSelected)
-                {
-                    Primitive.CurrentSelectionPrimitive = null;
-                }
+            {              
+                Primitive.CurrentSelectionPrimitive = null;
+                //新的选择
+                Primitive.DoSelect();              
+                
             }
+            //捕捉
             if (Primitive.SnapEnable)
             {
                 Primitive.DoSnap();

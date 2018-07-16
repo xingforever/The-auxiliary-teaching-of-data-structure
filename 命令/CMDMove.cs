@@ -11,8 +11,8 @@ namespace 命令
 {
   public   class CMDMove:PrimitiveCMDEdit
     {
-             
-        static  CMDMove cMDMove { get; set; }
+
+        static CMDMove cMDMove { get; set; } = new CMDMove();
         public static CMDMove Single { get { return cMDMove; } }
         public  CMDMove()
         {

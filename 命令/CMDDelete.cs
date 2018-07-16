@@ -20,13 +20,13 @@ namespace 命令
         }
         public override void Start()
         {
-            if(CurrentSelectedPrimitives.Count > 0){
+            if(Primitive.CurrentSelectedPrimitives.Count > 0){
                 Begin();
             }
         }
         public override void Begin()
         {
-            foreach (var pri in CurrentSelectedPrimitives)
+            foreach (var pri in Primitive.CurrentSelectedPrimitives)
             {
                 Primitive.CurrentGraphics.Remove(pri);
             }
@@ -38,7 +38,7 @@ namespace 命令
 
         public override void Stop()
         {
-            CurrentSelectedPrimitives=new List<Primitive> ();
+            Primitive.CurrentSelectedPrimitives=new List<Primitive> ();
         }
 
         

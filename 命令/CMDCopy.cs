@@ -20,7 +20,7 @@ namespace 命令
         }
         public override void Start()
         {
-            if (PrimitiveCMDEdit.CurrentSelectedPrimitives.Count > 0)
+            if (Primitive.CurrentSelectedPrimitives.Count > 0)
             {
                 Begin();
             }
@@ -30,7 +30,7 @@ namespace 命令
         public override void Begin()
         {
             //深拷贝到临时图元,----每个图元需要写深拷贝函数
-            foreach (var pri in PrimitiveCMDEdit.CurrentSelectedPrimitives)
+            foreach (var pri in Primitive.CurrentSelectedPrimitives)
             {
                 var newPri = pri.Copy();
                 PrimitiveCMDBase.TempPrims.Add(newPri);

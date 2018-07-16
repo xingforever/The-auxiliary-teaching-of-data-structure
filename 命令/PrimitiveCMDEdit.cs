@@ -17,88 +17,77 @@ namespace 命令
         /// 选择时图元
         /// </summary>
         public static Primitive CurrentSelectionPrimitive { get; set; }
-        /// <summary>
-        /// 被选中图元数组
-        /// </summary>
-        public static  List<Primitive> CurrentSelectedPrimitives { get; set; }
+       
         /// <summary>
         /// 选择时画笔
         /// </summary>
-        public static Pen SelectPen { get; set; }
+        public static Pen SelectPen { get; set; } = Pens.Cyan;
         /// <summary>
         /// 选择时填充
         /// </summary>
-        public static Brush SelectBrush { get; set; }
+        public static Brush SelectBrush { get; set; } = Brushes.Cyan;
         /// <summary>
         /// 选择后画笔
         /// </summary>
-        public static Pen SelectedPen { get; set; }
+        public static Pen SelectedPen { get; set; } = Pens.Red;
         /// <summary>
         /// 选择后填充
         /// </summary>
-        public static Brush SelectedBrush { get; set; }
+        public static Brush SelectedBrush { get; set; } = Brushes.Red;
         /// <summary>
         /// 是否被选中
         /// </summary>
-        public static bool IsSelected { get; set; }
+        public static bool IsSelected { get; set; } = false;
         /// <summary>
         /// 矩阵
         /// </summary>
-        public static Matrix matrix { get; set; }
+        public static Matrix matrix { get; set; } = new Matrix();
 
 
         public PrimitiveCMDEdit()
         {
-            cMDType = CMDType.PriEditCommand;
-            IsSelected = false;
-            SelectedBrush = Brushes.Red;
-            SelectedPen = Pens.Red;
-            SelectBrush = Brushes.Cyan;
-            SelectPen = Pens.Cyan;
-            matrix = new Matrix();
-            CurrentSelectedPrimitives = new List<Primitive>();
-
-
+            cMDType = CMDType.PriEditCommand;         
+      
         }
 
 
 
-        public virtual   void Draw(Graphics g)
-        {
-            //if (CurrentSelectionPrimitive != null)
-            //{
-            //    CurrentSelectionPrimitive.Effective = false;
-            //    if (IsSelected == false)
-            //    {
-            //        Primitive.DrawPen = SelectPen;
-            //        Primitive.DrawBrush = SelectBrush;
-            //        CurrentSelectionPrimitive.Draw(g);
-            //        Primitive.DrawPen = Primitive.NormalPen;
-            //        Primitive.DrawBrush = Primitive.NormalBrush;
-            //    }
-            //    else
-            //    {
-            //        Primitive.DrawPen = SelectedPen;
-            //        Primitive.DrawBrush = SelectedBrush;
-            //        CurrentSelectionPrimitive.Draw(g);
-            //        Primitive.DrawPen = Primitive.NormalPen;
-            //        Primitive.DrawBrush = Primitive.NormalBrush ;
-            //    }
-            //}
-        }
-        public static bool Select()
-        {
-            CurrentSelectionPrimitive = null;
-            foreach (Primitive pr in Primitive.CurrentGraphics)
-            {
-                if (pr.Select())
-                {
-                    CurrentSelectionPrimitive = pr;
-                    return true;
-                }
-            }
-            return false;
-        }
+        //public virtual   void Draw(Graphics g)
+        //{
+        //    //if (CurrentSelectionPrimitive != null)
+        //    //{
+        //    //    CurrentSelectionPrimitive.Effective = false;
+        //    //    if (IsSelected == false)
+        //    //    {
+        //    //        Primitive.DrawPen = SelectPen;
+        //    //        Primitive.DrawBrush = SelectBrush;
+        //    //        CurrentSelectionPrimitive.Draw(g);
+        //    //        Primitive.DrawPen = Primitive.NormalPen;
+        //    //        Primitive.DrawBrush = Primitive.NormalBrush;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        Primitive.DrawPen = SelectedPen;
+        //    //        Primitive.DrawBrush = SelectedBrush;
+        //    //        CurrentSelectionPrimitive.Draw(g);
+        //    //        Primitive.DrawPen = Primitive.NormalPen;
+        //    //        Primitive.DrawBrush = Primitive.NormalBrush ;
+        //    //    }
+        //    //}
+        //}
+        //public static bool Select()
+        //{
+        //    CurrentSelectionPrimitive = null;
+        //    foreach (Primitive pr in Primitive.CurrentGraphics)
+        //    {
+        //        if (pr.Select())
+        //        {
+        //            CurrentSelectionPrimitive = pr;
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
        
 
        

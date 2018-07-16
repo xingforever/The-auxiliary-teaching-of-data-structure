@@ -57,10 +57,7 @@ namespace 图元
             {
                 if (pr.Snap()) return true;
             }
-            //if (CMDEditBase.CurrentSelectionPrimitive != null)
-            //{
-            //    if (CMDEditBase.CurrentSelectionPrimitive.Snap()) return true;
-            //}
+          
             return false;
         }
 
