@@ -12,11 +12,11 @@ namespace 命令
     public class CMDCopy : PrimitiveCMDEdit
     {
     
-        static CMDCopy cMDCopy { get; set; }
+        static CMDCopy cMDCopy { get; set; } = new CMDCopy();
         public static CMDCopy Single { get { return cMDCopy; } }
         public CMDCopy()
         {
-            cMDCopy = new CMDCopy();
+      
         }
         public override void Start()
         {

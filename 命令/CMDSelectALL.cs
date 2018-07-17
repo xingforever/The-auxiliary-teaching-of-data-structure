@@ -19,7 +19,7 @@ namespace 命令
         public override void Start()
         {
             Primitive.CurrentSelectedPrimitives.AddRange(Primitive.CurrentGraphics);
-            Primitive.CurrentGraphics = new List<Primitive>();
+            //Primitive.CurrentGraphics = new List<Primitive>();
         }
         public override void End()
         {

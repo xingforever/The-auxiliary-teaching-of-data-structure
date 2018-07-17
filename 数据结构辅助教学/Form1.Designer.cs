@@ -44,15 +44,16 @@
             this.toolMoveALL = new System.Windows.Forms.ToolStripMenuItem();
             this.toolRotateALL = new System.Windows.Forms.ToolStripMenuItem();
             this.toolSelectALL = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolPriALL = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsSelectPri = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolMove = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolRotate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolSelectDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolSelectMove = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolSelectCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolSelectRotate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolCancelSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabelXY = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolPriALL = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolSelectQuitEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -160,14 +161,14 @@
             this.toolSelectALL,
             this.toolPriALL});
             this.cmsPic.Name = "cmsPic";
-            this.cmsPic.Size = new System.Drawing.Size(181, 136);
+            this.cmsPic.Size = new System.Drawing.Size(101, 114);
             this.cmsPic.Click += new System.EventHandler(this.cmsPic_Click);
             // 
             // toolCancelCommand
             // 
             this.toolCancelCommand.CheckOnClick = true;
             this.toolCancelCommand.Name = "toolCancelCommand";
-            this.toolCancelCommand.Size = new System.Drawing.Size(180, 22);
+            this.toolCancelCommand.Size = new System.Drawing.Size(100, 22);
             this.toolCancelCommand.Text = "退出";
             this.toolCancelCommand.Visible = false;
             this.toolCancelCommand.Click += new System.EventHandler(this.toolCancelCommand_Click);
@@ -176,7 +177,7 @@
             // 
             this.toolMoveALL.CheckOnClick = true;
             this.toolMoveALL.Name = "toolMoveALL";
-            this.toolMoveALL.Size = new System.Drawing.Size(180, 22);
+            this.toolMoveALL.Size = new System.Drawing.Size(100, 22);
             this.toolMoveALL.Text = "平移";
             this.toolMoveALL.Click += new System.EventHandler(this.toolMoveALL_Click);
             // 
@@ -184,7 +185,7 @@
             // 
             this.toolRotateALL.CheckOnClick = true;
             this.toolRotateALL.Name = "toolRotateALL";
-            this.toolRotateALL.Size = new System.Drawing.Size(180, 22);
+            this.toolRotateALL.Size = new System.Drawing.Size(100, 22);
             this.toolRotateALL.Text = "旋转";
             this.toolRotateALL.Click += new System.EventHandler(this.toolRotateALL_Click);
             // 
@@ -192,53 +193,68 @@
             // 
             this.toolSelectALL.CheckOnClick = true;
             this.toolSelectALL.Name = "toolSelectALL";
-            this.toolSelectALL.Size = new System.Drawing.Size(180, 22);
+            this.toolSelectALL.Size = new System.Drawing.Size(100, 22);
             this.toolSelectALL.Text = "全选";
             this.toolSelectALL.Click += new System.EventHandler(this.toolSelectAll_Click);
+            // 
+            // toolPriALL
+            // 
+            this.toolPriALL.CheckOnClick = true;
+            this.toolPriALL.Name = "toolPriALL";
+            this.toolPriALL.Size = new System.Drawing.Size(100, 22);
+            this.toolPriALL.Text = "全图";
+            this.toolPriALL.Click += new System.EventHandler(this.toolPriALL_Click);
             // 
             // cmsSelectPri
             // 
             this.cmsSelectPri.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolDelete,
-            this.toolMove,
-            this.toolCopy,
-            this.toolRotate,
+            this.toolSelectQuitEdit,
+            this.toolSelectDelete,
+            this.toolSelectMove,
+            this.toolSelectCopy,
+            this.toolSelectRotate,
             this.toolCancelSelect});
             this.cmsSelectPri.Name = "cmsSelectPri";
-            this.cmsSelectPri.Size = new System.Drawing.Size(125, 114);
+            this.cmsSelectPri.Size = new System.Drawing.Size(181, 158);
+            this.cmsSelectPri.Click += new System.EventHandler(this.cmsSelectPri_Click);
             // 
-            // toolDelete
+            // toolSelectDelete
             // 
-            this.toolDelete.Name = "toolDelete";
-            this.toolDelete.Size = new System.Drawing.Size(124, 22);
-            this.toolDelete.Text = "删除";
-            this.toolDelete.Click += new System.EventHandler(this.toolDelete_Click);
+            this.toolSelectDelete.CheckOnClick = true;
+            this.toolSelectDelete.Name = "toolSelectDelete";
+            this.toolSelectDelete.Size = new System.Drawing.Size(180, 22);
+            this.toolSelectDelete.Text = "删除";
+            this.toolSelectDelete.Click += new System.EventHandler(this.toolSelectDelete_Click);
             // 
-            // toolMove
+            // toolSelectMove
             // 
-            this.toolMove.Name = "toolMove";
-            this.toolMove.Size = new System.Drawing.Size(124, 22);
-            this.toolMove.Text = "移动";
-            this.toolMove.Click += new System.EventHandler(this.toolMove_Click);
+            this.toolSelectMove.CheckOnClick = true;
+            this.toolSelectMove.Name = "toolSelectMove";
+            this.toolSelectMove.Size = new System.Drawing.Size(180, 22);
+            this.toolSelectMove.Text = "移动";
+            this.toolSelectMove.Click += new System.EventHandler(this.toolSelectMove_Click);
             // 
-            // toolCopy
+            // toolSelectCopy
             // 
-            this.toolCopy.Name = "toolCopy";
-            this.toolCopy.Size = new System.Drawing.Size(124, 22);
-            this.toolCopy.Text = "复制";
-            this.toolCopy.Click += new System.EventHandler(this.toolCopy_Click);
+            this.toolSelectCopy.CheckOnClick = true;
+            this.toolSelectCopy.Name = "toolSelectCopy";
+            this.toolSelectCopy.Size = new System.Drawing.Size(180, 22);
+            this.toolSelectCopy.Text = "复制";
+            this.toolSelectCopy.Click += new System.EventHandler(this.toolSelectCopy_Click);
             // 
-            // toolRotate
+            // toolSelectRotate
             // 
-            this.toolRotate.Name = "toolRotate";
-            this.toolRotate.Size = new System.Drawing.Size(124, 22);
-            this.toolRotate.Text = "旋转";
-            this.toolRotate.Click += new System.EventHandler(this.toolRotate_Click);
+            this.toolSelectRotate.CheckOnClick = true;
+            this.toolSelectRotate.Name = "toolSelectRotate";
+            this.toolSelectRotate.Size = new System.Drawing.Size(180, 22);
+            this.toolSelectRotate.Text = "旋转";
+            this.toolSelectRotate.Click += new System.EventHandler(this.toolSelectRotate_Click);
             // 
             // toolCancelSelect
             // 
+            this.toolCancelSelect.CheckOnClick = true;
             this.toolCancelSelect.Name = "toolCancelSelect";
-            this.toolCancelSelect.Size = new System.Drawing.Size(124, 22);
+            this.toolCancelSelect.Size = new System.Drawing.Size(180, 22);
             this.toolCancelSelect.Text = "取消选择";
             this.toolCancelSelect.Click += new System.EventHandler(this.toolCancelSelect_Click);
             // 
@@ -258,13 +274,14 @@
             this.StatusLabelXY.Size = new System.Drawing.Size(29, 17);
             this.StatusLabelXY.Text = "X:Y:";
             // 
-            // toolPriALL
+            // toolSelectQuitEdit
             // 
-            this.toolPriALL.CheckOnClick = true;
-            this.toolPriALL.Name = "toolPriALL";
-            this.toolPriALL.Size = new System.Drawing.Size(180, 22);
-            this.toolPriALL.Text = "全图";
-            this.toolPriALL.Click += new System.EventHandler(this.toolPriALL_Click);
+            this.toolSelectQuitEdit.CheckOnClick = true;
+            this.toolSelectQuitEdit.Name = "toolSelectQuitEdit";
+            this.toolSelectQuitEdit.Size = new System.Drawing.Size(180, 22);
+            this.toolSelectQuitEdit.Text = "退出";
+            this.toolSelectQuitEdit.Visible = false;
+            this.toolSelectQuitEdit.Click += new System.EventHandler(this.toolSelectQuitEdit_Click);
             // 
             // Form1
             // 
@@ -315,12 +332,13 @@
         private System.Windows.Forms.ToolStripMenuItem toolSelectALL;
         private System.Windows.Forms.ToolStripMenuItem toolCancelCommand;
         private System.Windows.Forms.ContextMenuStrip cmsSelectPri;
-        private System.Windows.Forms.ToolStripMenuItem toolDelete;
-        private System.Windows.Forms.ToolStripMenuItem toolMove;
-        private System.Windows.Forms.ToolStripMenuItem toolCopy;
-        private System.Windows.Forms.ToolStripMenuItem toolRotate;
+        private System.Windows.Forms.ToolStripMenuItem toolSelectDelete;
+        private System.Windows.Forms.ToolStripMenuItem toolSelectMove;
+        private System.Windows.Forms.ToolStripMenuItem toolSelectCopy;
+        private System.Windows.Forms.ToolStripMenuItem toolSelectRotate;
         private System.Windows.Forms.ToolStripMenuItem toolCancelSelect;
         private System.Windows.Forms.ToolStripMenuItem toolPriALL;
+        private System.Windows.Forms.ToolStripMenuItem toolSelectQuitEdit;
     }
 }
 

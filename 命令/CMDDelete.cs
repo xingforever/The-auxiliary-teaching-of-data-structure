@@ -11,12 +11,12 @@ namespace 命令
    public  class CMDDelete:PrimitiveCMDEdit
     {
        
-        static CMDDelete cMDDelete { get; set; }
+        static CMDDelete cMDDelete { get; set; } = new CMDDelete();
         public static CMDDelete Single { get { return cMDDelete; } }
 
         public CMDDelete()
         {
-            cMDDelete = new CMDDelete();
+        
         }
         public override void Start()
         {

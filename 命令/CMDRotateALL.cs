@@ -14,9 +14,20 @@ namespace 命令
         public static CMDRotateALL Single { get { return cMDRotateALL; } }
         static double baseX, baseY, angle = 0;
 
+      
         public CMDRotateALL()
         {
            
+        }
+        public override void Start()
+        {
+            Step = 0;
+            angle = 0;
+        }
+       
+        public override void Stop()
+        {
+            Start();
         }
         public override bool MouseUp(MouseEventArgs e)
         {
@@ -38,15 +49,14 @@ namespace 命令
                 var dy = y - baseY;
                 angle = Azimuth.Create(dx, dy);
                 RotateALL(baseX, baseY, (float)angle);
-               
+                Stop();
             }
               
             
             
         }
         public override bool MouseMove(MouseEventArgs e)
-        {
-            
+        {            
             if (Step==1)
             {                
                 RotateALL(baseX, baseY, (float)(-angle));
@@ -58,6 +68,18 @@ namespace 命令
             }                    
                
             return false;
+        }
+        public override bool pictureBoxKeyDown(PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
+            {
+                Start();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 

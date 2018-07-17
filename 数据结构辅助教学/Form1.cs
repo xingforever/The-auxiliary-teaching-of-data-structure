@@ -133,10 +133,17 @@ namespace 数据结构辅助教学
                     pr.Draw(g);
                 }                              
             }
+            if (Primitive.SelectEnable)
+            {
+                Primitive.SelectedDraw(g);
+                Primitive.SelectDraw(g);
+            }
+            if (Primitive.SnapEnable)
+            {
+                Primitive.SnapSymbolDraw(g);
+            }
+           
           
-            Primitive.SelectedDraw(g);
-            Primitive.SelectDraw(g);
-            Primitive.SnapSymbolDraw(g);
 
         }
 
@@ -159,18 +166,46 @@ namespace 数据结构辅助教学
         {
           if(e.Button == MouseButtons.Right)
             {
-                if(Primitive.CurrentSelectedPrimitives.Count > 0)
+                if (Command != null)
                 {
-                    cmsPic.Enabled = false;
-                    cmsSelectPri.Enabled = true;
-                    this.pictureBox1.ContextMenuStrip = cmsSelectPri;
+                    if (Command.cMDType == CMDType.PriEditCommand)
+                    {
+                        cmsPic.Enabled = false;
+                        cmsSelectPri.Enabled = true;
+                        this.pictureBox1.ContextMenuStrip = cmsSelectPri;
+                    }
+                    else
+                    {
+
+                        cmsSelectPri.Enabled = false;
+                        cmsPic.Enabled = true;
+                        this.pictureBox1.ContextMenuStrip = cmsPic;
+                    }
                 }
                 else
                 {
-                    cmsSelectPri.Enabled = false;
-                    cmsPic.Enabled = true;
-                    this.pictureBox1.ContextMenuStrip = cmsPic;
+                    if (Primitive.CurrentSelectedPrimitives.Count > 0)
+                    {
+                        cmsPic.Enabled = false;
+                        cmsSelectPri.Enabled = true;
+                        this.pictureBox1.ContextMenuStrip = cmsSelectPri;
+                    }
+                    else
+                    {
+                        cmsSelectPri.Enabled = false;
+                        cmsPic.Enabled = true;
+                        this.pictureBox1.ContextMenuStrip = cmsPic;
+                    }
                 }
+               
+            }
+            else
+            {
+                if (Command != null)
+                {
+                    Command.MouseDown(e);
+                }
+                
             }
         }
 
@@ -207,6 +242,7 @@ namespace 数据结构辅助教学
                 }
                 ViewPort.InvTransformPoint(e.Location.X, e.Location.Y);
                 Command.MouseMove(e);
+               
             }
             else
             {
@@ -225,6 +261,8 @@ namespace 数据结构辅助教学
             {
                 Primitive.SelectEnable = true;
                 Primitive.SnapEnable = false;
+                Primitive.CurrentGraphics.AddRange(Primitive.CurrentSelectedPrimitives);
+                Primitive.CurrentSelectedPrimitives = new List<Primitive> ();
                 pictureBox1.Invalidate();
                 Command = null;
                 StartWriting = false;
@@ -321,9 +359,10 @@ namespace 数据结构辅助教学
         private void toolSelectAll_Click(object sender, EventArgs e)
         {
             
-            Command = CMDSelectALL.Single;
-            cmsPic.Items[0].Visible = true;
+            Command = CMDSelectALL.Single;          
             pictureBox1.Invalidate();
+            Primitive.SelectEnable = true;
+            Command = null;
         }
         private void toolPriALL_Click(object sender, EventArgs e)
         {
@@ -338,40 +377,55 @@ namespace 数据结构辅助教学
         {
             Command = null;
             cmsPic.Items[0].Visible = false;
+            Primitive.CurrentSelectedPrimitives = new List<Primitive>();
+            Primitive.CurrentSelectionPrimitive = null;
             Primitive.SelectEnable = true;
             Primitive.SnapEnable = false;
         }
 
-        private void toolDelete_Click(object sender, EventArgs e)
+        private void toolSelectQuitEdit_Click(object sender, EventArgs e)
+        {
+            Command = null;
+            cmsSelectPri.Items[0].Visible = false;
+            Primitive.SelectEnable = true;
+            Primitive.SnapEnable = false;
+            pictureBox1.Invalidate();
+        }
+
+        private void toolSelectDelete_Click(object sender, EventArgs e)
         {
             Command = CMDDelete.Single;
+            cmsSelectPri.Items[0].Visible = true;
         }
 
-        private void toolMove_Click(object sender, EventArgs e)
+        private void toolSelectMove_Click(object sender, EventArgs e)
         {
             Command = CMDMove.Single;
+            cmsSelectPri.Items[0].Visible = true;
         }
 
-        private void toolCopy_Click(object sender, EventArgs e)
+        private void toolSelectCopy_Click(object sender, EventArgs e)
         {
             Command = CMDCopy.Single;
+            cmsSelectPri.Items[0].Visible = true;
         }
 
-        private void toolRotate_Click(object sender, EventArgs e)
+        private void toolSelectRotate_Click(object sender, EventArgs e)
         {
             Command = CMDRotate.Single;
+            cmsSelectPri.Items[0].Visible = true;
         }
 
         private void toolCancelSelect_Click(object sender, EventArgs e)
         {
             Primitive.CurrentGraphics.AddRange(Primitive.CurrentSelectedPrimitives);
             Primitive.CurrentSelectedPrimitives = new List<Primitive>();
-            Primitive.CurrentSelectionPrimitive = null;
-            pictureBox1.Invalidate();
+            Primitive.CurrentSelectionPrimitive = null;            
             Command = null;
-            cmsPic.Items[0].Visible = false;
+            cmsSelectPri.Items[0].Visible = false;
             Primitive.SelectEnable = true;
             Primitive.SnapEnable = false;
+            pictureBox1.Invalidate();
 
         }
 
@@ -507,7 +561,7 @@ namespace 数据结构辅助教学
 
         private void cmsPic_Click(object sender, EventArgs e)
         {
-            //这里写父容器的集合 --可自动判断。这里我采用手写。提高效率
+            
             foreach (ToolStripMenuItem item in cmsPic.Items)
             {
                 //不是当前项的取消选择
@@ -522,6 +576,22 @@ namespace 数据结构辅助教学
             }
         }
 
-       
+        private void cmsSelectPri_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem item in cmsSelectPri.Items)
+            {
+                //不是当前项的取消选择
+                if (item.Name == cmsSelectPri.Name)
+                {
+                    item.Checked = true; //设选中状态为true
+                }
+                else
+                {
+                    item.Checked = false; //设选中状态为false
+                }
+            }
+        }
+
+      
     }
 }

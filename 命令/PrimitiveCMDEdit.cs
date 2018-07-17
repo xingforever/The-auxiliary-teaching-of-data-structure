@@ -12,44 +12,47 @@ namespace 命令
     public class PrimitiveCMDEdit : CMDBase
     {
 
-      
-        /// <summary>
-        /// 选择时图元
-        /// </summary>
-        public static Primitive CurrentSelectionPrimitive { get; set; }
-       
-        /// <summary>
-        /// 选择时画笔
-        /// </summary>
-        public static Pen SelectPen { get; set; } = Pens.Cyan;
-        /// <summary>
-        /// 选择时填充
-        /// </summary>
-        public static Brush SelectBrush { get; set; } = Brushes.Cyan;
-        /// <summary>
-        /// 选择后画笔
-        /// </summary>
-        public static Pen SelectedPen { get; set; } = Pens.Red;
-        /// <summary>
-        /// 选择后填充
-        /// </summary>
-        public static Brush SelectedBrush { get; set; } = Brushes.Red;
-        /// <summary>
-        /// 是否被选中
-        /// </summary>
-        public static bool IsSelected { get; set; } = false;
+
+       public  PrimitiveCMDEdit()
+        {
+            cMDType = CMDType.PriEditCommand;
+        }
         /// <summary>
         /// 矩阵
         /// </summary>
         public static Matrix matrix { get; set; } = new Matrix();
 
 
-        public PrimitiveCMDEdit()
+        public  static bool Select()
         {
-            cMDType = CMDType.PriEditCommand;         
-      
+            if (Primitive.CurrentSelectionPrimitive != null)
+            {
+                var pri = Primitive.CurrentSelectionPrimitive;
+                bool isContains = Primitive.CurrentSelectedPrimitives.Contains(pri);
+                if (isContains)
+                {
+                    Primitive.CurrentSelectedPrimitives.Remove(pri);
+                }
+                else
+                {
+                    Primitive.CurrentSelectedPrimitives.Add(pri);
+                }
+                Primitive.CurrentSelectionPrimitive = null;
+            }
+            if (Primitive.CurrentSelectedPrimitives.Count > 0)
+                return true;
+            else
+                return false;
         }
-
+        public static void Move(float dx, float dy)
+        {
+            matrix.Reset();
+            matrix.Translate(dx, dy, MatrixOrder.Append);
+            foreach (var pri in Primitive.CurrentSelectedPrimitives)
+            {
+                pri.PanRotateZoom(matrix);
+            }  
+        }
 
 
         //public virtual   void Draw(Graphics g)
@@ -88,12 +91,12 @@ namespace 命令
         //    }
         //    return false;
         //}
-       
 
-       
 
-       
 
-       
+
+
+
+
     }
 }

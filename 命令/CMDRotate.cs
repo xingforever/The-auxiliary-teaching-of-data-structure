@@ -11,11 +11,11 @@ namespace 命令
 {
     public class CMDRotate:PrimitiveCMDEdit
     {
-        static CMDRotate cMDRotate { get; set; }
+        static CMDRotate cMDRotate { get; set; } = new CMDRotate();
         public static CMDRotate Single { get { return cMDRotate; } }
         public CMDRotate()
         {
-            cMDRotate = new CMDRotate(); 
+            
         }
 
         public override void Start()

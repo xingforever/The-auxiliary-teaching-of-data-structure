@@ -41,7 +41,15 @@ namespace 命令
         }
         public override bool MouseUp(MouseEventArgs e)
         {
-            
+            //ViewPort.pointLast = e.Location;
+            return true;
+        }
+        public override bool MouseDown(MouseEventArgs e)
+        {
+           if(e.Button==MouseButtons.Left)
+            {
+                ViewPort.pointLast = e.Location;
+            }
             return true;
         }
     }

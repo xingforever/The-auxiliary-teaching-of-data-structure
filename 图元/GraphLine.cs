@@ -76,6 +76,10 @@ namespace 图元
 
         public override void PanRotateZoom(Matrix matrix)
         {
+            TempPoints[0].X = (float)(StartPoint.X );
+            TempPoints[0].Y = (float)(StartPoint.Y );
+            TempPoints[1].X = (float)(EndPoint.X );
+            TempPoints[1].Y = (float)(EndPoint.Y );
             matrix.TransformPoints(TempPoints);
             StartPoint.X = TempPoints[0].X ;
             StartPoint.Y = TempPoints[0].Y ;

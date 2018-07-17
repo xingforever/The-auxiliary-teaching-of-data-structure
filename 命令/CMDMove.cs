@@ -14,25 +14,31 @@ namespace 命令
 
         static CMDMove cMDMove { get; set; } = new CMDMove();
         public static CMDMove Single { get { return cMDMove; } }
+        static double baseX, baseY;
         public  CMDMove()
         {
-            cMDMove = new CMDMove();
+            
         }
 
         public override void Start()
         {
+            Step = 0;
             if (Primitive.CurrentSelectedPrimitives.Count > 0)
-            {
+            {               
                 Begin();
             }
         }
         public override void Begin()
         {
-            Step = 0;
+            
+            baseX = Primitive.ResultX;
+            baseY = Primitive.ResultY;
+            Step ++;
         }
         public override void End()
         {
-            base.End();
+            Primitive.CurrentSelectedPrimitives = new List<Primitive>();
+            Step = 0;
         }
         public override void Stop()
         {
@@ -43,23 +49,48 @@ namespace 命令
 
         public override bool MouseUp(MouseEventArgs e)
         {
-            if (Step == 0)
-            {
-                foreach (var pri in Primitive.CurrentSelectedPrimitives)
-                {
+            SetPrimitiveData(Primitive.ResultX, Primitive.ResultY);
+            return true;
+        }
+        private void SetPrimitiveData(double x, double y)
+        {
 
-                }
-            }
+            if (Step==0)
+            {
+                if (Select())
+                    Start();
+            }           
             else
             {
-                ;
+                var dx = (float)(x - baseX);
+                var dy = (float)(y - baseY);
+                Move(dx, dy);
+                End();
             }
-            return false;
+            
+           
+            
+              
+            
         }
         public override bool MouseMove(MouseEventArgs e)
         {
-            return false;
-
+            if (Step == 0)
+            {
+                return true;
+            }
+            else
+            {
+                var dx = (float)(Primitive.ResultX - baseX);
+                var dy = (float)(Primitive.ResultY - baseY);
+                Move(dx, dy);
+                baseX = Primitive.ResultX;
+                baseY = Primitive.ResultY;
+                return true;
+            }
+               
+          
+           
         }
 
 
