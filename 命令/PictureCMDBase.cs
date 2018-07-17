@@ -32,15 +32,8 @@ namespace 命令
             matrix.Translate(x1, y1, MatrixOrder.Append);
             Primitive.CurrentSelectionPrimitive.PanRotateZoom(matrix);
         }
-        public static void RotateAt(double x, double y, double angle)
-        {
-            matrix.Reset();
-            var x1 = (float)(x );
-            var y1 = (float)(y );
-            matrix.RotateAt((float)(angle * 180 / Math.PI), new PointF(x1, y1), MatrixOrder.Append);
-            Primitive.CurrentSelectionPrimitive.PanRotateZoom(matrix);
-        }
-        public static  void RotateALL(double x, double y, double angle)
+        
+        public static void RotateALL(double x, double y, double angle)
         {
             matrix.Reset();
             var x1 = (float)(x);
@@ -50,7 +43,7 @@ namespace 命令
             {
                 pri.PanRotateZoom(matrix);
             }
-         
+
         }
     }
 }

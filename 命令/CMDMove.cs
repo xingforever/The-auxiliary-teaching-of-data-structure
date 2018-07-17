@@ -64,7 +64,7 @@ namespace 命令
             {
                 var dx = (float)(x - baseX);
                 var dy = (float)(y - baseY);
-                Move(dx, dy);
+                MoveAt(dx, dy);
                 End();
             }
             
@@ -83,7 +83,7 @@ namespace 命令
             {
                 var dx = (float)(Primitive.ResultX - baseX);
                 var dy = (float)(Primitive.ResultY - baseY);
-                Move(dx, dy);
+                MoveAt(dx, dy);
                 baseX = Primitive.ResultX;
                 baseY = Primitive.ResultY;
                 return true;

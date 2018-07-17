@@ -30,12 +30,25 @@ namespace 命令
             {
                 Primitive.CurrentGraphics.Remove(pri);
             }
+            Primitive.CurrentSelectedPrimitives = new List<Primitive>();
         }
         public override void End()
         {
            
         }
-
+        public override bool MouseUp(MouseEventArgs e)
+        {
+            if (Primitive.CurrentSelectedPrimitives.Count < 1)
+            {
+                Select();
+            }
+            foreach (var pri in Primitive.CurrentSelectedPrimitives)
+            {
+                Primitive.CurrentGraphics.Remove(pri);
+            }
+            Primitive.CurrentSelectedPrimitives = new List<Primitive>();
+            return true;
+        }
         public override void Stop()
         {
             Primitive.CurrentSelectedPrimitives=new List<Primitive> ();

@@ -44,7 +44,19 @@ namespace 命令
             else
                 return false;
         }
-        public static void Move(float dx, float dy)
+        public static void RotateAt(double x, double y, double angle)
+        {
+            matrix.Reset();
+            var x1 = (float)(x);
+            var y1 = (float)(y);
+            matrix.RotateAt((float)(angle * 180 / Math.PI), new PointF(x1, y1), MatrixOrder.Append);
+            foreach (var pri in Primitive.CurrentSelectedPrimitives)
+            {
+                pri.PanRotateZoom(matrix);
+            }
+          
+        }
+        public static void MoveAt(float dx, float dy)
         {
             matrix.Reset();
             matrix.Translate(dx, dy, MatrixOrder.Append);

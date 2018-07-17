@@ -17,98 +17,80 @@ namespace 命令
         {
             
         }
-
+        static double baseX, baseY, angle = 0;
         public override void Start()
         {
-           if(Primitive.CurrentSelectedPrimitives.Count > 0)
+            Step = 0;
+            angle = 0;
+            if (Primitive.CurrentSelectedPrimitives.Count > 0)
             {
                 Begin();
             }
+           
         }
-       
-        
-        public override void Stop()
-        {
-            base.Stop();
-        }
-      
-        static double baseX, baseY, angle = 0;
         public override void Begin()
         {
-
-            Step = 0;
-            angle = 0;
+            baseX = Primitive.ResultX;
+            baseY = Primitive.ResultY;
+            Step = 1;
         }
-        public override void End()
+
+        public override void Stop()
         {
-            Primitive.CurrentGraphics.Add(Primitive.CurrentSelectionPrimitive);
-            Primitive.CurrentSelectionPrimitive = null;
-            Begin();
+            Primitive.CurrentGraphics.AddRange(Primitive.CurrentSelectedPrimitives);
+            Primitive.CurrentSelectedPrimitives = new List<Primitive>();
+            Start();
         }
         public override bool MouseUp(MouseEventArgs e)
         {
             SetPrimitiveData(Primitive.ResultX, Primitive.ResultY);
             return true;
         }
-
         private void SetPrimitiveData(double x, double y)
         {
             if (Step == 0)
             {
-                if (Primitive.CurrentSelectionPrimitive != null)
+                if (Primitive.CurrentSelectedPrimitives.Count < 1)
                 {
-
-                    Step++;
-                    Primitive.CurrentGraphics.Remove(Primitive.CurrentSelectionPrimitive);
+                    if (Select())
+                        Step++;
                 }
-            }
-            else if (Step == 1)
-            {
-                baseX = x;
-                baseY = y;
-                Step++;
-            }
+                baseX = Primitive.ResultX;
+                baseY = Primitive.ResultY;
+
+            }            
             else
             {
-                ViewPort.RotateAt((float)baseX, (float)baseY, (float)(-angle));
-                if (y == double.MaxValue)
-                {
-                    angle = x / 180 * Math.PI;
-                }
-                else
-                {
-                    var dx = x - baseX;
-                    var dy = y - baseY;
-                    angle = Azimuth.Create(dx, dy);
-                }
-                ViewPort.RotateAt((float)baseX, (float)baseY, (float)angle);
-                End();
+                RotateAt(baseX, baseY, (float)(-angle));
+                var dx = x - baseX;
+                var dy = y - baseY;
+                angle = Azimuth.Create(dx, dy);
+                RotateAt(baseX, baseY, (float)angle);
+                Stop();
             }
-        }
 
+
+
+        }
         public override bool MouseMove(MouseEventArgs e)
         {
-            if (Step == 0)
+            if (Step == 1)
             {
-                base.MouseMove(e);
-                return true;
-            }
-            else if (Step == 2)
-            {
-               ViewPort.RotateAt((float)baseX, (float)baseY, (float)(-angle));
+                RotateAt(baseX, baseY, (float)(-angle));
                 var dx = Primitive.ResultX - baseX;
                 var dy = Primitive.ResultY - baseY;
                 angle = Azimuth.Create(dx, dy);
-                ViewPort.RotateAt((float)baseX, (float)baseY, (float)angle);
+                RotateAt(baseX, baseY, (float)angle);
                 return true;
             }
+
             return false;
         }
         public override bool pictureBoxKeyDown(PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
             {
-                Begin();
+                Start();
                 return true;
             }
             else
@@ -116,5 +98,6 @@ namespace 命令
                 return false;
             }
         }
+       
     }
 }
